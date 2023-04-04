@@ -11,9 +11,8 @@ class GraphContractor(Graph):
         try:
             self.graph = Graph(url, password=password)
             self._compute_entities()
-            self._compute_attributes()
             self._compute_relations()
-            self._compute_schema()
+            self._compute_attributes()
 
         except Exception as e:
             print(e)
@@ -34,16 +33,22 @@ class GraphContractor(Graph):
         self.attributes = {}
         for entity in self.entities:
             self.attributes[entity] = self._get_keys_of_label(entity)
+        for relation in self.relations:
+            self.attributes[relation] = self._get_keys_of_relation(relation)
 
     def _get_keys_of_label(self, label):
-        resp = self._call_get_keys(label)
+        resp = self.graph.run(f'MATCH (p:{label}) WITH DISTINCT keys(p) as key_list UNWIND key_list as key RETURN DISTINCT key')
         return QueryUtils._unfold_graph_resp(resp)
 
-    def _call_get_keys(self, label):
-        return self.graph.run(f'MATCH (n:{label}) WITH n LIMIT 1000 UNWIND keys(n) as key RETURN distinct key')
+    def _get_keys_of_relation(self, relation):
+        resp = self.graph.run(f'MATCH ()-[r:{relation}]-() WITH DISTINCT keys(r) as key_list UNWIND key_list as key RETURN DISTINCT key')
+        return QueryUtils._unfold_graph_resp(resp)
 
     def _compute_relations(self):
-        self.relations = []
-
-    def _compute_schema(self):
-        self.schema = QueryUtils._unfold_graph_resp(self.graph.run(f'CALL apoc.meta.stats YIELD labels, relTypes'))
+        self.relations = QueryUtils._unfold_graph_resp(self.graph.run(f'CALL db.relationshipTypes'))
+        self.relations = { rel:[] for rel in self.relations}
+        for entity_x in self.entities:
+            for entity_y in self.entities:
+                rels = QueryUtils._unfold_graph_resp(self.graph.run(f'MATCH (x:{entity_x})-[r]->(y:{entity_y}) RETURN DISTINCT type(r)'))
+                for rel in rels:
+                    self.relations[rel].append((entity_x, entity_y))
