@@ -6,9 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-# gpt4all-lora-quantized.bin
-gpt4all-lora-quantized.bin
-
 # Distribution / packaging
 .Python
 build/
