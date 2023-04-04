@@ -31,10 +31,19 @@ class GraphContractor(Graph):
         self.entities = QueryUtils._unfold_graph_resp(ent)
 
     def _compute_attributes(self):
-        pass
+        self.attributes = {}
+        for entity in self.entities:
+            self.attributes[entity] = self._get_keys_of_label(entity)
+
+    def _get_keys_of_label(self, label):
+        resp = self._call_get_keys(label)
+        return QueryUtils._unfold_graph_resp(resp)
+
+    def _call_get_keys(self, label):
+        return self.graph.run(f'MATCH (n:{label}) WITH n LIMIT 1000 UNWIND keys(n) as key RETURN distinct key')
 
     def _compute_relations(self):
-        pass
+        self.relations = []
 
     def _compute_schema(self):
-        pass
+        self.schema = QueryUtils._unfold_graph_resp(self.graph.run(f'CALL apoc.meta.stats YIELD labels, relTypes'))
