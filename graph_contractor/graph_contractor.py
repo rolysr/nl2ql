@@ -60,5 +60,7 @@ class GraphContractor(Graph):
             entity_attrs = self.attributes[entity]
             self.schema_description += f"The entity named {entity} has the attributes: {entity_attrs}\n"
         for relation in self.relations:
-            ent1, ent2 = self.relations[relation]
-            self.schema_description += f"There is a relation called {relation} between the entitites {ent1} and {ent2}\n"
+            for ent1, ent2 in self.relations[relation]: 
+                self.schema_description += f"There is a relation called {relation} between the entitites {ent1} and {ent2}\n"
+            if len(self.attributes[relation]) > 0:
+                self.schema_description += f"The relation {relation} has attributes {self.attributes[relation]}\n"
