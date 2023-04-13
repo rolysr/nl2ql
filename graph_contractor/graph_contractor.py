@@ -13,11 +13,11 @@ class GraphContractor(Graph):
             self._compute_entities()
             self._compute_relations()
             self._compute_attributes()
+            self._compute_schema_description()
 
         except Exception as e:
             print(e)
             print('Error connecting to the database(Remember VPN)')
-
 
     def make_query(self, query: str):
         if QueryUtils.not_valid_query(query):
@@ -52,3 +52,13 @@ class GraphContractor(Graph):
                 rels = QueryUtils._unfold_graph_resp(self.graph.run(f'MATCH (x:{entity_x})-[r]->(y:{entity_y}) RETURN DISTINCT type(r)'))
                 for rel in rels:
                     self.relations[rel].append((entity_x, entity_y))
+
+    def _compute_schema_description(self):
+        self.schema_description = "Given a Neo4J database instance with the following structure:\n"
+        self.schema_description += f"Entities: {self.entities}\n"
+        for entity in self.entities:
+            entity_attrs = self.attributes[entity]
+            self.schema_description += f"The entity named {entity} has the attributes: {entity_attrs}\n"
+        for relation in self.relations:
+            ent1, ent2 = self.relations[relation]
+            self.schema_description += f"There is a relation called {relation} between the entitites {ent1} and {ent2}\n"
