@@ -33,6 +33,9 @@ schema = gc.schema_description
 query = "Tell me the name of the people who acted on 'The Matrix' movie"
 
 # make a query to the model
-response = llm_chain.run(query_language=query_language, database_type=database_type, schema=schema, query=query)
+formal_query = llm_chain.run(query_language=query_language, database_type=database_type, schema=schema, query=query)
+
+# run the query in the database
+gc.make_query(formal_query)
 
 print(response)
