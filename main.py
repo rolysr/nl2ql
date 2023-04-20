@@ -1,4 +1,4 @@
-from graph_contractor.graph_contractor import GraphContractor
+from graph_contractor import GraphContractor
 # https://towardsdatascience.com/use-chatgpt-to-query-your-neo4j-database-78680a05ec2
 
 

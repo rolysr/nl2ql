@@ -1,5 +1,5 @@
 from py2neo import Graph
-from graph_contractor.query_utils import QueryUtils
+from query_utils import QueryUtils
 
 
 class GraphContractor(Graph):
@@ -54,7 +54,7 @@ class GraphContractor(Graph):
                     self.relations[rel].append((entity_x, entity_y))
 
     def _compute_schema_description(self):
-        self.schema_description = "Given a Neo4J database instance with the following structure:\n"
+        self.schema_description = ""
         self.schema_description += f"Entities: {self.entities}\n"
         for entity in self.entities:
             entity_attrs = self.attributes[entity]
