@@ -20,10 +20,10 @@ class GraphContractor(Graph):
             print('Error connecting to the database(Remember VPN)')
 
     def make_query(self, query: str):
-        if QueryUtils.not_valid_query(query):
-            return 'Not a Valid Query!'
-
-        return self.graph.run(query).data()
+        try:
+            return self.graph.run(query).data()
+        except BaseException as e:
+            return str(e)
 
     def _compute_entities(self):
         ent = self.graph.run('CALL db.labels()')

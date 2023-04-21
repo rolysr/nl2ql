@@ -1,0 +1,109 @@
+,query,target_query
+0,Give all the information about Persons,MATCH (e:Person) RETURN e
+1,What are the instances of Persons,MATCH (e:Person) RETURN e
+2,Get all the information from Persons,MATCH (e:Person) RETURN e
+3,Give all the information about Movies,MATCH (e:Movie) RETURN e
+4,What are the instances of Movies,MATCH (e:Movie) RETURN e
+5,Get all the information from Movies,MATCH (e:Movie) RETURN e
+6,Give the attribute name from the entity Person,MATCH (e:Person) RETURN e.name
+7,Which is the value of name in Person,MATCH (e:Person) RETURN e.name
+8,Give the attribute born from the entity Person,MATCH (e:Person) RETURN e.born
+9,Which is the value of born in Person,MATCH (e:Person) RETURN e.born
+10,Give the attribute tagline from the entity Movie,MATCH (e:Movie) RETURN e.tagline
+11,Which is the value of tagline in Movie,MATCH (e:Movie) RETURN e.tagline
+12,Give the attribute title from the entity Movie,MATCH (e:Movie) RETURN e.title
+13,Which is the value of title in Movie,MATCH (e:Movie) RETURN e.title
+14,Give the attribute released from the entity Movie,MATCH (e:Movie) RETURN e.released
+15,Which is the value of released in Movie,MATCH (e:Movie) RETURN e.released
+16,Who acted_in the movie called The Matrix,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+17,Which is the name of the person who acted_in the movie called The Matrix,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+18,Return the name of the person who acted_in the movie called The Matrix,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+19,Who directed the movie called The Matrix,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+20,Which is the name of the person who directed the movie called The Matrix,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+21,Return the name of the person who directed the movie called The Matrix,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+22,Who produced the movie called The Matrix,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+23,Which is the name of the person who produced the movie called The Matrix,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+24,Return the name of the person who produced the movie called The Matrix,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+25,Who wrote the movie called The Matrix,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+26,Which is the name of the person who wrote the movie called The Matrix,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+27,Return the name of the person who wrote the movie called The Matrix,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+28,Who reviewed the movie called The Matrix,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+29,Which is the name of the person who reviewed the movie called The Matrix,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+30,Return the name of the person who reviewed the movie called The Matrix,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
+31,Who acted_in the movie called Top Gun,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+32,Which is the name of the person who acted_in the movie called Top Gun,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+33,Return the name of the person who acted_in the movie called Top Gun,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+34,Who directed the movie called Top Gun,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+35,Which is the name of the person who directed the movie called Top Gun,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+36,Return the name of the person who directed the movie called Top Gun,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+37,Who produced the movie called Top Gun,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+38,Which is the name of the person who produced the movie called Top Gun,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+39,Return the name of the person who produced the movie called Top Gun,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+40,Who wrote the movie called Top Gun,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+41,Which is the name of the person who wrote the movie called Top Gun,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+42,Return the name of the person who wrote the movie called Top Gun,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+43,Who reviewed the movie called Top Gun,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+44,Which is the name of the person who reviewed the movie called Top Gun,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+45,Return the name of the person who reviewed the movie called Top Gun,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
+46,Who acted_in the movie called Stand By Me,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+47,Which is the name of the person who acted_in the movie called Stand By Me,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+48,Return the name of the person who acted_in the movie called Stand By Me,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+49,Who directed the movie called Stand By Me,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+50,Which is the name of the person who directed the movie called Stand By Me,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+51,Return the name of the person who directed the movie called Stand By Me,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+52,Who produced the movie called Stand By Me,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+53,Which is the name of the person who produced the movie called Stand By Me,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+54,Return the name of the person who produced the movie called Stand By Me,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+55,Who wrote the movie called Stand By Me,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+56,Which is the name of the person who wrote the movie called Stand By Me,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+57,Return the name of the person who wrote the movie called Stand By Me,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+58,Who reviewed the movie called Stand By Me,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+59,Which is the name of the person who reviewed the movie called Stand By Me,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+60,Return the name of the person who reviewed the movie called Stand By Me,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
+61,Who acted_in the movie called As Good as It Gets,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+62,Which is the name of the person who acted_in the movie called As Good as It Gets,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+63,Return the name of the person who acted_in the movie called As Good as It Gets,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+64,Who directed the movie called As Good as It Gets,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+65,Which is the name of the person who directed the movie called As Good as It Gets,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+66,Return the name of the person who directed the movie called As Good as It Gets,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+67,Who produced the movie called As Good as It Gets,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+68,Which is the name of the person who produced the movie called As Good as It Gets,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+69,Return the name of the person who produced the movie called As Good as It Gets,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+70,Who wrote the movie called As Good as It Gets,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+71,Which is the name of the person who wrote the movie called As Good as It Gets,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+72,Return the name of the person who wrote the movie called As Good as It Gets,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+73,Who reviewed the movie called As Good as It Gets,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+74,Which is the name of the person who reviewed the movie called As Good as It Gets,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+75,Return the name of the person who reviewed the movie called As Good as It Gets,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
+76,Who acted_in the movie called The Green Mile,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+77,Which is the name of the person who acted_in the movie called The Green Mile,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+78,Return the name of the person who acted_in the movie called The Green Mile,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+79,Who directed the movie called The Green Mile,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+80,Which is the name of the person who directed the movie called The Green Mile,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+81,Return the name of the person who directed the movie called The Green Mile,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+82,Who produced the movie called The Green Mile,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+83,Which is the name of the person who produced the movie called The Green Mile,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+84,Return the name of the person who produced the movie called The Green Mile,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+85,Who wrote the movie called The Green Mile,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+86,Which is the name of the person who wrote the movie called The Green Mile,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+87,Return the name of the person who wrote the movie called The Green Mile,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+88,Who reviewed the movie called The Green Mile,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+89,Which is the name of the person who reviewed the movie called The Green Mile,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+90,Return the name of the person who reviewed the movie called The Green Mile,MATCH (p:Person)-[r:reviewed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
+91,Return all the movies that were released after the year 2000 limiting the result to 5 items.,MATCH (m:Movie) WHERE m.released > 2000 RETURN m LIMIT 5
+92,Retrieve all the movies released after the year 2005,MATCH (m:Movie) WHERE m.released > 2005 RETURN m
+93,Get the count of movies released after the year 2005.,MATCH (m:Movie) WHERE m.released > 2005 RETURN COUNT(m)
+94,return all Person nodes who directed a movie that was released after 2010.,"MATCH (p:Person)-[d:ACTED_IN]-(m:Movie) WHERE m.released > 2010 RETURN p,d,m"
+95,return only Person nodes (limiting to 20 items),MATCH (p:Person) RETURN p LIMIT 20
+96,return all kinds of nodes (limiting to 20 items),MATCH (n) RETURN n LIMIT 20
+97,return Movie nodes but with only the title and released properties.,"MATCH (m:Movie) RETURN m.title, m.released"
+98,get name and born properties of the Person node,"MATCH (p:Person) RETURN p.name, p.born"
+99,Give me all data about Tom Hanks,MATCH (p:Person {name: 'Tom Hanks'}) RETURN p
+100,Give me all data about Tom Hanks,MATCH (p:Person) WHERE p.name = 'Tom Hanks' RETURN p
+101,Find the movie with title Cloud Atlas,MATCH (m:Movie {title: 'Cloud Atlas'}) RETURN m
+102,Get all the movies that were released between 2010 and 2015.,MATCH (m:Movie) WHERE m.released > 2010 AND m.released < 2015 RETURN m
+103,Write a query to find the nodes Person and Movie which are connected by a REVIEWED relationship and is outgoing from the Person node and incoming to the Movie node,"MATCH (p:Person)-[r:REVIEWED]-(m:Movie) RETURN p,r,m"
+104,"Finding who directed the ""Cloud Atlas"" movie",MATCH (m:Movie {title: 'Cloud Atlas'})<-[d:DIRECTED]-(p:Person) RETURN p.name
+105,Finding all people who have co-acted with Tom Hanks in any movie,"MATCH (tom:Person {name: ""Tom Hanks""})-[:ACTED_IN]->(:Movie)<-[:ACTED_IN]-(p:Person) RETURN p.name"
+106,"Finding all people related to the movie ""Cloud Atlas"" in any way","MATCH (p:Person)-[relatedTo]-(m:Movie {title: ""Cloud Atlas""}) RETURN p.name, type(relatedTo)"
+107,Finding Movies and Actors that are 3 hops away from Kevin Bacon.,"MATCH (p:Person {name: 'Kevin Bacon'})-[*1..3]-(hollywood) RETURN DISTINCT p, hollywood"
