@@ -3,9 +3,27 @@ def generate_eval_data(entities, relations, attributes):
     
     # get entity
     for entity in entities:
-        test_set_nl_ql.append((f"Give all the information about {entity}s", f"MATCH (e:{entity}) RETURN p"))
-        test_set_nl_ql.append((f"What are the instances of {entity}s", f"MATCH (e:{entity}) RETURN p"))
-        test_set_nl_ql.append((f"Get all the information from {entity}s", f"MATCH (e:{entity}) RETURN p"))
+        test_set_nl_ql.append((f"Give all the information about {entity}s", f"MATCH (e:{entity}) RETURN e"))
+        test_set_nl_ql.append((f"What are the instances of {entity}s", f"MATCH (e:{entity}) RETURN e"))
+        test_set_nl_ql.append((f"Get all the information from {entity}s", f"MATCH (e:{entity}) RETURN e"))
+
+    # get attribute from entity
+    for entity in entities:
+        attrs = attributes[entity]
+        for attr in attrs:
+            test_set_nl_ql.append((f"Give the attribute {attr} from the entity {entity}", f"MATCH (e:{entity}) RETURN e.{attr}"))
+            test_set_nl_ql.append((f"Which is the value of {attr} in {entity}", f"MATCH (e:{entity}) RETURN e.{attr}"))
+    
+    # domain specific queries
+    movie_names = ["The Matrix", "Top Gun","Stand By Me", "As Good as It Gets", "The Green Mile"]
+
+    for movie_name in movie_names:
+        for relation in relations:
+            ent1, ent2 = relations[relation][0]
+            if ent2 == 'Movie':
+                test_set_nl_ql.append((f"Who {relation.lower()} the movie called {movie_name}", "MATCH (p:Person)-[r:{relation}]-(m:Movie {{title: '{movie_name}'}}) RETURN p.name".format(relation=relation.lower(), movie_name=movie_name)))
+                test_set_nl_ql.append((f"Which is the name of the person who {relation.lower()} the movie called {movie_name}", "MATCH (p:Person)-[r:{relation}]-(m:Movie {{title: '{movie_name}'}}) RETURN p.name".format(relation=relation.lower(), movie_name=movie_name)))
+                test_set_nl_ql.append((f"Return the name of the person who {relation.lower()} the movie called {movie_name}", "MATCH (p:Person)-[r:{relation}]-(m:Movie {{title: '{movie_name}'}}) RETURN p.name".format(relation=relation.lower(), movie_name=movie_name)))
 
     # other queries:
     test_set_nl_ql.append(("Return all the movies that were released after the year 2000 limiting the result to 5 items.", "MATCH (m:Movie) WHERE m.released > 2000 RETURN m LIMIT 5"))
