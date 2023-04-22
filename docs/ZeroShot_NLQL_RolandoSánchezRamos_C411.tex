@@ -147,8 +147,8 @@ Para utilizar el lenguaje de consulta \textit{Cypher} se requiere de conocimient
 \subsection{Estado del Arte}
 El problema de traducir un texto en lenguaje natural a una consulta formal para interactuar con una base de conocimientos ha sido una tarea ampliamente estudiada los campos de la Inteligencia Artificial y el Procesamiento de Lenguaje Natural. Ejemplos son los enfoques basados en reglas \cite{rba1}, redes neuronales convolucionales y recurrentes \cite{rnc} \cite{rnr}, técnicas de compilación con análisis sintáctico y semántico \cite{comp} y de manera reciente, el uso de \textit{transformers} \cite{transformers}. 
 
-\subsection{Propuesta e Implementación}
-Se propone el uso del modelo \textit{GPT-3 (text-davinci-003)} \cite{gpt3}, un Gran Modelo de Lenguaje entrenado para tareas como la traducción de texto y la generación de código. También, se diseñó un componente denominado \textit{Graph Contractor}, capaz de interactuar con una base de datos \textit{Neo4J}. El flujo de funcionamiento del experimento sería: El modelo \textit{GPT-3} recibe una consulta en lenguaje natural y un esquema \cite{dbschema} de la base de datos a utilizar (base datos sobre películas famosas) \cite{moviesdb}, luego este ofrece la consulta en \textit{Cypher} correspondiente a la entrada dada y es ejecutada sobre la base de datos. La idea fundamental del experimento consiste en utilizar el modelo mencionado sin proveerle ejemplos de cómo son las consultas de \textit{Cypher} ni haber sido entrenado para este tipo específico de traducción, lo cual se conoce como aprendizaje \textit{Zero-Shot}.
+\subsection{Propuesta e Implementación \cite{repo}}
+Se propone el uso del modelo \textit{GPT-3 (text-davinci-003)} \cite{gpt3}, un Gran Modelo de Lenguaje entrenado para tareas como la traducción de texto y la generación de código. También, se diseñó un componente denominado \textit{Graph Contractor}, capaz de interactuar con una base de datos \textit{Neo4J}. El flujo de funcionamiento del experimento sería: El modelo \textit{GPT-3} recibe una consulta en lenguaje natural y un esquema \cite{dbschema} de la base de datos a utilizar (base de datos sobre películas famosas) \cite{moviesdb}, luego este ofrece la consulta en \textit{Cypher} correspondiente a la entrada dada y es ejecutada sobre la base de datos. La idea fundamental del experimento consiste en utilizar el modelo mencionado sin proveerle ejemplos de cómo son las consultas de \textit{Cypher} ni haber sido entrenado para este tipo específico de traducción, lo cual se conoce como aprendizaje \textit{Zero-Shot}.
 
 \begin{figure}[h!]
 \includegraphics[width=0.5\textwidth]{img/architecture.png}
@@ -196,6 +196,10 @@ Para evaluar la calidad de la propuesta de solución se generaron $108$ casos de
 	\bibitem{transformers} Bazaga, A., Gunwant, N., and Micklem, G. (2021). \emph{Translating synthetic natural lan-
 	guage to database queries with a polyglot deep learning framework.}
 		Scientific Reports, 11 (1), 1-11 (vid. págs. 6-8).
+
+	\bibitem{repo} GitHub. URL: \href{https://github.com/rolysr/nl2ql}
+	  {https://github.com/rolysr/nl2ql}.
+		Consultado en \today.
 
 	\bibitem{gpt3} Wikipedia. URL: \href{https://es.wikipedia.org/wiki/GPT-3}
 	  {https://es.wikipedia.org/wiki/GPT-3}.
