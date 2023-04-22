@@ -94,7 +94,7 @@ Dr. Alejandro Piad Morffis, \emph{MatCom, Universidad de La Habana}}
 %-----------------------------------------------------------------------------------
 \begin{abstract}
 
-	Este trabajo tiene como objetivo experimentar las capacidades del aprendizaje \textit{Zero-Shot} en el proceso de traducción de una consulta en lenguaje natural a un código del lenguaje \textit{Cypher}, con el fin de facilitar el proceso de extracción de conocimiento en bases de datos en forma de grafo, como es el caso de \textit{Neo4J}. Se realiza una introducción breve a la problemática y se mencionan las principales técnicas en el estado del arte para darle solución a la misma. Luego, se expone el flujo de trabajo del experimento, el cual posee como componente fundamental el modelo \textit{GPT-3}. Finalmente, se realiza un experimento con $108$ consultas sintécticas para validar la calidad del modelo mencionado para la tarea propuesta, obteniéndose como resultado un $45.37\%$ de acierto en las respuestas de las consultas generadas al ser ejecutadas sobre una base de datos \textit{Neo4J}. De esta forma, se obtiene una interesante base para continuar explorando las capacidades del enfoque \textit{Zero-Shot} para la traducción de texto a código.
+	Este trabajo tiene como objetivo experimentar las capacidades del aprendizaje \textit{Zero-Shot} en el proceso de traducción de una consulta en lenguaje natural a un código del lenguaje \textit{Cypher}, con el fin de facilitar el proceso de extracción de conocimiento en bases de datos en forma de grafo, como es el caso de \textit{Neo4J}. Se realiza una introducción breve a la problemática y se mencionan las principales técnicas en el estado del arte para darle solución a la misma. Luego, se expone el flujo de trabajo del experimento, el cual posee como componente fundamental el modelo \textit{GPT-3}. Finalmente, se realiza un experimento con $108$ consultas sintéticas para validar la calidad del modelo mencionado para la tarea propuesta, obteniéndose como resultado un $45.37\%$ de acierto en las respuestas de las consultas generadas al ser ejecutadas sobre una base de datos \textit{Neo4J}. De esta forma, se obtiene una interesante base para continuar explorando las capacidades del enfoque \textit{Zero-Shot} para la traducción de texto a código.
 	
 \end{abstract}
 
@@ -105,9 +105,7 @@ Dr. Alejandro Piad Morffis, \emph{MatCom, Universidad de La Habana}}
 
 \begin{enabstract}
 
-	This work aims to test the capabilities of \textit{Zero-Shot} learning in the translation process of a natural language query into a \textit{Cypher} language code, in order to facilitate the knowledge extraction process. In databases in graph form, as is the case of \textit{Neo4J}. A brief introduction to the problem is made and the main techniques in the state of the art are mentioned to solve it. Then, the workflow of the experiment is exposed, which has the \textit{GPT-3} model as a fundamental component. Finally, an experiment is carried out with $108$ syntactic queries to validate the quality of the mentioned model for the proposed task, obtaining as a result a $45.37\%$ hit in the responses of the queries generated when executed on a database \textit{ Neo4J}. In this way, an interesting base is obtained to continue exploring the capabilities of the \textit{Zero-Shot} approach for text-to-code translation.
-
-
+	This work aims to test the capabilities of \textit{Zero-Shot} learning in the translation process of a natural language query into a \textit{Cypher} language code, in order to facilitate the knowledge extraction process in databases in graph form, as is the case of \textit{Neo4J}. A brief introduction to the problem is made and the main techniques in the state of the art are mentioned to solve it. Then, the workflow of the experiment is exposed, which has the \textit{GPT-3} model as a fundamental component. Finally, an experiment is carried out with $108$ syntactic queries to validate the quality of the mentioned model for the proposed task, obtaining as a result a $45.37\%$ hit in the responses of the queries generated when executed on a \textit{ Neo4J} database. In this way, an interesting base is obtained to continue exploring the capabilities of the \textit{Zero-Shot} approach for text-to-code translation.
 
 \end{enabstract}
 
@@ -126,8 +124,6 @@ Dr. Alejandro Piad Morffis, \emph{MatCom, Universidad de La Habana}}
 \begin{topics}
 	Inteligencia Artificial, Procesamiento de Lenguaje Natural.
 \end{topics}
-
-
 %-----------------------------------------------------------------------------------
 % NO BORRAR ESTAS LINEAS!
 %-----------------------------------------------------------------------------------
@@ -152,7 +148,7 @@ Para utilizar el lenguaje de consulta \textit{Cypher} se requiere de conocimient
 El problema de traducir un texto en lenguaje natural a una consulta formal para interactuar con una base de conocimientos ha sido una tarea ampliamente estudiada los campos de la Inteligencia Artificial y el Procesamiento de Lenguaje Natural. Ejemplos son los enfoques basados en reglas \cite{rba1}, redes neuronales convolucionales y recurrentes \cite{rnc} \cite{rnr}, técnicas de compilación con análisis sintáctico y semántico \cite{comp} y de manera reciente, el uso de \textit{transformers} \cite{transformers}. 
 
 \subsection{Propuesta e Implementación}
-Se propone el uso del modelo \textit{GPT-3 (text-davinci-003)} \cite{gpt3}, un Gran Modelo de Lenguaje entrenado para tareas como la traducción de texto y la generación de código. También, se diseñó un componente denominado \textit{GraphContractor}, capaz de interactuar con una base de datos \textit{Neo4J}. El flujo de funcionamiento del experimento sería: El modelo \textit{GPT-3} recibe una consulta en lenguaje natural y un esquema \cite{dbschema} de la base de datos a utilizar (base datos sobre películas famosas) \cite{moviesdb}, luego este ofrece la consulta en \textit{Cypher} correspondiente a la entrada dada y es ejecutada sobre la base de datos. La idea fundamental del experimento consiste en utilizar el modelo mencionado sin proveerle ejemplos de cómo son las consultas de \textit{Cypher} ni haber sido entrenado para este tipo específico de traducción, lo cual se conoce como aprendizaje \textit{Zero-Shot}.
+Se propone el uso del modelo \textit{GPT-3 (text-davinci-003)} \cite{gpt3}, un Gran Modelo de Lenguaje entrenado para tareas como la traducción de texto y la generación de código. También, se diseñó un componente denominado \textit{Graph Contractor}, capaz de interactuar con una base de datos \textit{Neo4J}. El flujo de funcionamiento del experimento sería: El modelo \textit{GPT-3} recibe una consulta en lenguaje natural y un esquema \cite{dbschema} de la base de datos a utilizar (base datos sobre películas famosas) \cite{moviesdb}, luego este ofrece la consulta en \textit{Cypher} correspondiente a la entrada dada y es ejecutada sobre la base de datos. La idea fundamental del experimento consiste en utilizar el modelo mencionado sin proveerle ejemplos de cómo son las consultas de \textit{Cypher} ni haber sido entrenado para este tipo específico de traducción, lo cual se conoce como aprendizaje \textit{Zero-Shot}.
 
 \begin{figure}[h!]
 \includegraphics[width=0.5\textwidth]{img/architecture.png}
