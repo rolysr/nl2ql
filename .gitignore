@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# knowledge base
+kb.txt
+metaqa_data
+metaqa_nl_response
+
 # Distribution / packaging
 .Python
 build/

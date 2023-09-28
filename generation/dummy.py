@@ -1,4 +1,4 @@
-def generate_tests(entities, relations, attributes):
+def generate_dummy_tests(entities, relations, attributes):
     test_set_nl_ql = []
     
     # get entity
