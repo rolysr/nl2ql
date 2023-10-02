@@ -8,7 +8,7 @@ def generate_metaqa_tests(tests_path: str):
     with open(tests_path, 'r') as file:
         data = json.load(file)
 
-        # Now, data is a Python list containing dictionaries, and you can iterate over it and access individual elements as needed.
+        # Now,  take all test cases.
         for item in data:
             test_cases.append((item['question'], item['LF']))
 
