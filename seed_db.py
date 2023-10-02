@@ -1,14 +1,15 @@
 from graph import GraphContractor
 from metaqakb import MetaQAKnowledgeBase
-from model import get_model
-# https://towardsdatascience.com/use-chatgpt-to-query-your-neo4j-database-78680a05ec2
+from schema import DBSchemaMaker
+from seeder import DBSeeder
 
 import os
 from dotenv import load_dotenv
 
-from schema import DBSchemaMaker
-
 load_dotenv()
+
+# Ensure to first run command: docker run --name testneo4j -p7474:7474 -p7687:7687 -d -v $HOME/neo4j/data:/data -v $HOME/neo4j/logs:/logs -e NEO4J_AUTH=neo4j/testpassword docker.uclv.cu/neo4j
+# That command will start a Docker Neo4J DB management system.
 
 # Load environment variables
 print("Load environment variables")
@@ -25,6 +26,14 @@ gc = GraphContractor(NEO4J_DB_URL, NEO4J_DB_USER, NEO4J_DB_PASSWORD)
 print("Init MetaQA instance for interacting with the knowledge base")
 metaqa_kb = MetaQAKnowledgeBase(gc)
 
+# Init seeder instance for filling the DB with actual data
+print("Init seeder instance for filling the DB with actual data")
+seeder = DBSeeder(metaqa_kb, KB_PATH)
+
+# Seed db
+print("Seeding db...")
+seeder.seed_db()
+
 # Init Schema maker
 print("Init schema maker")
 schema_maker = DBSchemaMaker()
@@ -32,22 +41,8 @@ schema_maker = DBSchemaMaker()
 # Get main data from the created DB
 print("Get main data from the created DB")
 entities = metaqa_kb.compute_entities()
-relations = metaqa_kb.compute_relations(entities)
-attributes = metaqa_kb.compute_attributes(entities, relations)
+attributes = metaqa_kb.compute_attributes()
+relations = metaqa_kb.compute_relations()
 
 # Print DB Schema
 print("The schema of the created database is:\n" + schema_maker.compute_schema_description(entities, relations, attributes))
-
-# prompt inputs
-# query_language = "Cypher"
-# database_type = "Neo4J"
-# schema = gc.schema_description
-# query = "Tell me the name of the people who acted on 'The Matrix' movie"
-
-# # make a query to the model
-# formal_query = model.run(query_language=query_language, database_type=database_type, schema=schema, query=query)
-
-# # run the query in the database
-# response = gc.make_query(formal_query)
-
-# print(response)

@@ -1,5 +1,6 @@
 from graph import GraphContractor
-from generation import generate_tests
+from generation.metaqa import generate_metaqa_tests
+from metaqakb import MetaQAKnowledgeBase
 from model import get_model
 import pandas as pd
 
@@ -11,15 +12,23 @@ load_dotenv()
 NEO4J_DB_URL = os.getenv('NEO4J_DB_URL')
 NEO4J_DB_USER = os.getenv('NEO4J_DB_USER')
 NEO4J_DB_PASSWORD = os.getenv('NEO4J_DB_PASSWORD')
+KB_PATH = os.getenv('KB_PATH')
+TESTS_PATH = os.getenv('TESTS_PATH')
 
-# init graph contractor and get main schema components
-gc = GraphContractor(url=NEO4J_DB_URL, name=NEO4J_DB_USER,password=NEO4J_DB_PASSWORD)
-# entities = gc.entities
-# relations = gc.relations
-# attributes = gc.attributes
+# Init graph contractor instance to interact with Neo4J DB
+print("Init graph contractor instance to interact with Neo4J DB")
+gc = GraphContractor(NEO4J_DB_URL, NEO4J_DB_USER, NEO4J_DB_PASSWORD)
 
-# # generate tests
-# tests = generate_tests(entities, relations, attributes)
+# Init MetaQA instance for interacting with the knowledge base
+print("Init MetaQA instance for interacting with the knowledge base")
+metaqa_kb = MetaQAKnowledgeBase(gc)
+
+
+# generate tests
+print("Generate tests")
+tests = generate_metaqa_tests(TESTS_PATH)
+for test in tests[:100]:
+    print(test)
 
 # # set metrics and evaluation sets
 # number_of_tests = len(tests)

@@ -18,4 +18,5 @@ class GraphContractor(Graph):
         try:
             return self.graph.run(query).data()
         except BaseException as e:
+            print(e)
             return str(e)

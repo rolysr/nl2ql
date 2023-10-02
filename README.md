@@ -7,7 +7,7 @@ Neurosymbolic model for knowledge discovery in semantic networks
 ```bash
  docker run \
 --name testneo4j \
--p7474:7474 -p7687:7687 \
+-p 7474:7474 -p 7687:7687 \
 -d \
 -v $HOME/neo4j/data:/data \
 -v $HOME/neo4j/logs:/logs \

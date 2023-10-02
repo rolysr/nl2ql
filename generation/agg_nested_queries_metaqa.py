@@ -68,6 +68,7 @@ def generate_template_pairs(schema):
                 template_pairs.append(generate_min_template(label, prop))
 
         # Generate MIN, MAX, AVG templates for numeric properties with conditionals
+        conditional_ops = ['>', '<', '==', '>=', '<=']
         for prop in properties:
             if schema.is_numeric(prop):
                 condition_prop = "some_property"  # Replace with actual property for condition

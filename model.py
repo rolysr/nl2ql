@@ -2,7 +2,6 @@
 
 from langchain.llms import OpenAI
 from langchain import PromptTemplate, LLMChain
-from graph import GraphContractor
 
 def get_model():
     # template for the model
