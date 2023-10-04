@@ -10,6 +10,7 @@ def generate_metaqa_tests(tests_path: str):
 
         # Now, take all test cases.
         for item in data:
-            test_cases.append((item['question'], item['LF']))
+            question_text = item['question'].replace("'", "")
+            test_cases.append((question_text, item['LF']))
 
     return test_cases

@@ -1,60 +1,67 @@
 ,query,target_query
-0,Give all the information about Persons,MATCH (e:Person) RETURN e
-1,What are the instances of Persons,MATCH (e:Person) RETURN e
-2,Get all the information from Persons,MATCH (e:Person) RETURN e
-3,Give all the information about Movies,MATCH (e:Movie) RETURN e
-4,What are the instances of Movies,MATCH (e:Movie) RETURN e
-5,Get all the information from Movies,MATCH (e:Movie) RETURN e
-6,Give the attribute name from the entity Person,MATCH (e:Person) RETURN e.name
-7,Which is the value of name in Person,MATCH (e:Person) RETURN e.name
-8,Give the attribute born from the entity Person,MATCH (e:Person) RETURN e.born
-9,Which is the value of born in Person,MATCH (e:Person) RETURN e.born
-10,Give the attribute tagline from the entity Movie,MATCH (e:Movie) RETURN e.tagline
-11,Which is the value of tagline in Movie,MATCH (e:Movie) RETURN e.tagline
-12,Give the attribute title from the entity Movie,MATCH (e:Movie) RETURN e.title
-13,Which is the value of title in Movie,MATCH (e:Movie) RETURN e.title
-14,Give the attribute released from the entity Movie,MATCH (e:Movie) RETURN e.released
-15,Which is the value of released in Movie,MATCH (e:Movie) RETURN e.released
-16,Who acted_in the movie called The Matrix,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-17,Which is the name of the person who acted_in the movie called The Matrix,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-18,Return the name of the person who acted_in the movie called The Matrix,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-19,Who directed the movie called The Matrix,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-20,Which is the name of the person who directed the movie called The Matrix,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-21,Return the name of the person who directed the movie called The Matrix,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-22,Who produced the movie called The Matrix,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-23,Which is the name of the person who produced the movie called The Matrix,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-24,Return the name of the person who produced the movie called The Matrix,MATCH (p:Person)-[r:produced]-(m:Movie {title: 'The Matrix'}) RETURN p.name
-25,Who acted_in the movie called Top Gun,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-26,Which is the name of the person who acted_in the movie called Top Gun,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-27,Return the name of the person who acted_in the movie called Top Gun,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-28,Who directed the movie called Top Gun,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-29,Which is the name of the person who directed the movie called Top Gun,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-30,Return the name of the person who directed the movie called Top Gun,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-31,Who wrote the movie called Top Gun,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-32,Which is the name of the person who wrote the movie called Top Gun,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-33,Return the name of the person who wrote the movie called Top Gun,MATCH (p:Person)-[r:wrote]-(m:Movie {title: 'Top Gun'}) RETURN p.name
-34,Who acted_in the movie called Stand By Me,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
-35,Which is the name of the person who acted_in the movie called Stand By Me,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
-36,Return the name of the person who acted_in the movie called Stand By Me,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
-37,Who directed the movie called Stand By Me,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
-38,Which is the name of the person who directed the movie called Stand By Me,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
-39,Return the name of the person who directed the movie called Stand By Me,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'Stand By Me'}) RETURN p.name
-40,Who acted_in the movie called As Good as It Gets,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
-41,Which is the name of the person who acted_in the movie called As Good as It Gets,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
-42,Return the name of the person who acted_in the movie called As Good as It Gets,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
-43,Who directed the movie called As Good as It Gets,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
-44,Which is the name of the person who directed the movie called As Good as It Gets,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
-45,Return the name of the person who directed the movie called As Good as It Gets,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'As Good as It Gets'}) RETURN p.name
-46,Who acted_in the movie called The Green Mile,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
-47,Which is the name of the person who acted_in the movie called The Green Mile,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
-48,Return the name of the person who acted_in the movie called The Green Mile,MATCH (p:Person)-[r:acted_in]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
-49,Who directed the movie called The Green Mile,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
-50,Which is the name of the person who directed the movie called The Green Mile,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
-51,Return the name of the person who directed the movie called The Green Mile,MATCH (p:Person)-[r:directed]-(m:Movie {title: 'The Green Mile'}) RETURN p.name
-52,return all Person nodes who directed a movie that was released after 2010.,"MATCH (p:Person)-[d:ACTED_IN]-(m:Movie) WHERE m.released > 2010 RETURN p,d,m"
-53,Give me all data about Tom Hanks,MATCH (p:Person {name: 'Tom Hanks'}) RETURN p
-54,Give me all data about Tom Hanks,MATCH (p:Person) WHERE p.name = 'Tom Hanks' RETURN p
-55,Write a query to find the nodes Person and Movie which are connected by a REVIEWED relationship and is outgoing from the Person node and incoming to the Movie node,"MATCH (p:Person)-[r:REVIEWED]-(m:Movie) RETURN p,r,m"
-56,Finding all people who have co-acted with Tom Hanks in any movie,"MATCH (tom:Person {name: ""Tom Hanks""})-[:ACTED_IN]->(:Movie)<-[:ACTED_IN]-(p:Person) RETURN p.name"
-57,"Finding all people related to the movie ""Cloud Atlas"" in any way","MATCH (p:Person)-[relatedTo]-(m:Movie {title: ""Cloud Atlas""}) RETURN p.name, type(relatedTo)"
-58,Finding Movies and Actors that are 3 hops away from Kevin Bacon.,"MATCH (p:Person {name: 'Kevin Bacon'})-[*1..3]-(hollywood) RETURN DISTINCT p, hollywood"
+0,what does Grégoire Colin appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Grégoire Colin"" RETURN DISTINCT n2.name"
+1,Joe Thomas appears in which movies,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Joe Thomas"" RETURN DISTINCT n2.name"
+2,what films did Michelle Trachtenberg star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Michelle Trachtenberg"" RETURN DISTINCT n2.name"
+3,what does Helen Mack star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Helen Mack"" RETURN DISTINCT n2.name"
+4,what films did Shahid Kapoor act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Shahid Kapoor"" RETURN DISTINCT n2.name"
+5,Brendan Gleeson appears in which movies,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Brendan Gleeson"" RETURN DISTINCT n2.name"
+6,what films does Paresh Rawal appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Paresh Rawal"" RETURN DISTINCT n2.name"
+7,what films does Brigitte Nielsen appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Brigitte Nielsen"" RETURN DISTINCT n2.name"
+8,Mona McKinnon appears in which movies,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Mona McKinnon"" RETURN DISTINCT n2.name"
+9,what films did Christina Ricci act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Christina Ricci"" RETURN DISTINCT n2.name"
+10,what films does William Atherton appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""William Atherton"" RETURN DISTINCT n2.name"
+11,what does Jeremy Piven act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Jeremy Piven"" RETURN DISTINCT n2.name"
+12,what films did Roger Bart star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Roger Bart"" RETURN DISTINCT n2.name"
+13,what films did Robert Strauss act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Robert Strauss"" RETURN DISTINCT n2.name"
+14,what films did Aleksandr Gordon act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Aleksandr Gordon"" RETURN DISTINCT n2.name"
+15,what films does Claude Akins appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Claude Akins"" RETURN DISTINCT n2.name"
+16,what films did Arjun Rampal act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Arjun Rampal"" RETURN DISTINCT n2.name"
+17,what movies was Chris ODonnell an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Chris O'Donnell"" RETURN DISTINCT n2.name"
+18,what does May Robson act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""May Robson"" RETURN DISTINCT n2.name"
+19,what does Tannishtha Chatterjee appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Tannishtha Chatterjee"" RETURN DISTINCT n2.name"
+20,what movies was Michael Tully an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Michael Tully"" RETURN DISTINCT n2.name"
+21,what movies was Dan Petronijevic an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Dan Petronijevic"" RETURN DISTINCT n2.name"
+22,what films did Phil Silvers act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Phil Silvers"" RETURN DISTINCT n2.name"
+23,what films did Piolo Pascual star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Piolo Pascual"" RETURN DISTINCT n2.name"
+24,what films does Richard Roundtree appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Richard Roundtree"" RETURN DISTINCT n2.name"
+25,what movies did Darren McGavin star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Darren McGavin"" RETURN DISTINCT n2.name"
+26,what films did Stéphane Demers act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Stéphane Demers"" RETURN DISTINCT n2.name"
+27,what does Beatrice Lillie act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Beatrice Lillie"" RETURN DISTINCT n2.name"
+28,Judi Dench appears in which movies,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Judi Dench"" RETURN DISTINCT n2.name"
+29,what does Marlee Matlin appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Marlee Matlin"" RETURN DISTINCT n2.name"
+30,what films did Carroll Ballard act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Carroll Ballard"" RETURN DISTINCT n2.name"
+31,what films did Audra Lindley act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Audra Lindley"" RETURN DISTINCT n2.name"
+32,what movies did Knut Berger star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Knut Berger"" RETURN DISTINCT n2.name"
+33,what films did Tamara Toumanova star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Tamara Toumanova"" RETURN DISTINCT n2.name"
+34,what films does Ralf Harolde appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Ralf Harolde"" RETURN DISTINCT n2.name"
+35,what does Marguerite Churchill appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Marguerite Churchill"" RETURN DISTINCT n2.name"
+36,what films did Odoardo Spadaro act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Odoardo Spadaro"" RETURN DISTINCT n2.name"
+37,what films does Ben Mendelsohn appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Ben Mendelsohn"" RETURN DISTINCT n2.name"
+38,what films did Pat Derby star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Pat Derby"" RETURN DISTINCT n2.name"
+39,what does JoBeth Williams appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""JoBeth Williams"" RETURN DISTINCT n2.name"
+40,what movies was William Zappa an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""William Zappa"" RETURN DISTINCT n2.name"
+41,what movies did Eion Bailey act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Eion Bailey"" RETURN DISTINCT n2.name"
+42,what movies did Taurean Blacque star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Taurean Blacque"" RETURN DISTINCT n2.name"
+43,what does Chips Rafferty act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Chips Rafferty"" RETURN DISTINCT n2.name"
+44,what films does Grace Kelly appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Grace Kelly"" RETURN DISTINCT n2.name"
+45,what does Stanley Baker act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Stanley Baker"" RETURN DISTINCT n2.name"
+46,what does Ayesha Takia star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Ayesha Takia"" RETURN DISTINCT n2.name"
+47,what does Susan George act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Susan George"" RETURN DISTINCT n2.name"
+48,what movies was Scott Grimes an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Scott Grimes"" RETURN DISTINCT n2.name"
+49,what does Geraldine Smith star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Geraldine Smith"" RETURN DISTINCT n2.name"
+50,what films did Patrick Malahide star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Patrick Malahide"" RETURN DISTINCT n2.name"
+51,what films does Julian Sands appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Julian Sands"" RETURN DISTINCT n2.name"
+52,what movies did Maury Chaykin star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Maury Chaykin"" RETURN DISTINCT n2.name"
+53,what movies was Jade Yorker an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Jade Yorker"" RETURN DISTINCT n2.name"
+54,what does Chevy Chase appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Chevy Chase"" RETURN DISTINCT n2.name"
+55,what movies did Margrét Vilhjálmsdóttir star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Margrét Vilhjálmsdóttir"" RETURN DISTINCT n2.name"
+56,what films does Tom Hughes appear in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Tom Hughes"" RETURN DISTINCT n2.name"
+57,what movies was Jason Alexander an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Jason Alexander"" RETURN DISTINCT n2.name"
+58,what movies did Tyler Labine act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Tyler Labine"" RETURN DISTINCT n2.name"
+59,what movies was Mitchell Ryan an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Mitchell Ryan"" RETURN DISTINCT n2.name"
+60,what does Haley Joel act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Haley Joel"" RETURN DISTINCT n2.name"
+61,what movies did Jackie Earle Haley star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Jackie Earle Haley"" RETURN DISTINCT n2.name"
+62,what movies was Heather Sears an actor in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Heather Sears"" RETURN DISTINCT n2.name"
+63,what movies did Annabelle Gurwitch star in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Annabelle Gurwitch"" RETURN DISTINCT n2.name"
+64,Jack Palance appears in which movies,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Jack Palance"" RETURN DISTINCT n2.name"
+65,what does Mark Dacascos act in,"MATCH (n1)<-[:STARRED_ACTORS]-(n2) WHERE n1.name = ""Mark Dacascos"" RETURN DISTINCT n2.name"
