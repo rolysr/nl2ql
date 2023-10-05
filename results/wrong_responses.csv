@@ -1,2 +1,6 @@
 ,query,target_query
-0,what was the genre of the film Bad Boys,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Bad Boys"" RETURN DISTINCT n2.name"
+0,Can you list the director entities related to each movie entity through directed_by relationships?,"MATCH (a:Movie)-[:DIRECTED_BY]->(b:Director) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"
+1,Can you list the writer entities related to each movie entity through written_by relationships?,"MATCH (a:Movie)-[:WRITTEN_BY]->(b:Writer) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"
+2,Can you list the actor entities related to each movie entity through starred_actors relationships?,"MATCH (a:Movie)-[:STARRED_ACTORS]->(b:Actor) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"
+3,Can you list the tag entities related to each movie entity through has_tags relationships?,"MATCH (a:Movie)-[:HAS_TAGS]->(b:Tag) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"
+4,Can you list the genre entities related to each movie entity through has_genre relationships?,"MATCH (a:Movie)-[:HAS_GENRE]->(b:Genre) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"

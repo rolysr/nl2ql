@@ -6,7 +6,8 @@ class DBSchemaMaker:
         schema_description += f"Entities: {entities}\n"
         for entity in entities:
             entity_attrs = attributes[entity]
-            schema_description += f"The entity named {entity} has the attributes: {entity_attrs}\n"
+            if len(entity_attrs) > 0:
+                schema_description += f"The entity named {entity} has the attributes: {[attr[0] for attr in entity_attrs]}\n"
         for relation in relations:
             for ent1, ent2, is_double_sense in relations[relation]: 
                 if is_double_sense:

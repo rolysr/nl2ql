@@ -1,11 +1,11 @@
 ,query,target_query
-0,what genre of movie is Norbit,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Norbit"" RETURN DISTINCT n2.name"
-1,what kind of film is Raising Helen,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Raising Helen"" RETURN DISTINCT n2.name"
-2,what was the genre of the movie The Grass Harp,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""The Grass Harp"" RETURN DISTINCT n2.name"
-3,what is the genre of Bring Me the Head of Alfredo Garcia,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Bring Me the Head of Alfredo Garcia"" RETURN DISTINCT n2.name"
-4,what was the genre of the movie Under Capricorn,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Under Capricorn"" RETURN DISTINCT n2.name"
-5,what is the genre of Mean Girls 2,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Mean Girls 2"" RETURN DISTINCT n2.name"
-6,what genre of movie is Saw II,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Saw II"" RETURN DISTINCT n2.name"
-7,what genre of film is My Man Godfrey,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""My Man Godfrey"" RETURN DISTINCT n2.name"
-8,what film genre is Monte Carlo,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Monte Carlo"" RETURN DISTINCT n2.name"
-9,what was the genre of the film Bad Boys,"MATCH (n1)-[:HAS_GENRE]->(n2) WHERE n1.name = ""Bad Boys"" RETURN DISTINCT n2.name"
+0,How many directed_by relationships are there between movie and director entities?,MATCH (: Movie)-[:DIRECTED_BY]->(:Director) RETURN COUNT(*) AS count
+1,Can you list the director entities related to each movie entity through directed_by relationships?,"MATCH (a:Movie)-[:DIRECTED_BY]->(b:Director) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"
+2,How many written_by relationships are there between movie and writer entities?,MATCH (: Movie)-[:WRITTEN_BY]->(:Writer) RETURN COUNT(*) AS count
+3,Can you list the writer entities related to each movie entity through written_by relationships?,"MATCH (a:Movie)-[:WRITTEN_BY]->(b:Writer) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"
+4,How many starred_actors relationships are there between movie and actor entities?,MATCH (: Movie)-[:STARRED_ACTORS]->(:Actor) RETURN COUNT(*) AS count
+5,Can you list the actor entities related to each movie entity through starred_actors relationships?,"MATCH (a:Movie)-[:STARRED_ACTORS]->(b:Actor) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"
+6,How many has_tags relationships are there between movie and tag entities?,MATCH (: Movie)-[:HAS_TAGS]->(:Tag) RETURN COUNT(*) AS count
+7,Can you list the tag entities related to each movie entity through has_tags relationships?,"MATCH (a:Movie)-[:HAS_TAGS]->(b:Tag) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"
+8,How many has_genre relationships are there between movie and genre entities?,MATCH (: Movie)-[:HAS_GENRE]->(:Genre) RETURN COUNT(*) AS count
+9,Can you list the genre entities related to each movie entity through has_genre relationships?,"MATCH (a:Movie)-[:HAS_GENRE]->(b:Genre) WITH a, COLLECT(b) AS related_nodes RETURN a, related_nodes"

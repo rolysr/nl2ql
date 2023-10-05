@@ -26,28 +26,6 @@ gc = GraphContractor(NEO4J_DB_URL, NEO4J_DB_USER, NEO4J_DB_PASSWORD)
 print("Init MetaQA instance for interacting with the knowledge base")
 metaqa_kb = MetaQAKnowledgeBase(gc)
 
-# generate tests
-print("Generate tests")
-tests = generate_metaqa_tests(TESTS_PATH)
-print("Load {} tests".format(len(tests)))
-tests = tests[3900:3910]
-
-# set metrics and evaluation sets
-number_of_tests = len(tests)
-exact_translations = []
-successful_compilations = [] 
-correct_responses = []
-mismatch_translation = []
-unsuccessful_compilations = []
-wrong_responses = []
-
-# get the model
-model = get_model()
-
-# Init MetaQA instance for interacting with the knowledge base
-print("Init MetaQA instance for interacting with the knowledge base")
-metaqa_kb = MetaQAKnowledgeBase(gc)
-
 # Init Schema maker
 print("Init schema maker")
 schema_maker = DBSchemaMaker()
@@ -62,6 +40,24 @@ attributes = metaqa_kb.compute_attributes(entities, relations)
 query_language = "Cypher"
 database_type = "Neo4J"
 schema = schema_maker.compute_schema_description(entities, relations, attributes)
+
+# generate tests
+print("Generate tests")
+tests = generate_metaqa_tests(TESTS_PATH, entities, relations, attributes)
+print("Load {} tests".format(len(tests)))
+tests = tests[39122:39132]
+
+# set metrics and evaluation sets
+number_of_tests = len(tests)
+exact_translations = []
+successful_compilations = [] 
+correct_responses = []
+mismatch_translation = []
+unsuccessful_compilations = []
+wrong_responses = []
+
+# get the model
+model = get_model()
 
 # update metrics for each test case
 test_index = 1

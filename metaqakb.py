@@ -26,10 +26,89 @@ class MetaQAKnowledgeBase:
     def compute_attributes(self, entities, relations):
         attributes = {}
         for entity in entities:
-            attributes[entity] = self.get_keys_of_label(entity)
+            attributes[entity] = []
+            attrs_entity_names = self.get_keys_of_label(entity)
+            for attribute_name in attrs_entity_names:
+                attr_type, min_value, max_value = self.get_type_min_max_entity_attribute(entity, attribute_name)
+                attributes[entity].append((attribute_name, attr_type, min_value, max_value))
         for relation in relations:
-            attributes[relation] = self.get_keys_of_relation(relation)
+            attrs_relation_names = self.get_keys_of_relation(relation)
+            attributes[relation] = []
+            for attribute_name in attrs_relation_names:
+                attr_type, min_value, max_value = self.get_type_min_max_relation_attribute(relation, attribute_name)
+                attributes[relation].append((attribute_name, attr_type, min_value, max_value))
         return attributes
+    
+    def _infer_data_type(self, value):
+        if isinstance(value, str):
+            return "str"
+        elif isinstance(value, int):
+            return "int"
+        elif isinstance(value, float):
+            return "float"
+        # Add more type checks as needed
+        else:
+            return "unknown"
+
+    def get_type_min_max_entity_attribute(self, entity, attribute_name):
+        # Query to get a sample value of the attribute for the entity
+        query = f'''
+        MATCH (p:{entity})
+        WHERE p.{attribute_name} IS NOT NULL
+        RETURN p.{attribute_name} as sample_value
+        LIMIT 1
+        '''
+        resp = self.graph.graph.run(query).data()
+        if not resp:
+            return None, None, None
+
+        sample_value = resp[0]['sample_value']
+        attr_type = self._infer_data_type(sample_value)
+
+        # If the attribute type is "str", return "str" and None for min and max
+        if attr_type == "str":
+            return "str", None, None
+
+        # Otherwise, get the min and max values for the attribute
+        query = f'''
+        MATCH (p:{entity})
+        RETURN 
+            min(p.{attribute_name}) as min_value,
+            max(p.{attribute_name}) as max_value
+        LIMIT 1
+        '''
+        resp = self.graph.graph.run(query).data()
+        return attr_type, resp[0]['min_value'], resp[0]['max_value']
+
+    def get_type_min_max_relation_attribute(self, relation, attribute_name):
+        # Query to get a sample value of the attribute for the relation
+        query = f'''
+        MATCH ()-[r:{relation}]-()
+        WHERE r.{attribute_name} IS NOT NULL
+        RETURN r.{attribute_name} as sample_value
+        LIMIT 1
+        '''
+        resp = self.graph.graph.run(query).data()
+        if not resp:
+            return None, None, None
+
+        sample_value = resp[0]['sample_value']
+        attr_type = self._infer_data_type(sample_value)
+
+        # If the attribute type is "str", return "str" and None for min and max
+        if attr_type == "str":
+            return "str", None, None
+
+        # Otherwise, get the min and max values for the attribute
+        query = f'''
+        MATCH ()-[r:{relation}]-()
+        RETURN 
+            min(r.{attribute_name}) as min_value,
+            max(r.{attribute_name}) as max_value
+        LIMIT 1
+        '''
+        resp = self.graph.graph.run(query).data()
+        return attr_type, resp[0]['min_value'], resp[0]['max_value']
 
     def get_keys_of_label(self, label):
         resp = self.graph.graph.run(f'MATCH (p:{label}) WITH DISTINCT keys(p) as key_list UNWIND key_list as key RETURN DISTINCT key')
