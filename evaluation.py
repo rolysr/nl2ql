@@ -6,6 +6,7 @@ import pandas as pd
 
 import os
 from dotenv import load_dotenv
+from query_utils import QueryUtils
 
 from schema import DBSchemaMaker
 
@@ -27,7 +28,9 @@ metaqa_kb = MetaQAKnowledgeBase(gc)
 
 # generate tests
 print("Generate tests")
-tests = generate_metaqa_tests(TESTS_PATH)[:100]
+tests = generate_metaqa_tests(TESTS_PATH)
+print("Load {} tests".format(len(tests)))
+tests = tests[3900:3910]
 
 # set metrics and evaluation sets
 number_of_tests = len(tests)
@@ -94,7 +97,7 @@ for test in tests:
         raise Exception("The target formal queries can not fail during compile time!!! Fix them")
 
     # check responses match
-    if response == target_response:
+    if QueryUtils.equal_simple_query_results(response, target_response):
         correct_responses.append(test)
     else:
         wrong_responses.append(test)

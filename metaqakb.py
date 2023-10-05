@@ -46,5 +46,11 @@ class MetaQAKnowledgeBase:
             for entity_y in entities:
                 rels = QueryUtils._unfold_graph_resp(self.graph.graph.run(f'MATCH (x:{entity_x})-[r]->(y:{entity_y}) RETURN DISTINCT type(r)'))
                 for rel in rels:
-                    relations[rel].append((entity_x, entity_y))
+                    flag = False
+                    for pair in relations[rel]:
+                        if pair[0] == entity_y and pair[1] == entity_x and pair[2] == False:
+                            pair[2] = True
+                            flag = True
+                    if not flag:
+                        relations[rel].append([entity_x, entity_y, False])
         return relations

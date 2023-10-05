@@ -29,3 +29,14 @@ class QueryUtils:
             if isinstance(v, str):
                 values[i] = v.replace("'", "\\'")
 
+    @staticmethod
+    def equal_simple_query_results(result1, result2):
+        if len(result1) != len(result2):
+            return False
+        
+        elif result1 == result2:
+            return True
+
+        values1 = [data[list(data.keys())[0]] for data in result1]
+        values2 = [data[list(data.keys())[0]] for data in result2]
+        return values1 == values2

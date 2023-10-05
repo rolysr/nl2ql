@@ -72,11 +72,12 @@ def generate_template_pairs(schema):
         for prop in properties:
             if schema.is_numeric(prop):
                 condition_prop = "some_property"  # Replace with actual property for condition
-                condition_value = "> some_value"  # Replace with actual value or range for condition
-                template_pairs.append(generate_conditional_count_template(label, prop, condition_value))
-                template_pairs.append(generate_conditional_max_template(label, prop, condition_prop, condition_value))
-                template_pairs.append(generate_conditional_min_template(label, prop, condition_prop, condition_value))
-                template_pairs.append(generate_conditional_avg_template(label, prop, condition_prop, condition_value))
+                for cond in conditional_ops:
+                    condition_value = cond + " " + "random_value"  # Replace with actual value or range for condition
+                    template_pairs.append(generate_conditional_count_template(label, prop, condition_value))
+                    template_pairs.append(generate_conditional_max_template(label, prop, condition_prop, condition_value))
+                    template_pairs.append(generate_conditional_min_template(label, prop, condition_prop, condition_value))
+                    template_pairs.append(generate_conditional_avg_template(label, prop, condition_prop, condition_value))
     
     
     for rel_type in relationship_types:
