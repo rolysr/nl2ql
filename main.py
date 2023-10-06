@@ -1,6 +1,7 @@
 from graph import GraphContractor
 from metaqakb import MetaQAKnowledgeBase
 from model import get_model
+from langchain.callbacks import get_openai_callback
 # https://towardsdatascience.com/use-chatgpt-to-query-your-neo4j-database-78680a05ec2
 
 import os
@@ -34,20 +35,25 @@ print("Get main data from the created DB")
 entities = metaqa_kb.compute_entities()
 relations = metaqa_kb.compute_relations(entities)
 attributes = metaqa_kb.compute_attributes(entities, relations)
+schema = schema_maker.compute_schema_description(
+    entities, relations, attributes)
 
 # Print DB Schema
-print("The schema of the created database is:\n" + schema_maker.compute_schema_description(entities, relations, attributes))
+print("The schema of the created database is:\n" + schema)
+
+model = get_model()
 
 # prompt inputs
-# query_language = "Cypher"
-# database_type = "Neo4J"
-# schema = gc.schema_description
-# query = "Tell me the name of the people who acted on 'The Matrix' movie"
+query_language = "Cypher"
+database_type = "Neo4J"
+query = "Tell me the name of the people who acted on 'The Matrix' movie"
 
-# # make a query to the model
-# formal_query = model.run(query_language=query_language, database_type=database_type, schema=schema, query=query)
+# make a query to the model
+with get_openai_callback() as cb:
+    formal_query = model.run(query_language=query_language,
+                             database_type=database_type, schema=schema, query=query)
 
-# # run the query in the database
-# response = gc.make_query(formal_query)
+# run the query in the database
+response = gc.make_query(formal_query)
 
-# print(response)
+print(response)
