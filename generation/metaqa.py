@@ -63,21 +63,21 @@ def generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attribu
         # Generate MIN, MAX, AVG templates for numeric properties
         for prop in properties:
             if prop[1] != 'str' and prop[1] != 'unknown':
-                template_pairs.append(generate_avg_template(label, prop))
-                template_pairs.append(generate_max_template(label, prop))
-                template_pairs.append(generate_min_template(label, prop))
+                template_pairs.append(generate_avg_template(label, prop[0]))
+                template_pairs.append(generate_max_template(label, prop[0]))
+                template_pairs.append(generate_min_template(label, prop[0]))
 
         # Generate MIN, MAX, AVG templates for numeric properties with conditionals
-        conditional_ops = ['>', '<', '==', '>=', '<=']
+        conditional_ops = ['>', '<', '=', '>=', '<=']
         for prop in properties:
             if prop[1] != 'str' and prop[1] != 'unknown':
-                condition_prop = "some_property"  # Replace with actual property for condition
+                condition_prop = prop[0]  # Replace with actual property for condition
                 for cond in conditional_ops:
                     condition_value = cond + " " + str(random.randint(int(prop[2]), int(prop[3])))  # Replace with actual value or range for condition
-                    template_pairs.append(generate_conditional_count_template(label, prop, condition_value))
-                    template_pairs.append(generate_conditional_max_template(label, prop, condition_prop, condition_value))
-                    template_pairs.append(generate_conditional_min_template(label, prop, condition_prop, condition_value))
-                    template_pairs.append(generate_conditional_avg_template(label, prop, condition_prop, condition_value))
+                    template_pairs.append(generate_conditional_count_template(label, prop[0], condition_value))
+                    template_pairs.append(generate_conditional_max_template(label, prop[0], condition_prop, condition_value))
+                    template_pairs.append(generate_conditional_min_template(label, prop[0], condition_prop, condition_value))
+                    template_pairs.append(generate_conditional_avg_template(label, prop[0], condition_prop, condition_value))
     
     
     for rel_type in relations:

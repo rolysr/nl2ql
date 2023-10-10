@@ -45,7 +45,6 @@ schema = schema_maker.compute_schema_description(entities, relations, attributes
 print("Generate tests")
 tests = generate_metaqa_tests(TESTS_PATH, entities, relations, attributes)
 print("Load {} tests".format(len(tests)))
-tests = tests[39122:39132]
 
 # set metrics and evaluation sets
 number_of_tests = len(tests)

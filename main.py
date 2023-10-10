@@ -2,6 +2,7 @@ from graph import GraphContractor
 from metaqakb import MetaQAKnowledgeBase
 from model import get_model
 from langchain.callbacks import get_openai_callback
+from generation.metaqa import generate_template_pairs_agg_nested_tests_metaqa
 # https://towardsdatascience.com/use-chatgpt-to-query-your-neo4j-database-78680a05ec2
 
 import os
@@ -42,6 +43,11 @@ schema = schema_maker.compute_schema_description(
 print("The schema of the created database is:\n" + schema)
 
 model = get_model()
+
+print("The aggregations and nested queries samples are:")
+agg_nested_tests = generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attributes)
+print("The len() of those tests is:", len(agg_nested_tests))
+print(generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attributes))
 
 # prompt inputs
 query_language = "Cypher"
