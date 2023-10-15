@@ -41,8 +41,8 @@ schema_maker = DBSchemaMaker()
 # Get main data from the created DB
 print("Get main data from the created DB")
 entities = metaqa_kb.compute_entities()
-attributes = metaqa_kb.compute_attributes()
-relations = metaqa_kb.compute_relations()
+relations = metaqa_kb.compute_relations(entities)
+attributes = metaqa_kb.compute_attributes(entities, relations)
 
 # Print DB Schema
 print("The schema of the created database is:\n" + schema_maker.compute_schema_description(entities, relations, attributes))
