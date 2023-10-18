@@ -13,21 +13,16 @@
 \RequirePackage{mathptmx}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
-
-\RequirePackage[spanish,es-ucroman]{babel}
-\RequirePackage[refpage, intoc, spanish]{nomencl}
+%\RequirePackage{syntax}
+\RequirePackage[spanish]{babel}
+\RequirePackage[fixlanguage]{babelbib}
 \RequirePackage{graphicx}
 \RequirePackage{xcolor}
 \RequirePackage[nottoc,notlof,notlot]{tocbibind}
 \RequirePackage{footmisc}
-\RequirePackage{csquotes}
-\RequirePackage[
-	style=apa,
-	citestyle=authoryear,
-  hyperref=true,
-	backref=true
-	]{biblatex}
-\RequirePackage[linktocpage,breaklinks,colorlinks,%
+%\RequirePackage[refpage, intoc, spanish]{nomencl}
+
+\RequirePackage[pagebackref,linktocpage,breaklinks,colorlinks,%
                 linkcolor=black,anchorcolor=black,citecolor=black,%
                 filecolor=black,menucolor=black,runcolor=black,%
                 urlcolor=black]{hyperref}
@@ -55,15 +50,13 @@
     \fancyhead[R]{\thepage}
 \fi
 \renewcommand{\headheight}{28pt}
-
-\setlength\oddsidemargin{30.1\p@}
-\setlength\evensidemargin{30.1\p@}
-\setlength\marginparwidth{30.1\p@}
-\marginparsep 8pt
-\topmargin 0pt
-\headsep .5in
-\textheight 8.1in 
-\textwidth 6in
+	
+\setlength\oddsidemargin{36.1\p@}
+\setlength\evensidemargin{36.1\p@}
+\setlength\marginparwidth{36.1\p@}
+\marginparsep 10pt
+\topmargin 0pt \headsep .5in
+%\textheight 8.1in \textwidth 6in
 
 % More liberal float placement from BYUPhys.cls.
 \renewcommand{\topfraction}{0.9}
@@ -73,87 +66,34 @@
 \setcounter{totalnumber}{4}
 \renewcommand{\textfraction}{0.07}
 
-% Whole biblatex hyperref to bibliography
-\DeclareCiteCommand{\cite}
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \printtext[bibhyperref]{\usebibmacro{cite}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
+% Backreferences in the bibliography.
+\backrefspanish
+\renewcommand{\backref}[1]{}
+\renewcommand{\backrefalt}[4]{%
+  \ifcase #1 \relax%
+  \or (Citado en la página~#2).%
+  \else (Citado en las páginas~#2).%
+  \fi%
+}
+\btxifchangecaseoff
+\renewcommand{\btxselectlanguage}[1]{\relax}
 
-\DeclareCiteCommand*{\cite}
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \printtext[bibhyperref]{\usebibmacro{citeyear}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
+% Book edition numbers.
+\declarebtxcommands{spanish}{%
+  \def\btxnumeralshort#1{#1.^a}%
+  \def\btxnumerallong#1{%
+    \ifnumber{#1}{%
+      \ifcase#1 0\or
+        primera\or segunda\or tercera\or cuarta\or quinta\or
+        sexta\or séptima\or octava\or novena\or décima\else
+        #1.^a%
+      \fi%
+    }%
+    {#1}%
+  }%
+}
 
-\DeclareCiteCommand{\parencite}[\mkbibparens]
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-    \printtext[bibhyperref]{\usebibmacro{cite}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand*{\parencite}[\mkbibparens]
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-    \printtext[bibhyperref]{\usebibmacro{citeyear}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand{\footcite}[\mkbibfootnote]
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-  \printtext[bibhyperref]{ \usebibmacro{cite}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand{\footcitetext}[\mkbibfootnotetext]
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \printtext[bibhyperref]{\usebibmacro{cite}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-
-\DeclareCiteCommand{\textcite}
-  {\boolfalse{cbx:parens}}
-  {\usebibmacro{citeindex}%
-   \printtext[bibhyperref]{\usebibmacro{textcite}}}
-  {\ifbool{cbx:parens}
-     {\bibcloseparen\global\boolfalse{cbx:parens}}
-     {}%
-   \multicitedelim}
-  {\usebibmacro{textcite:postnote}}
-
-% % Backreferences in the bibliography.
-% \backrefspanish
-% \renewcommand{\backref}[1]{}
-% \renewcommand{\backrefalt}[4]{%
-%   \ifcase #1 \relax%
-%   \or (Citado en la página~#2).%
-%   \else (Citado en las páginas~#2).%
-%   \fi%
-% }
-% \btxifchangecaseoff
-% \renewcommand{\btxselectlanguage}[1]{\relax}
-
-% % Book edition numbers.
-% \declarebtxcommands{spanish}{%
-%   \def\btxnumeralshort#1{#1.^a}%
-%   \def\btxnumerallong#1{%
-%     \ifnumber{#1}{%
-%       \ifcase#1 0\or
-%         primera\or segunda\or tercera\or cuarta\or quinta\or
-%         sexta\or séptima\or octava\or novena\or décima\else
-%         #1.^a%
-%       \fi%
-%     }%
-%     {#1}%
-%   }%
-% }
-
-\renewcommand{\nomname}{Glosario}
+%\renewcommand{\nomname}{Glosario}
 \newcommand{\advisor}[1]{\def\@advisor{#1}}
 \newcommand{\degree}[1]{\def\@degree{#1}}
 \newcommand{\faculty}[1]{\def\@faculty{#1}}
@@ -165,12 +105,13 @@
 \newenvironment{acknowledgements}%
   {\chapter*{Agradecimientos}}%
   {}
-\newenvironment{resumen}%
+\newenvironment{abstract}%
   {\chapter*{Resumen}}%
   {}
-\newenvironment{abstract}%
+\newenvironment{enabstract}%
   {\chapter*{Abstract}}%
   {}
+
 \newenvironment{introduction}%
   {\cleardoublepage%
    \phantomsection%
@@ -196,13 +137,12 @@
    \begin{flushright}}%
   {\end{flushright}}
 
-\newtheorem{theorem}{Teorema}[chapter]
-\newtheorem{definition}{Definición}[chapter]
-\newtheorem{lemma}{Lema}[chapter]
+\newtheorem{theorem}{Teorema}
+\newtheorem{definition}{Definición}
 
 
 \AtBeginDocument{%
-  % \hypersetup{pdftitle=\@title,pdfauthor=\@author}%
+  \hypersetup{pdftitle=\@title,pdfauthor=\@author}%
   % Renaming cuadro to tabla.
   \renewcommand{\listtablename}{Índice de tablas}%
   \renewcommand{\tablename}{Tabla}%
@@ -220,10 +160,13 @@
     \vskip 2cm
     {\Large Autor: \textbf{\@author}} \\
     \vskip 0.5cm
-    {\Large Tutores: \textbf{\@advisor}} \\
+    {\Large Tutor: \textbf{\@advisor}} \\
+    \vskip 0.2cm
     \vfill
     {\large Trabajo de Diploma \\presentado en opción al título de \\ \@degree} \\
-    \vskip 1cm
+    \vskip 0.25cm
+    \includegraphics[width=2.5cm]{Graphics/qrcode-tesis}
+    \vskip 0.25cm
     \@date
   \end{center}
 }
