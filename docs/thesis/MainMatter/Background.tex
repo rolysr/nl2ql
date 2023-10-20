@@ -36,7 +36,7 @@ En cuanto a los datos para el entrenamiento existen dos opciones. Básicamente s
 \begin{itemize}
 	\item \textbf{WikiSQL}: WikiSQL \cite{wikisql} es el banco de datos más grande y más utilizado, contiene $26531$ tablas y $80654$ pares de consultas en lenguaje natural y lenguaje \textit{SQL}. Las tablas se extraen de tablas \textit{HTML} de Wikipedia. Luego, cada consulta en \textit{SQL} se genera automáticamente para una determinada tabla bajo la restricción de que la consulta produce un conjunto de resultados no vacío.
 
-	\item \textbf{Spider}:	 Este \textit{Benchmark} [30] es un punto de referencia multidominio a gran escala con 200 bases de datos de 138 dominios diferentes y 10.181 pares de consultas.
+	\item \textbf{Spider}:	 Este \textit{Benchmark} \cite{spiderdataset} es un punto de referencia multidominio a gran escala con 200 bases de datos de 138 dominios diferentes y 10.181 pares de consultas.
 
 	\item \textbf{MetaQA}: El conjunto de datos METAQA-Cypher, originalmente conocido como METAQA \cite{zhangetal2018}, contiene más de $400000$ pares de preguntas y respuestas de múltiples pasos obtenidos de la base de conocimiento WikiMovies \cite{milleretal2016}. Mientras que investigaciones previas se han centrado principalmente en la anotación SPARQL \cite{huangetal2021}, nuestra innovación implica reconfigurar METAQA en \textit{Cypher}, estableciéndolo como un valioso punto de referencia para el aprendizaje de pocos ejemplos.
 
@@ -62,21 +62,55 @@ En la fase de construcción de la consulta, existen tres enfoques principales. E
 
 \section{Enfoques basados en técnicas de \textit{prompt engineering} mediante LLMs} \label{llm_approach}
 
-Con la creciente atención dada a los modelos de lenguaje a gran escala, se han convertido en un componente esencial en el procesamiento del lenguaje natural. A medida que aumenta el tamaño de los modelos preentrenados, también está cambiando gradualmente su uso. A diferencia de modelos como BERT \cite{devlinetal2018} y T5 \cite{raffeletal2020}, que requieren un proceso de entrenamiento con una pequeña cantidad de datos, modelos como GPT-3 \cite{brownetal2020} requieren un diseño de un texto de entrada para generar resultados deseados. El reciente modelo de \textit{ChatGPT} \cite{chatgpt}, que emplea Aprendizaje por Reforzamiento para la Retroalimentación Humana (RLHF) \cite{christianoetal2021}, simplifica el diseño de textos de entrada de calidad, lo que permite una mejor utilización de la capacidad de ZSL de modelos preentrenados a gran escala de manera conversacional. Debido a la sólida capacidad de dichos en la generación de código \cite{llmcodegenerationsample} y al hecho de que los modelos de generación de código suelen requerir una gran cantidad de datos anotados para producir buenos resultados \cite{codegenmodeldataamount}, un modelo de generación de código de ZSL se considera fundamental.
+Con la creciente atención dada a los modelos de lenguaje a gran escala, estos se han convertido en un componente esencial en el procesamiento del lenguaje natural. A medida que aumenta el tamaño de los modelos preentrenados, también está cambiando gradualmente su uso. A diferencia de modelos como BERT \cite{devlinetal2018} y T5 \cite{raffeletal2020}, que requieren un proceso de entrenamiento con una pequeña cantidad de datos, modelos como GPT-3 \cite{brownetal2020} requieren un diseño de un texto de entrada para generar resultados deseados. El reciente modelo de \textit{ChatGPT} \cite{chatgpt}, que emplea Aprendizaje por Reforzamiento para la Retroalimentación Humana (RLHF) \cite{christianoetal2021}, simplifica el diseño de textos de entrada de calidad, lo que permite una mejor utilización de la capacidad de ZSL de modelos preentrenados a gran escala de manera conversacional. Debido a la sólida capacidad de dichos en la generación de código \cite{llmcodegenerationsample} y al hecho de que los modelos de generación de código suelen requerir una gran cantidad de datos anotados para producir buenos resultados \cite{codegenmodeldataamount}, un modelo de generación de código de ZSL se considera fundamental.
 
-Para la tarea específica de generar código de un lenguaje de consulta formal como \textit{SQL} y \textit{Cypher} se han utilizado distintos enfoques basados en dos de las principales técnicas de \textit{prompt engineering}:
+Para la tarea específica de generar código de un lenguaje de consulta formal como \textit{SQL} y \textit{Cypher} se han utilizado distintos enfoques basados en varias de las principales técnicas de \textit{prompt engineering}.
 
-\begin{itemize}
+\subsection{Zero-Shot Learning} \label{llm_approach_zsl}
+	Esta técnica se enfoca en la capacidad de un modelo para comprender y generar código en un lenguaje de consulta sin requerir ejemplos específicos de entrenamiento en ese lenguaje en particular. En otras palabras, el modelo puede realizar esta tarea "desde cero", sin conocimiento previo del lenguaje. Algunos estudio interesantes se han realizado principalmente en la tarea de traducir lenguaje natural a lenguaje \textit{SQL} \cite{text2sqlzsl1} \cite{text2sqlzsl2}, los cuales permiten inferir la calidad mínima que estos modelos pueden alcanzar en la realización de dicha tarea \cite{zslislowerbound}.
 
-	\item \textbf{Zero-Shot Learning}: Esta técnica se enfoca en la capacidad de un modelo para comprender y generar código en un lenguaje de consulta sin requerir ejemplos específicos de entrenamiento en ese lenguaje en particular. En otras palabras, el modelo puede realizar esta tarea "desde cero", sin conocimiento previo del lenguaje. Algunos estudio interesantes se han realizado principalmente en la tarea de traducir lenguaje natural a lenguaje \textit{SQL} \cite{text2sqlzsl1} \cite{text2sqlzsl2}, los cuales permiten inferir la calidad mínima que estos modelos pueden alcanzar en la realización de dicha tarea \cite{zslislowerbound}.
+\begin{figure}[H]\label{zslpromtpsql}
+	\centering
+	\includegraphics[width = 0.9\textwidth]{./Graphics/zslpromptsql}
+	\caption{Ejemplo del flujo de trabajo de experimentos basados en ZSL para la traducción de lenguaje natural a código en \textit{SQL}.}
+\end{figure} 
 
-	\item \textbf{Few-Shot Learning}: En contraste, el enfoque de Few-Shot Learning (FSL) se basa en la idea de que el modelo tiene acceso a un pequeño número de ejemplos (pocos ejemplos) en el lenguaje de consulta deseado para mejorar su capacidad de generar código en ese lenguaje. Esto puede ser especialmente útil cuando se necesita una adaptación rápida a un nuevo lenguaje o contexto. Tal y como muestran algunos resultados experimentales, este enfoque puede tener resultados superiores a varios modelos basados en \textit{fine-tuning} \cite{ftvsllmtext2sql}.
+\subsection{Few-Shot Learning} \label{llm_approach_fsl}
+	En contraste, el enfoque de Few-Shot Learning (FSL) se basa en la idea de que el modelo tiene acceso a un pequeño número de ejemplos (pocos ejemplos) en el lenguaje de consulta deseado para mejorar su capacidad de generar código en ese lenguaje. Esto puede ser especialmente útil cuando se necesita una adaptación rápida a un nuevo lenguaje o contexto. Tal y como muestran algunos resultados experimentales, este enfoque puede tener resultados superiores a varios modelos basados en \textit{fine-tuning} \cite{ftvsllmtext2sql}.
 
-[INSERTAR FIGURAS DE ZSL y FSL] 
+Un ejemplo notable de esta aplicación es el modelo Codex \cite{Codex}, que ha demostrado ser un fuerte baseline en el \textit{benchmark} Spider sin ninguna fase de entrenamiento. Además, se ha observado que proporcionar un pequeño número de ejemplos en el dominio en el prompt permite a Codex superar a los modelos de estado del arte cuyos parámetros han sido ajustados con pocos ejemplos de pocos dominios \cite{Codexresults}.
 
-A pesar del uso comprobado de dichos enfoques, todavía existe una escasez de estudios orientados a la traducción de lenguaje natural a código de consulta a BDOG como por ejemplo \textit{Cypher} \cite{gpt4graphpaper2023}, por lo tanto es visible la necesidad de elaborar experimentos enfocados en dicha tarea dicha tarea.
+Además, se ha propuesto un marco de selección de demostraciones ODIS \cite{ODIS} que utiliza tanto ejemplos fuera de dominio como ejemplos generados sintéticamente en el dominio para construir demostraciones. Este enfoque ha demostrado ser efectivo en comparación con los métodos de línea de base que se basan en una única fuente de datos \cite{ODISresults}.
 
-\end{itemize}
+En cuanto a los conjuntos de datos, existen varios conjuntos de datos de texto a SQL que han sido propuestos para evaluar el rendimiento de los modelos LLM. Algunos de estos conjuntos de datos incluyen CoSQL, TableQA, DuSQL, CHASE, y BIRD-SQL \cite{wikisql} \cite{CoSQL} \cite{TableQA} \cite{DuSQL} \cite{CHASE} \cite{BIRD-SQL}.
+
+\begin{figure}[H]\label{fslpromtpsql}
+	\centering
+	\includegraphics[width = 1\textwidth]{./Graphics/fslpromptsql}
+	\caption{Ejemplo del flujo de trabajo de experimentos basados en FSL para la traducción de lenguaje natural a código en \textit{SQL}.}
+\end{figure}
+
+\subsection{Chain-of-Thought Prompting} \label{llm_approach_cot}
+
+El enfoque de la cadena de pensamiento (\textit{Chain of Thought, CoT}) \cite{cot} en la conversión de texto a \textit{SQL} ha demostrado ser una estrategia prometedora para mejorar la capacidad de los modelos de lenguaje de gran tamaño (LLMs) para realizar razonamientos complejos. Este enfoque se ha utilizado en varias investigaciones recientes para mejorar la capacidad de los LLMs para realizar tareas de razonamiento complejo, como la conversión de texto a SQL \cite{cotllmssql1}.
+
+Un estudio propuso un nuevo paradigma para la generación de consultas \textit{SQL} a partir de texto, llamado \textit{Divide-and-Prompt}, que divide la tarea en subtareas y luego aborda cada subtarea a través de la cadena de pensamiento. Se presentaron tres métodos basados en la indicación para mejorar la capacidad de los LLMs para generar consultas \textit{SQL} a partir de texto. Los experimentos mostraron que estas indicaciones guían a los LLMs para generar consultas \textit{SQL} a partir de texto con mayor precisión de ejecución \cite{cotllmssql2}.
+
+\begin{figure}[H]\label{fslpromtpsql}
+	\centering
+	\includegraphics[width = 0.8\textwidth]{./Graphics/cotpromptsql}
+	\caption{Ejemplo del flujo de trabajo de experimentos basados en CoT para la traducción de lenguaje natural a código en \textit{SQL}.}
+\end{figure}
+
+\subsection{\textit{Fine-Tuning}} \label{llm_approach_finetunig}
+
+El entrenamiento (\textit{fine-tuning}) de un modelo es un proceso que se utiliza para mejorar el rendimiento de un modelo de aprendizaje automático en una tarea específica. En el contexto de la conversión de texto a \textit{SQL}, el ajuste fino puede ser utilizado para mejorar la precisión y la eficacia de los modelos de lenguaje de gran tamaño (LLMs) en la generación de consultas \textit{SQL} a partir de texto. Se han realizado estudios \cite propuso un método de \textit{fine-tuning} para los modelos LLMs utilizando un conjunto de datos de texto a \textit{SQL}, donde el método principal consistía en entrenar el modelo en el conjunto de datos de entrenamiento y luego ajustar el modelo en un conjunto de datos que contenía consultas \textit{SQL} generadas por humanos. Este método demostró ser efectivo para mejorar la precisión de los modelos LLMs en la generación de consultas \textit{SQL} a partir de texto \cite{finetuningtext2sql}.
+
+Este enfoque constituye una poderosa herramienta  en la conversión de lenguaje natural a \textit{SQL}. Sin embargo, no es una solución mágica, ya que pocas organizaciones tienen conjuntos de datos de entrenamiento \textit{NL-2-SQL} disponibles de manera inmediata. Algunos expertos consideran que las mejores arquitecturas se podrían lograr combinando modelos ajustados con agentes RAG (\textit{Retrieval Augmented Generation}) \cite{raginfo}.
+
+\section{Consideraciones generales} \label{llm_approach_finetunig}
+
+A pesar del uso comprobado de dichos enfoques, todavía existe una escasez de estudios orientados a la traducción de lenguaje natural a código de consulta a BDOG como por ejemplo \textit{Cypher} \cite{gpt4graphpaper2023}, por lo tanto, es visible la necesidad de elaborar experimentos enfocados en dicha tarea, tomando como bases las ideas anteriormente expuestas.
 
 
 %\newpage
