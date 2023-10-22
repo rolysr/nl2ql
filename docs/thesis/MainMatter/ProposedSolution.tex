@@ -1,0 +1,22 @@
+\chapter{Propuesta de Solución}\label{chapter: proposedsolution}
+
+En el presente capítulo se abordará la metodología seguida para diseñar el experimento propuesto en este trabajo \ref{experiment_defref}. Primeramente, se expondrá un marco teórico que formaliza la definición del problema a tratar, esto con el objetivo de presentar los conocimientos base tenidos en cuenta para los enfoques probados. Luego, se detallan los primeros acercamientos desechados \ref{approaches_considered}, argumentando las deficiencias de estos a la hora de arrojar resultados consistentes para la tarea que se desea desarrollar. Finalmente, se detalla la metodología definitiva a implementar, teniendo en cuenta la experiencia obtenida de las anteriores y mostrando su robustez para el análisis experimental \cite{}.
+
+De forma general, el componente común para cada vía de solución constituye la presencia de un Gran Modelo de Lenguaje, pues representan los modelos más recientes utilizados para la tarea en cuestión; además, ofrecen resultados alentadores para el caso de traducción a lenguaje \textit{SQL} según lo visto en la sección \ref{llm_approach}. Por lo tanto, tiene sentido probar su eficacia para traducir a código en \textit{Cypher}, ya que ambos presentan similitudes como lenguajes formales declarativos para consultar bases de datos. Dicho modelo será analizado como una ``caja negra'' capaz de hacer tareas de traducción de lenguaje natural a una consulta semánticamente equivalente en el lenguaje \textit{Cypher}.
+
+Para cada vía de solución se deberá considerar el despliegue de un sistema de gestión de bases de datos para alguna BDOG, ya que es en este componente donde se almacenará la información a extraer por consultas en un lenguaje orientado a este tipo de almacenamiento. En el caso particular de este trabajo, se considerará el uso de \textit{Neo4J}, con el cual se puede interactuar a partir del lenguaje \textit{Cypher} ya mencionado. Por esto, es importante considerar la implementación de un módulo intermedio para interactuar con una instancia del sistema de gestión \textit{Neo4J}.
+
+El enfoque de \textit{prompt engineering} a utilizar será ZSL, por lo tanto, los textos de entrada que se le darán al modelo para la generación de código \textit{Cypher} no contendrán ejemplos de pares de lenguaje natural con su correspondiente traducción al lenguaje de consulta objetivo. Por lo tanto, se tomarán algunas ideas experimentadas en el estado del arte para \textit{SQL} vistas en la sección \ref{}.
+
+\section{Definición formal del problema} \label{problem_formal_definition}
+
+\section{Acercamientos considerados} \label{unused_approaches}
+
+\subsection{Elaboración manual de consultas de prueba} \label{handmade_eval}
+
+\subsection{Generación de consultas de prueba sintéticas} \label{synthetic_eval}
+
+\subsection{\textit{Benchmark} orientado a \textit{Cypher}} \label{bench_eval}
+
+\section{Propuesta de solución diseñada} \label{designed_proposal}
+
