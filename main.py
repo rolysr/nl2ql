@@ -58,6 +58,7 @@ query = "Tell me the name of the people who acted on 'The Matrix' movie"
 with get_openai_callback() as cb:
     formal_query = model.run(query_language=query_language,
                              database_type=database_type, schema=schema, query=query)
+    print(formal_query)
 
 # run the query in the database
 response = gc.make_query(formal_query)

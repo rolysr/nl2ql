@@ -1,6 +1,7 @@
 # get a token: https://platform.openai.com/account/api-keys
 
 from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain import PromptTemplate, LLMChain
 
 def get_model():
@@ -20,7 +21,7 @@ The code in the query language {query_language} is:
     prompt = PromptTemplate(template=template, input_variables=["query_language", "database_type", "schema", "query"])
 
     # init llm
-    llm = OpenAI(temperature=0.5)
+    llm = ChatOpenAI(temperature=0.3, model='gpt-3.5-turbo')
 
     # init chain
     llm_chain = LLMChain(prompt=prompt, llm=llm)
