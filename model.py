@@ -1,8 +1,9 @@
 # get a token: https://platform.openai.com/account/api-keys
 
-from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
-from langchain import PromptTemplate, LLMChain
+from langchain.prompts import ChatPromptTemplate
+from langchain import LLMChain
+
 
 def get_model():
     # template for the model
@@ -17,13 +18,13 @@ The code in the query language {query_language} is:
 
 """.strip()
 
-    # init promp template
-    prompt = PromptTemplate(template=template, input_variables=["query_language", "database_type", "schema", "query"])
+    # Init prompt template
+    prompt = ChatPromptTemplate.from_template(template=template)
 
-    # init llm
-    llm = ChatOpenAI(temperature=0.3, model='gpt-3.5-turbo')
+    # Init llm
+    llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3)
 
-    # init chain
+    # Init chain
     llm_chain = LLMChain(prompt=prompt, llm=llm)
 
     return llm_chain
