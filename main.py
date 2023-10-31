@@ -2,7 +2,6 @@ from graph import GraphContractor
 from metaqakb import MetaQAKnowledgeBase
 from model import get_model
 from langchain.callbacks import get_openai_callback
-from generation.metaqa import generate_template_pairs_agg_nested_tests_metaqa
 # https://towardsdatascience.com/use-chatgpt-to-query-your-neo4j-database-78680a05ec2
 
 import os
@@ -57,5 +56,5 @@ with get_openai_callback() as cb:
 
 # run the query in the database
 response = gc.make_query(formal_query)
-print(cb)
+print(cb.total_cost)
 print(response)

@@ -22,7 +22,7 @@ The code in the query language {query_language} is:
     prompt = PromptTemplate(template=template, input_variables=["query_language", "database_type", "schema", "query"])
 
     # Init llm
-    llm = OpenAI(temperature=0.9)
+    llm = OpenAI(temperature=0.7)
 
     # Init chain
     llm_chain = LLMChain(prompt=prompt, llm=llm)
