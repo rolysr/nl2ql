@@ -44,15 +44,10 @@ print("The schema of the created database is:\n" + schema)
 
 model = get_model()
 
-print("The aggregations and nested queries samples are:")
-agg_nested_tests = generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attributes)
-print("The len() of those tests is:", len(agg_nested_tests))
-print(generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attributes))
-
 # prompt inputs
 query_language = "Cypher"
 database_type = "Neo4J"
-query = "Tell me the name of the people who acted on 'The Matrix' movie"
+query = "where does Stephen Furst acts in?"
 
 # make a query to the model
 with get_openai_callback() as cb:
@@ -62,5 +57,5 @@ with get_openai_callback() as cb:
 
 # run the query in the database
 response = gc.make_query(formal_query)
-
+print(cb)
 print(response)

@@ -1,14 +1,14 @@
 # get a token: https://platform.openai.com/account/api-keys
 
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain.prompts import PromptTemplate
 from langchain import LLMChain
+from langchain import OpenAI
 
 
 def get_model():
     # template for the model
     template = """
-You are an agent capable of transforming natural language queries to queries in the query language {query_language}. Your task is: Given a database schema of type {database_type} and a query written in human natural language, return only the code to answer that query in the query language {query_language}. Remember to respect the sense of the relations.
+You are an agent capable of transforming natural language queries to queries in the query language {query_language}. Your task is: Given a database schema of type {database_type} and a query written in human natural language, return only the code to answer that query in the query language {query_language} and respect the relations directions.
 
 The database schema is: {schema}
 
@@ -19,10 +19,10 @@ The code in the query language {query_language} is:
 """.strip()
 
     # Init prompt template
-    prompt = ChatPromptTemplate.from_template(template=template)
+    prompt = PromptTemplate(template=template, input_variables=["query_language", "database_type", "schema", "query"])
 
     # Init llm
-    llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3)
+    llm = OpenAI(temperature=0.9)
 
     # Init chain
     llm_chain = LLMChain(prompt=prompt, llm=llm)
