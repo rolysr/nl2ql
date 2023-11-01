@@ -7,7 +7,8 @@ class DBSeeder:
         self.metaqa_kb = metaqa_kb
         self.db_base_file_path = db_base_file_path
 
-    def seed_db(self):
+    def seed_db(self, is_classic_metaqa=False):
+            self.is_classic_metaqa = is_classic_metaqa
             # Open the file for reading
             with open(self.db_base_file_path, 'r') as file:
                 # Iterate over each line in the file
@@ -50,21 +51,33 @@ class DBSeeder:
             self.metaqa_kb.graph.make_query(f"""MATCH (a:Movie {{name: '{entity1}'}}), (b:Actor {{name: '{entity2}'}}) CREATE (a)-[:{relation_type_upper}]->(b)""")
 
         elif relation_type == 'release_year':
-            if not self.metaqa_kb.entity_has_attribute(label='Movie', property_name='release_year', entity_name=entity1):
-                # If it doesn’t have a release_year attribute, add it
-                self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.release_year = {entity2}")
+            if self.is_classic_metaqa:
+                if not self.metaqa_kb.entity_exists(label='Year', property_name='name', property_value=entity2):
+                    self.metaqa_kb.graph.make_query(f"CREATE (:Year {{name: '{entity2}'}})")
+                relation_type_upper = relation_type.upper()
+                self.metaqa_kb.graph.make_query(f"""MATCH (a:Movie {{name: '{entity1}'}}), (b:Year {{name: '{entity2}'}}) CREATE (a)-[:{relation_type_upper}]->(b)""")
             else:
-                # If it already has a release_year attribute, update it
-                self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.release_year = {entity2}")
+                if not self.metaqa_kb.entity_has_attribute(label='Movie', property_name='release_year', entity_name=entity1):
+                    # If it doesn’t have a release_year attribute, add it
+                    self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.release_year = {entity2}")
+                else:
+                    # If it already has a release_year attribute, update it
+                    self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.release_year = {entity2}")
 
         elif relation_type == 'in_language':
-            # If the Movie entity already exists, check if it has a language attribute
-            if not self.metaqa_kb.entity_has_attribute(label='Movie', property_name='language', entity_name=entity1):
-                # If it doesn’t have a language attribute, add it
-                self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.language = '{entity2}'")
+            if self.is_classic_metaqa:
+                if not self.metaqa_kb.entity_exists(label='Language', property_name='name', property_value=entity2):
+                    self.metaqa_kb.graph.make_query(f"CREATE (:Language {{name: '{entity2}'}})")
+                relation_type_upper = relation_type.upper()
+                self.metaqa_kb.graph.make_query(f"""MATCH (a:Movie {{name: '{entity1}'}}), (b:Language {{name: '{entity2}'}}) CREATE (a)-[:{relation_type_upper}]->(b)""")
             else:
-                # If it already has a language attribute, update it
-                self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.language = '{entity2}'")
+                # If the Movie entity already exists, check if it has a language attribute
+                if not self.metaqa_kb.entity_has_attribute(label='Movie', property_name='language', entity_name=entity1):
+                    # If it doesn’t have a language attribute, add it
+                    self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.language = '{entity2}'")
+                else:
+                    # If it already has a language attribute, update it
+                    self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.language = '{entity2}'")
 
         elif relation_type == 'has_tags':
             if not self.metaqa_kb.entity_exists(label='Tag', property_name='name', property_value=entity2):
@@ -79,22 +92,34 @@ class DBSeeder:
             self.metaqa_kb.graph.make_query(f"""MATCH (a:Movie {{name: '{entity1}'}}), (b:Genre {{name: '{entity2}'}}) CREATE (a)-[:{relation_type_upper}]->(b)""")
 
         elif relation_type == 'has_imdb_votes':
-            # If the Movie entity already exists, check if it has a language attribute
-            if not self.metaqa_kb.entity_has_attribute(label='Movie', property_name='imdb_votes', entity_name=entity1):
-                # If it doesn’t have a language attribute, add it
-                self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.imdb_votes = '{entity2}'")
+            if self.is_classic_metaqa:
+                if not self.metaqa_kb.entity_exists(label='Votes', property_name='name', property_value=entity2):
+                    self.metaqa_kb.graph.make_query(f"CREATE (:Votes {{name: '{entity2}'}})")
+                relation_type_upper = relation_type.upper()
+                self.metaqa_kb.graph.make_query(f"""MATCH (a:Movie {{name: '{entity1}'}}), (b:Votes {{name: '{entity2}'}}) CREATE (a)-[:{relation_type_upper}]->(b)""")
             else:
-                # If it already has a language attribute, update it
-                self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.imdb_votes = '{entity2}'")
+                # If the Movie entity already exists, check if it has a language attribute
+                if not self.metaqa_kb.entity_has_attribute(label='Movie', property_name='imdb_votes', entity_name=entity1):
+                    # If it doesn’t have a language attribute, add it
+                    self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.imdb_votes = '{entity2}'")
+                else:
+                    # If it already has a language attribute, update it
+                    self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.imdb_votes = '{entity2}'")
 
         elif relation_type == 'has_imdb_rating':
-            # If the Movie entity already exists, check if it has a language attribute
-            if not self.metaqa_kb.entity_has_attribute(label='Movie', property_name='imdb_rating', entity_name=entity1):
-                # If it doesn’t have a language attribute, add it
-                self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.imdb_rating = '{entity2}'")
+            if self.is_classic_metaqa:
+                if not self.metaqa_kb.entity_exists(label='Rating', property_name='name', property_value=entity2):
+                    self.metaqa_kb.graph.make_query(f"CREATE (:Rating {{name: '{entity2}'}})")
+                relation_type_upper = relation_type.upper()
+                self.metaqa_kb.graph.make_query(f"""MATCH (a:Movie {{name: '{entity1}'}}), (b:Rating {{name: '{entity2}'}}) CREATE (a)-[:{relation_type_upper}]->(b)""")
             else:
-                # If it already has a language attribute, update it
-                self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.imdb_rating = '{entity2}'")
+                # If the Movie entity already exists, check if it has a language attribute
+                if not self.metaqa_kb.entity_has_attribute(label='Movie', property_name='imdb_rating', entity_name=entity1):
+                    # If it doesn’t have a language attribute, add it
+                    self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.imdb_rating = '{entity2}'")
+                else:
+                    # If it already has a language attribute, update it
+                    self.metaqa_kb.graph.make_query(f"MATCH (a:Movie {{name: '{entity1}'}}) SET a.imdb_rating = '{entity2}'")
 
         else:
             pass

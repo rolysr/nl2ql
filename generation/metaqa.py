@@ -79,7 +79,6 @@ def generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attribu
                     template_pairs.append(generate_conditional_min_template(label, prop[0], condition_prop, condition_value))
                     template_pairs.append(generate_conditional_avg_template(label, prop[0], condition_prop, condition_value))
     
-    
     for rel_type in relations:
         for rel in relations[rel_type]:
             # Generate relationship COUNT templates
@@ -91,20 +90,28 @@ def generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attribu
     
     return template_pairs
 
-def generate_metaqa_tests(tests_path: str, entities, relations, attributes):
+def generate_metaqa_tests(tests_path: str, entities, relations, attributes, is_classic_metaqa=False):
     test_cases = []
     
     # Open the file in read mode and load the JSON
     with open(tests_path, 'r') as file:
-        data = json.load(file)
+        if is_classic_metaqa:
+            lines = file.readlines()
+            for line in lines:
+                parts = line.strip().split('\t')
+                if len(parts) == 2:
+                    question, answer = parts
+                    test_cases.append((question, answer))
+        else:
+            data = json.load(file)
 
-        # Now, take all default MetaQA test cases.
-        for item in data:
-            question_text = item['question'].replace("'", "")
-            test_cases.append((question_text, item['LF']))
+            # Now, take all default MetaQA test cases.
+            for item in data:
+                question_text = item['question'].replace("'", "")
+                test_cases.append((question_text, item['LF']))
 
-        # Add the tests created for Aggregation Functions and Nested Queries
-        agg_nested_queries_metaqa = generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attributes)
-        test_cases = test_cases + agg_nested_queries_metaqa
+            # Add the tests created for Aggregation Functions and Nested Queries
+            agg_nested_queries_metaqa = generate_template_pairs_agg_nested_tests_metaqa(entities, relations, attributes)
+            test_cases = test_cases + agg_nested_queries_metaqa
 
     return test_cases
