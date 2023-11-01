@@ -1,0 +1,61 @@
+,query,target_query,generated_query
+0,what movies can be described with mississippi,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""mississippi"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name CONTAINS ""mississippi""
+RETURN m.name"
+1,which films can be described by lee tamahori,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""lee tamahori"" RETURN DISTINCT n2.name",MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'lee tamahori'}) RETURN m
+2,which movies are about jules bass,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""jules bass"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:WRITTEN_BY]->(:Writer {name: 'Jules Bass'})
+RETURN m"
+3,what movies can be described by astronauts,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""astronauts"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'astronauts'
+RETURN m.name"
+4,which films are about katharine hepburn,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""katharine hepburn"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(:Tag {name: ""katharine hepburn""})
+RETURN m.name"
+5,what movies are about colin firth,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""colin firth"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(:Tag {name: 'colin firth'})
+RETURN m.name"
+6,which movies are about titanic,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""titanic"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'titanic'
+RETURN m.name"
+7,what films are about bela lugosi,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""bela lugosi"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'bela lugosi'
+RETURN m.name AS film"
+8,which films can be described by peter chan,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""peter chan"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:DIRECTED_BY]->(:Director {name: ""Peter Chan""})
+RETURN m"
+9,which movies are about giuseppe tornatore,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""giuseppe tornatore"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag {name: ""giuseppe tornatore""})
+RETURN m.name"
+10,which movies can be described by united nations,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""united nations"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag {name: 'united nations'})
+RETURN m.name"
+11,what movies can be described by realism,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""realism"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'realism'
+RETURN m.name AS movie_name"
+12,which movies are about renny harlin,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""renny harlin"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag {name: 'renny harlin'})
+RETURN m"
+13,which movies are about sam katzman,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""sam katzman"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'sam katzman'
+RETURN m.name"
+14,what films are about wes craven,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""wes craven"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'wes craven'
+RETURN m.name as Film"
+15,what movies are about monty python,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""monty python"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'monty python'
+RETURN m.name"
+16,which movies are about h.c. potter,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""h.c. potter"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre)
+WHERE m.name = ""h.c. potter""
+RETURN m.name"
+17,which movies can be described by claude berri,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""claude berri"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'claude berri'})
+RETURN m"
+18,what movies can be described with bollywood,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""bollywood"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag {name: ""bollywood""})
+RETURN m"
+19,which movies are about white house,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""white house"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'white house'
+RETURN m.name"
+20,what movies can be described with michigan,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""michigan"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) 
+WHERE t.name = ""michigan""
+RETURN m.name"
+21,which films can be described by angel,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""angel"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'angel'
+RETURN m.name"
+22,which films can be described by neill blomkamp,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""neill blomkamp"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'neill blomkamp'})
+RETURN m"
+23,which movies can be described by international,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""international"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'international'
+RETURN m.name"

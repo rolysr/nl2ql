@@ -41,7 +41,9 @@ schema = schema_maker.compute_schema_description(
 # Print DB Schema
 print("The schema of the created database is:\n" + schema)
 
-model = get_model()
+model_name = "gpt-3.5-turbo"
+model_type = "chat"
+model = get_model(model_type, model_name)
 
 # prompt inputs
 query_language = "Cypher"

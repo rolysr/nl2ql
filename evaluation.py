@@ -60,8 +60,9 @@ wrong_responses = []
 experiment_total_cost = 0
 
 # get the model
-model = get_model()
-model_name = "gpt3"
+model_name = "gpt-3.5-turbo"
+model_type = "chat"
+model = get_model(model_type, model_name)
 
 # update metrics for each test case
 test_index = 1

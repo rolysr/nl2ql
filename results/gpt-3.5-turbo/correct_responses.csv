@@ -1,0 +1,19 @@
+,query,target_query,generated_query
+0,what movies can be described with octopus,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""octopus"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'octopus'
+RETURN m.name"
+1,what movies can be described by shaquille oneal,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""shaquille o'neal"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor)
+WHERE a.name = 'shaquille oneal'
+RETURN m.name as movie_name"
+2,what films are about wales,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""wales"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'wales'
+RETURN m.name AS film"
+3,what movies are about salt lake city,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""salt lake city"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'salt lake city'
+RETURN m.name"
+4,what movies can be described by strippers,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""strippers"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'strippers'
+RETURN m.name"
+5,what movies are about overpopulation,"MATCH (n1)<-[:HAS_TAGS]-(n2) WHERE n1.name = ""overpopulation"" RETURN DISTINCT n2.name","MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'overpopulation'
+RETURN m.name"
