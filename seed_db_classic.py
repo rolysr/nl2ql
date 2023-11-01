@@ -14,8 +14,8 @@ load_dotenv()
 # Load environment variables
 print("Load environment variables")
 NEO4J_DB_URL = os.getenv('NEO4J_DB_URL_CLASSIC')
-NEO4J_DB_USER = os.getenv('NEO4J_DB_USER_CLASSIC')
-NEO4J_DB_PASSWORD = os.getenv('NEO4J_DB_PASSWORD_CLASSIC')
+NEO4J_DB_USER = os.getenv('NEO4J_DB_USER')
+NEO4J_DB_PASSWORD = os.getenv('NEO4J_DB_PASSWORD')
 KB_PATH = os.getenv('KB_PATH')
 
 # Init graph contractor instance to interact with Neo4J DB
