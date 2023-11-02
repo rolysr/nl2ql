@@ -4,7 +4,6 @@ from langchain.callbacks import get_openai_callback
 
 from query_utils import QueryUtils
 
-
 def put_results_on_files(hop_index, model_name, successful_compilations, correct_responses, unsuccessful_compilations, wrong_responses, number_of_tests, experiment_total_cost, end_time):
     number_of_successful_compilations = len(successful_compilations)
     number_of_correct_responses = len(correct_responses)
@@ -58,11 +57,11 @@ def put_results_on_files(hop_index, model_name, successful_compilations, correct
         "query", "target_query", "generated_query"]).to_csv(PATH_RESULTS_PREFIX + "/wrong_responses.csv")
 
 
-def update_metrics_tests(model, tests, query_language, database_type, schema, gc, successful_compilations, unsuccessful_compilations, correct_responses, wrong_responses):
+def update_metrics_tests(model, tests, query_language, database_type, schema, gc, successful_compilations, unsuccessful_compilations, correct_responses, wrong_responses, logger):
     test_index = 1
     experiment_total_cost = 0
     for test in tests:
-        print("Checking test: ", str(test_index))
+        #logger.info("Checking test: ", str(test_index))
         test_index += 1
 
         # get natural language query and target formal query
