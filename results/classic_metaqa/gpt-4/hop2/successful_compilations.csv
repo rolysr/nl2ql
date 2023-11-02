@@ -1,0 +1,8 @@
+,query,target_query,generated_query
+0,the films that share the directors with the film [Catch Me If You Can] were in which languages,German|Polish|Mende|Japanese,"MATCH (m:Movie {name: ""Catch Me If You Can""})-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(other:Movie)-[:IN_LANGUAGE]->(l:Language)
+RETURN DISTINCT l.name"
+1,which holds films for the director of [Written on the Wind],Sandra Dee|Charles Coburn|Cornel Wilde|John Gavin|Warren William|Susan Kohner|Joan Bennett|Fred MacMurray|Barbara Stanwyck|Don Ameche|Jane Wyman|Rochelle Hudson|Boris Karloff|Patricia Knight|Robert Cummings|Rock Hudson|Lucille Ball|Claudette Colbert|Lana Turner|George Sanders,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) 
+WHERE m.name = ""Written on the Wind"" 
+WITH d 
+MATCH (m2:Movie)-[:DIRECTED_BY]->(d) 
+RETURN m2.name"

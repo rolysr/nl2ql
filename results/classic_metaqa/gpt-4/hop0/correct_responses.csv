@@ -1,0 +1,4 @@
+,query,target_query,generated_query
+0,What does [Grégoire Colin] appear in,Before the Rain,MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Grégoire Colin'}) RETURN m.name
+1,[Joe Thomas] appeared in which films,The Inbetweeners Movie|The Inbetweeners 2,"MATCH (a:Actor {name: 'Joe Thomas'})<-[:STARRED_ACTORS]-(m:Movie) 
+RETURN m.name"

@@ -40,3 +40,12 @@ class QueryUtils:
         values1 = [data[list(data.keys())[0]] for data in result1]
         values2 = [data[list(data.keys())[0]] for data in result2]
         return values1 == values2
+    
+    @staticmethod
+    def equal_classic_query_results(result1, result2):
+        try:
+            values1 = {data[list(data.keys())[0]] for data in result1}
+            values2 = {data for data in result2.split('|')}
+        except:
+            return False
+        return values1 == values2

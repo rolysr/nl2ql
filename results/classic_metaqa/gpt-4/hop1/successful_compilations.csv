@@ -1,0 +1,3 @@
+,query,target_query,generated_query
+0,which person directed the movies starred by [John Krasinski],Nancy Meyers|Sam Mendes|George Clooney|Ken Kwapis|Luke Greenfield,"MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor{name:'John Krasinski'}), (m)-[:DIRECTED_BY]->(d:Director) RETURN d.name"
+1,who are movie co-directors of [Delbert Mann],Franco Zeffirelli|Cary Fukunaga|Lewis Milestone|Robert Stevenson,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name:""Delbert Mann""}), (m)-[:DIRECTED_BY]->(co:Director) WHERE d<>co RETURN co.name"
