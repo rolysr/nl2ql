@@ -73,7 +73,7 @@ model = get_model(model_type, model_name)
 
 for i in range(len(tests)):
     logger.info("Analyzing hop{}".format(i+3))
-    hop_tests = tests[i][:10]
+    hop_tests = tests[i]
     # set metrics and evaluation sets
     number_of_tests = len(hop_tests)
     successful_compilations = []
