@@ -1,6 +1,10 @@
 ,query,target_query,generated_query
-0,which holds films for the director of [Written on the Wind],Sandra Dee|Charles Coburn|Cornel Wilde|John Gavin|Warren William|Susan Kohner|Joan Bennett|Fred MacMurray|Barbara Stanwyck|Don Ameche|Jane Wyman|Rochelle Hudson|Boris Karloff|Patricia Knight|Robert Cummings|Rock Hudson|Lucille Ball|Claudette Colbert|Lana Turner|George Sanders,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) 
-WHERE m.name = ""Written on the Wind"" 
-WITH d 
-MATCH (m2:Movie)-[:DIRECTED_BY]->(d) 
+0,which holds films for the director of [Written on the Wind],Sandra Dee|Charles Coburn|Cornel Wilde|John Gavin|Warren William|Susan Kohner|Joan Bennett|Fred MacMurray|Barbara Stanwyck|Don Ameche|Jane Wyman|Rochelle Hudson|Boris Karloff|Patricia Knight|Robert Cummings|Rock Hudson|Lucille Ball|Claudette Colbert|Lana Turner|George Sanders,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = ""Written on the Wind"" 
+RETURN d.name as director, collect(m.name) as movies"
+1,who is listed as director of the films starred by [The Inner Circle] actors,John Landis|Atom Egoyan|Gary Trousdale|Steven Spielberg|Louis Leterrier|Alan Alda|Nora Ephron|Wolfgang Petersen|Allen Coulter|Richard Benjamin|Orson Welles|Neil Jordan|William Dieterle|Stephen Frears|Peter Yates|Markus Schleinzer|Wayne Wang|Jean Delannoy|Robert Zemeckis|Guy Jenkin|Christopher Hampton|Jack Clayton|Rocky Morton|Annabel Jankel|Mike Hodges|Kirk Wise|Ellen Perry|John Byrum|Abel Ferrara|Robert M. Young,"MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: ""The Inner Circle""}), (m)-[:DIRECTED_BY]->(d:Director)
+RETURN d.name"
+2,which are the directors of the films written by the writer of [She] ,Gary Nelson,"MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'She'}), (m)-[:DIRECTED_BY]->(d:Director)
+RETURN d.name"
+3,which runs films for the writer of [The Broken Circle Breakdown],Felix van Groeningen,"MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE m.name = ""The Broken Circle Breakdown"" 
+MATCH (m2:Movie)-[:WRITTEN_BY]->(w)
 RETURN m2.name"

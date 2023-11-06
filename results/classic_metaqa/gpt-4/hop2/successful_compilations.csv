@@ -1,8 +1,24 @@
 ,query,target_query,generated_query
-0,the films that share the directors with the film [Catch Me If You Can] were in which languages,German|Polish|Mende|Japanese,"MATCH (m:Movie {name: ""Catch Me If You Can""})-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(other:Movie)-[:IN_LANGUAGE]->(l:Language)
+0,the films that share the directors with the film [Catch Me If You Can] were in which languages,German|Polish|Mende|Japanese,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(m2:Movie)-[:IN_LANGUAGE]->(l:Language)
+WHERE m.name = ""Catch Me If You Can""
 RETURN DISTINCT l.name"
-1,which holds films for the director of [Written on the Wind],Sandra Dee|Charles Coburn|Cornel Wilde|John Gavin|Warren William|Susan Kohner|Joan Bennett|Fred MacMurray|Barbara Stanwyck|Don Ameche|Jane Wyman|Rochelle Hudson|Boris Karloff|Patricia Knight|Robert Cummings|Rock Hudson|Lucille Ball|Claudette Colbert|Lana Turner|George Sanders,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) 
-WHERE m.name = ""Written on the Wind"" 
-WITH d 
-MATCH (m2:Movie)-[:DIRECTED_BY]->(d) 
+1,which holds films for the director of [Written on the Wind],Sandra Dee|Charles Coburn|Cornel Wilde|John Gavin|Warren William|Susan Kohner|Joan Bennett|Fred MacMurray|Barbara Stanwyck|Don Ameche|Jane Wyman|Rochelle Hudson|Boris Karloff|Patricia Knight|Robert Cummings|Rock Hudson|Lucille Ball|Claudette Colbert|Lana Turner|George Sanders,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = ""Written on the Wind"" 
+RETURN d.name as director, collect(m.name) as movies"
+2,the films that share actors with the film [Creepshow] were in which languages,Polish|English,"MATCH (m:Movie {name: ""Creepshow""})-[:STARRED_ACTORS]->(a:Actor)<-[:STARRED_ACTORS]-(m2:Movie)-[:IN_LANGUAGE]->(l:Language)
+RETURN DISTINCT l.name"
+3,what was the years of release of films that share writers with the film [Grown Ups 2],1995|1996|1999|1998|1989|2002|2000|2008|2011|2010,"MATCH (m:Movie {name: 'Grown Ups 2'})-[:WRITTEN_BY]->(w:Writer)<-[:WRITTEN_BY]-(m2:Movie)-[:RELEASE_YEAR]->(y:Year)
+RETURN y.name"
+4,who is listed as director of the films starred by [The Inner Circle] actors,John Landis|Atom Egoyan|Gary Trousdale|Steven Spielberg|Louis Leterrier|Alan Alda|Nora Ephron|Wolfgang Petersen|Allen Coulter|Richard Benjamin|Orson Welles|Neil Jordan|William Dieterle|Stephen Frears|Peter Yates|Markus Schleinzer|Wayne Wang|Jean Delannoy|Robert Zemeckis|Guy Jenkin|Christopher Hampton|Jack Clayton|Rocky Morton|Annabel Jankel|Mike Hodges|Kirk Wise|Ellen Perry|John Byrum|Abel Ferrara|Robert M. Young,"MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: ""The Inner Circle""}), (m)-[:DIRECTED_BY]->(d:Director)
+RETURN d.name"
+5,The films that share the film directors with the film [The Dance of Reality] were in what genres,Drama|Western,"MATCH (m:Movie {name: ""The Dance of Reality""})-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(otherMovies:Movie)-[:HAS_GENRE]->(g:Genre)
+RETURN DISTINCT g.name"
+6,What genres make films that share directors with [Scarlet Street] fall under,Crime|Drama|Fantasy|Animation|Western|War|Thriller,"MATCH (m:Movie{name:""Scarlet Street""})-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(m2:Movie)-[:HAS_GENRE]->(g:Genre)
+RETURN DISTINCT g.name"
+7,which are the directors of the films written by the writer of [She] ,Gary Nelson,"MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'She'}), (m)-[:DIRECTED_BY]->(d:Director)
+RETURN d.name"
+8,films that share actors with the film [Waxworks] were in which languages,Swedish|German|French|English,"MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor)<-[:STARRED_ACTORS]-(m2:Movie)-[:IN_LANGUAGE]->(l:Language)
+WHERE m.name = ""Waxworks""
+RETURN DISTINCT l.name"
+9,which runs films for the writer of [The Broken Circle Breakdown],Felix van Groeningen,"MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE m.name = ""The Broken Circle Breakdown"" 
+MATCH (m2:Movie)-[:WRITTEN_BY]->(w)
 RETURN m2.name"

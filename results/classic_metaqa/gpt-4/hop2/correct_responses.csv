@@ -1,3 +1,15 @@
 ,query,target_query,generated_query
-0,the films that share the directors with the film [Catch Me If You Can] were in which languages,German|Polish|Mende|Japanese,"MATCH (m:Movie {name: ""Catch Me If You Can""})-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(other:Movie)-[:IN_LANGUAGE]->(l:Language)
+0,the films that share the directors with the film [Catch Me If You Can] were in which languages,German|Polish|Mende|Japanese,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(m2:Movie)-[:IN_LANGUAGE]->(l:Language)
+WHERE m.name = ""Catch Me If You Can""
+RETURN DISTINCT l.name"
+1,the films that share actors with the film [Creepshow] were in which languages,Polish|English,"MATCH (m:Movie {name: ""Creepshow""})-[:STARRED_ACTORS]->(a:Actor)<-[:STARRED_ACTORS]-(m2:Movie)-[:IN_LANGUAGE]->(l:Language)
+RETURN DISTINCT l.name"
+2,what was the years of release of films that share writers with the film [Grown Ups 2],1995|1996|1999|1998|1989|2002|2000|2008|2011|2010,"MATCH (m:Movie {name: 'Grown Ups 2'})-[:WRITTEN_BY]->(w:Writer)<-[:WRITTEN_BY]-(m2:Movie)-[:RELEASE_YEAR]->(y:Year)
+RETURN y.name"
+3,The films that share the film directors with the film [The Dance of Reality] were in what genres,Drama|Western,"MATCH (m:Movie {name: ""The Dance of Reality""})-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(otherMovies:Movie)-[:HAS_GENRE]->(g:Genre)
+RETURN DISTINCT g.name"
+4,What genres make films that share directors with [Scarlet Street] fall under,Crime|Drama|Fantasy|Animation|Western|War|Thriller,"MATCH (m:Movie{name:""Scarlet Street""})-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(m2:Movie)-[:HAS_GENRE]->(g:Genre)
+RETURN DISTINCT g.name"
+5,films that share actors with the film [Waxworks] were in which languages,Swedish|German|French|English,"MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor)<-[:STARRED_ACTORS]-(m2:Movie)-[:IN_LANGUAGE]->(l:Language)
+WHERE m.name = ""Waxworks""
 RETURN DISTINCT l.name"
