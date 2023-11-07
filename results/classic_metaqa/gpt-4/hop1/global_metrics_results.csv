@@ -1,2 +1,2 @@
 ,number_of_tests,number_of_successful_compilations,number_of_correct_responses,successful_compilations_avg,correct_responses_avg,experiment_total_cost,time_elapsed_in_seconds
-0,2,2,2,100.0,100.0,0.029490000000000002,14.738362789154053
+0,14872,14872,6462,100.0,43.450779989241525,220.66001999999358,79240.58145046234
