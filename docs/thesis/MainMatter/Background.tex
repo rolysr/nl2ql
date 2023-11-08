@@ -12,13 +12,72 @@ A medida que avanzaba la investigación en NLIDB, hubo un cambio hacia la indepe
 
 Para el caso específico de NLIDB con respecto a BDOGs inicialmente se desarrollaron trabajos enfocados en técnicas similares a las empleadas para \textit{SQL} \cite{adrainbazaga2021} \cite{hainsetal2019}, donde se realizaba un preprocesamiento en la consulta dada, se aprovechaba la información ofrecida por el esquema \cite{dbschema} de la base de datos a consultar y finalmente dicho conocimiento era utilizado por un modelo de aprendizaje profundo entrenado sobre un conjunto de pares de lenguaje natural y lenguaje de consulta formal como por ejemplo \textit{Cypher}.
 
-Recientemente, los trabajos orientados a esta área de estudio han estado enfocados en dos metodologías principales:
+Recientemente, los trabajos orientados a esta área de estudio han estado enfocados en dos metodologías principales que serán tratadas en las secciones \ref{neurosymbolic_approach} y \ref{llm_approach}:
 \begin{enumerate}
 	\item Enfoques neurosimbólicos basados en representación intermedia de la consulta dada en lenguaje natural.
 	\item Enfoques basados en técnicas de \textit{prompt engineering} mediante LLMs.
 \end{enumerate}
 
-\section{Enfoques neurosimbólicos basados en representación intermedia (IR, por sus siglas en inglés) de la consulta dada en lenguaje natural} \label{neurosymbolic_approach}
+\section{Preliminares} \label{prelude}
+
+\subsection{Bases de Datos \textit{Neo4J}} \label{neo4jdbs}
+El sistema \textit{Neo4J} emerge como una plataforma de base de datos de grafos preeminente, distinguiéndose por su capacidad para manejar datos interconectados con una eficiencia y flexibilidad notables \cite{robinsonwebbereifrem2015}. Este sistema gestiona las relaciones entre los datos con una estructura nodal y de aristas, lo que permite una representación más natural de las interconexiones inherentes a muchos conjuntos de datos \cite{millerandrodriguez2013}.
+
+La potencia de \textit{Neo4J} reside en su lenguaje de consulta, \textit{Cypher}, que permite expresar consultas sobre grafos de manera declarativa. \textit{Cypher} es específicamente diseñado para ser intuitivo y potente, proporcionando comandos que facilitan la realización de patrones de búsqueda complejos y análisis de relaciones en una forma compacta y legible \cite{neo4jdocs2022}.
+
+En términos de rendimiento,  \textit{Neo4J} está diseñado para maximizar la velocidad y eficiencia en la recuperación y manejo de datos relacionales. Utiliza índices basados en árboles B+ y algoritmos de ruta como el de Dijkstra y A* para búsquedas optimizadas en el grafo \cite{nagarajan2017}. Además, la integridad de los datos se garantiza mediante propiedades transaccionales ACID \cite{acidtransactions}, que son fundamentales en aplicaciones críticas de negocio \cite{vukoticabedrabboandpartner2014}.
+
+La escalabilidad de  \textit{Neo4J} es una de sus características más destacables, con soporte para configuraciones en clúster que permiten la replicación de datos y la tolerancia a fallos, asegurando la disponibilidad y la escalabilidad horizontal \cite{hunter2017}. Esto es esencial para aplicaciones que requieren un rendimiento consistente bajo cargas de trabajo de lectura y escritura intensivas.
+
+La versatilidad de integración de Neo4j también merece ser subrayada. Su compatibilidad con API REST, diversos lenguajes de programación y frameworks de desarrollo facilita su adopción en arquitecturas de software existentes \cite{neo4jdocs2022}. Esto se complementa con una comunidad activa y recursos extensos para desarrolladores, lo que promueve una continua innovación y adopción en la industria \cite{partnerandfaircloth2019}.
+
+\begin{figure}[H]\label{neo4jdb}
+	\centering
+	\includegraphics[width = 0.9\textwidth]{./Graphics/neo4j}
+	\caption{Ejemplo de representación de información en una base de datos \textit{Neo4J}. Nótese la estructura de nodos para representar información de entidades y de aristas que corresponden a relaciones entre estas.}
+\end{figure} 
+
+\subsection{Lenguaje \textit{Cypher}} \label{cypher_language}
+
+El lenguaje de consulta utilizado en \textit{Neo4J} es \textit{Cypher}, un lenguaje declarativo centrado en el "qué" en lugar del "cómo" cuando se trata de recuperar datos. Esta naturaleza permite a los usuarios especificar patrones en los grafos sin requerir que ellos describan los algoritmos o pasos lógicos para encontrar esos patrones \cite{neo4jdocs2022}. A continuación se mencionan algunos aspectos relevantes de este lenguaje de consulta formal y cómo facilitan la interacción con bases de datos de grafos como \textit{Neo4J}.
+
+\begin{enumerate}
+
+\item \textbf{Patrones de coincidencia (Pattern Matching)}:
+Cypher utiliza una sintaxis que se asemeja a los diagramas de entidad-relación ASCII para patrones de coincidencia, lo que facilita la representación visual de la estructura del grafo en el propio código \cite{rodriguez2015}. Su sintaxis intuitiva hace que la comprensión y escritura de consultas sea más accesible, especialmente para usuarios nuevos en el manejo de bases de datos de grafos. Por ejemplo, para encontrar a un usuario y sus amigos en \textit{Neo4J}, podríamos escribir una consulta como:
+\begin{center}
+\begin{lstlisting}[language=sql, caption=Ejemplo de código \textit{Cypher}]
+MATCH (user:Person)-[:FRIEND]->(friend) RETURN user, friend
+\end{lstlisting}
+\end{center}
+
+\item \textbf{Filtrado y condiciones}: \textit{Cypher} permite incorporar condiciones dentro de los patrones de coincidencia o en cláusulas \texttt{WHERE} para filtrar resultados. Esto se asemeja al uso de \texttt{WHERE} en \textit{SQL} pero está optimizado para trabajar con las conexiones entre nodos \cite{webber2012}.
+
+\item \textbf{Agregación de datos}: \textit{Cypher} proporciona funciones de agregación, como \texttt{COUNT}, \texttt{SUM}, \texttt{AVG}, \texttt{MAX} y texttt{MIN}, que permiten realizar cálculos sobre grupos de datos. Estas funciones son esenciales para resumir información sobre los datos conectados \cite{neo4jdocs2022}.
+
+\item \textbf{Modificación de grafos}: Además de recuperar datos, \textit{Cypher} puede ser utilizado para crear, actualizar y eliminar nodos y relaciones. Esto incluye la capacidad de manejar transacciones y asegurar la integridad de los datos \cite{vukotic2014}.
+
+\item \textbf{Optimización de consultas}: \textit{Cypher} está diseñado para optimizar las consultas de grafos de forma automática. El planificador de consultas de \textit{Neo4J} reorganiza y optimiza las operaciones de consulta para una ejecución eficiente, lo que abstrae una capa de complejidad para los desarrolladores \cite{neo4jdocs2022}.
+
+\item \textbf{Extensibilidad}: \textit{Cypher} es extensible, lo que significa que se pueden crear funciones definidas por el usuario y procedimientos almacenados que se pueden invocar dentro de las consultas. Esto permite personalizar y ampliar la funcionalidad del lenguaje para satisfacer necesidades específicas \cite{nadkarni2017}.
+
+\item \textbf{Interoperabilidad}: A través de su protocolo \textit{Bolt} y la API REST, \textit{Cypher} puede ser utilizado desde una variedad de lenguajes de programación y entornos, permitiendo que sistemas externos interactúen con \textit{Neo4J} \cite{partnerandfaircloth2019}.
+
+\end{enumerate}
+
+\subsection{Grandes modelos de Lenguaje y Generación de Lenguajes de Consulta Formales} \label{llms_prelude}
+
+Los Grandes Modelos de Lenguaje (LLMs) son una clase de modelos de procesamiento de lenguaje natural que han revolucionado la forma en que las computadoras comprenden y generan texto. Estos modelos se destacan por su capacidad para generar texto coherente y contextualmente relevante en función del contexto proporcionado. Esta habilidad es esencial cuando se trata de generar código de consulta en lenguajes formales como \textit{Cypher} o text{SQL} \cite{brownetal2020}.
+
+Una de las ventajas clave de los LLMs es su capacidad para traducir preguntas en lenguaje natural en consultas en lenguaje formal de manera automática. Esto significa que pueden tomar preguntas como \guillemotleft ¿Cuál es la población de Nueva York? \guillemotleft y convertirlas en consultas \textit{SQL} precisas, como \texttt{SELECT population FROM cities WHERE name = 'Nueva York'}. Esta traducción automática simplifica significativamente la interacción entre humanos y sistemas de bases de datos, ya que elimina la necesidad de que los usuarios aprendan el lenguaje formal \cite{mehrietal2019}.
+
+Otra característica destacada es la versatilidad de los LLMs en términos de lenguajes de consulta. No están limitados a un lenguaje específico; pueden generar consultas en varios lenguajes formales. Esto significa que pueden interactuar con diferentes sistemas de bases de datos que utilizan diferentes lenguajes de consulta, desde \textit{SQL} hasta \textit{Cypher} y \textit{SPARQL}, entre otros \cite{wangetal2021}.
+
+Los LLMs también demuestran un fuerte entendimiento de contextos complejos en sus respuestas. Pueden manejar preguntas que involucran múltiples condiciones, cláusulas \texttt{JOIN}, filtros y agregaciones en las consultas, lo que los hace aptos para abordar consultas complejas en bases de datos \cite{mehri2019}.
+
+Por último, estos modelos tienen la capacidad de inferir relaciones y estructuras de datos a partir del contexto proporcionado. Esto les permite generar consultas que exploran conexiones y patrones en los datos de una base de datos de manera inteligente, lo que es especialmente valioso en aplicaciones de análisis de datos y minería de información \cite{brownetal2020}.
+
+\section{Extracción de conocimiento mediante enfoques neurosimbólicos basados en representación intermedia (IR, por sus siglas en inglés) de la consulta dada en lenguaje natural} \label{neurosymbolic_approach}
 
 Con respecto a la recuperación de información de una base de conocimiento con este enfoque, mediante consultas hechas en lenguaje natural se han hecho varias investigaciones científicas que se pueden agrupar bajo el patrón de la Figura \ref{neurosym_approach}.
 
@@ -60,7 +119,7 @@ En la fase de Post-Procesamiento, se observan diversas enfoques en las investiga
 
 En la fase de construcción de la consulta, existen tres enfoques principales. El primero es un enfoque manual que implica la búsqueda y formateo de palabras clave como \textit{"where"} y \textit{"select"}, además del mapeo de atributos a tablas \cite{neurosymquery1}. Otra vía se centra en el uso de modelos, incluyendo decodificadores y en algunos casos redes neuronales convolucionales \cite{neurosymquery2}. También se emplea la construcción de la consulta formal mediante un compilador, especialmente cuando se ha utilizado un lenguaje intermedio entre el lenguaje natural y el formal de consulta\cite{neurosymquery3}.
 
-\section{Enfoques basados en técnicas de \textit{prompt engineering} mediante LLMs} \label{llm_approach}
+\section{Extracción de conocimiento mediante enfoques basados en técnicas de \textit{prompt engineering} mediante LLMs} \label{llm_approach}
 
 Con la creciente atención dada a los modelos de lenguaje a gran escala, estos se han convertido en un componente esencial en el procesamiento del lenguaje natural. A medida que aumenta el tamaño de los modelos preentrenados, también está cambiando gradualmente su uso. A diferencia de modelos como BERT \cite{devlinetal2018} y T5 \cite{raffeletal2020}, que requieren un proceso de entrenamiento con una pequeña cantidad de datos, modelos como GPT-3 \cite{brownetal2020} requieren un diseño de un texto de entrada para generar resultados deseados. El reciente modelo de \textit{ChatGPT} \cite{chatgpt}, que emplea Aprendizaje por Reforzamiento para la Retroalimentación Humana (RLHF) \cite{christianoetal2021}, simplifica el diseño de textos de entrada de calidad, lo que permite una mejor utilización de la capacidad de ZSL de modelos preentrenados a gran escala de manera conversacional. Debido a la sólida capacidad de dichos en la generación de código \cite{llmcodegenerationsample} y al hecho de que los modelos de generación de código suelen requerir una gran cantidad de datos anotados para producir buenos resultados \cite{codegenmodeldataamount}, un modelo de generación de código de ZSL se considera fundamental.
 
