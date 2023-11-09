@@ -99,6 +99,26 @@ Además, el modelo  \texttt{GPT-4} emplea técnicas de \textit{fine-tuning} y Ap
 
 En comparación con otros modelos como \texttt{PALM, Chinchilla, LaMDA, LLaMA} y \texttt{Gopher}, que también han evaluado sus habilidades de razonamiento,  \texttt{GPT-4} se destaca por su capacidad mejorada de aprendizaje zero-shot y por el uso de estrategias de prompting refinadas para mejorar aún más su rendimiento en tareas de razonamiento, lo que lo convierte en una elección prometedora para la generación de código \cite{}.
 
+\begin{figure}[H]\label{simplegpt4}
+	\centering
+	\includegraphics[width = 0.9\textwidth]{./Graphics/simplegpt4use}
+	\caption{Ejemplo básico sobré como utilizar \texttt{GPT-4} para traducir lenguaje natural en lenguaje de consulta \textit{Cypher}.}
+\end{figure}
+
 \subsection{Diseño de la información entrada al LLM} \label{prompt_design}
+
+Tal y como se mostró en la sección anterior, el uso de \texttt{GPT-4} para la tarea de traducción no resulta complicado, pues este es utilizado como una gran ``caja negra'' capaz de realizar operaciones que se le indiquen en un texto (\textit{prompt}) de entrada. Debido a esto, también es importante mencionar que no cualquier entrada es efectiva o suficiente para obtener el resultado esperado \cite{promtpengineeringeffectiveness}. Al proceso de diseñar una entrada de calidad para que el modelo realice una tarea específica exitosamente se denomida \textit{prompt engineering} \cite{promptengineering}. 
+
+Dado que la hipótesis central de este trabajo se basa en el uso del aprendizaje \textit{Zero-Shot} (ZSL), el texto de entrada al modelo \texttt{GPT-4} no puede contener ejemplos de cómo traducir una consulta en lenguaje humano a lenguaje \textit{Cypher}, es decir, no deberá reflejar contenido demostrativo de la tarea a realizar, lo cual se justifica por la misma definición del enfoque ZSL \ref{zeroshotlearning}. Además, como parte de la información de entrada al modelo para este tipo de tareas, es común añadir una descripción de la estructura de la base de datos a consultar \cite{samplepromptsnl2ql1} \cite{samplepromptsnl2ql2}, lo cual se conoce como esquema de la base de datos \cite{dbschema}. 
+
+Por lo mencionado anteriormente, el texto de entrada al modelo deberá contener:
+
+\begin{itemize}
+	\item \textbf{La tarea a ejecutar}: Se le describirá al modelo la tarea a realizar, mencionando los datos que recibirá de entrada y el formato en que se desea obtener la respuesta.
+	\item \textbf{Esquema de la base de datos}: Se especificará el contenido de la base de datos objetivo en forma de grafo, mencionando las entidades, relaciones y atributos presentes en la misma.
+	\item \textbf{Consulta en lenguaje natural}: En este caso, se añadirá la consulta en lenguaje natural humano a traducir.
+\end{itemize}
+
+Para la obtención del esquema de la base de datos de tipo \textit{Neo4J} se diseñó el componente \texttt{SchemaMaker}. Con el fin de elaborar la descripción de la estructura de la fuente de datos objetivo, este recibe los nombres de las entidades, las relaciones y los atributos presentes en la misma. Dicha información la obtiene auxiliándose del componente \texttt{GraphContractor} \ref{graph_contractor}, mediante el cual se realizan las consultas en lenguaje \textit{Cypher} pertinentes a la instancia de la fuente de datos \textit{Neo4J} en cuestión. A continuación se muestra un ejemplo del funcionamiento de la herramienta \texttt{SchemaMaker}:
 
 \subsection{Caso de estudio} \label{sample_case}
