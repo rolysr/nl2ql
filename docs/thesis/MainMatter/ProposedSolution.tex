@@ -8,7 +8,7 @@ Para cada vía de solución se deberá considerar el despliegue de un sistema de
 
 El enfoque de \textit{prompt engineering} a utilizar será ZSL, por lo tanto, los textos de entrada que se le darán al modelo para la generación de código \textit{Cypher} no contendrán ejemplos de pares de lenguaje natural con su correspondiente traducción al lenguaje de consulta objetivo. Por lo tanto, se tomarán algunas ideas experimentadas en el estado del arte para \textit{SQL} vistas en la sección \ref{}.
 
-\subsection{Definición del problema \textit{Text-to-Cypher}} \label{problem_definition}
+\section{Definición del problema \textit{Text-to-Cypher}} \label{problem_definition}
 Dentro del ámbito de las bases de datos y las consultas que las acceden, existe una tarea particularmente compleja: traducir preguntas formuladas en lenguaje natural a un lenguaje de consulta estructurado como \textit{Cypher}. Dada una pregunta $Q$, formulada en lenguaje cotidiano, y un esquema de base de datos $S$, el cual se compone a partir del tuplo ${N, A, R}$, donde encontramos múltiples nodos $N$ (que representan instancias de una entidad en la base de datos), atributos $C$ (tanto en nodos como en relaciones) y relaciones entre pares de nodos $R$. La problemática subyacente en el proceso de convertir \textit{Text-to-Cypher} se centra en generar una consulta en lenguaje \textit{Cypher} $Y$ que sea equivalente y responda adecuadamente a la pregunta inicial $Q$ realizada por un usuario humano.
 
 \subsection{LLM para resolver \textit{Text-to-Cypher}} \label{llmfortext2cypher}
@@ -21,6 +21,8 @@ $$P_M(Y|P, S, Q) = \prod_{i=1}^{|Y|}{P_M(Y_i | P, S, Q, Y < i)}$$ \label{llm_que
 Para simplificar, $Y< i$ se refiere al fragmento inicial o prefijo de la consulta \textit{Cypher} que se está construyendo. Mientras que $P_M(Yi|*)$ denota la probabilidad condicional asociada con la generación del i-ésimo token, considerando factores como el prefijo existente $Y<i$, la indicación $P$, el esquema $S$ y la pregunta original $Q$.
 
 Uno de los hallazgos más reveladores en el campo reciente es el concepto de aprendizaje en contexto (ICL, por sus siglas en inglés) \cite{icldefinition}, en el cual, grandes modelos de lenguaje pueden adaptarse y aprender de unos pocos ejemplos presentados en un contexto específico. Esta estrategia, defendida por varios investigadores \cite{sunetal2023} \cite{minetal2022} \cite{pourrezandrafiei2023}, ha mostrado que los LLMs pueden abordar y dominar una amplia variedad de tareas complejas con una cantidad limitada de datos. Sin embargo, hay un equilibrio que mantener: agregar más ejemplos conlleva un aumento en los costos, tanto en términos de mano de obra para preparar esos ejemplos como en términos de costos de procesamiento y tokens al interactuar con APIs avanzadas como la de OpenAI \cite{openaiapi}. En este estudio, el foco recae en trabajar eficientemente con indicaciones al modelo de lenguaje sin requerir ejemplos adicionales.
+
+\section{Enfoques considerados} \label{considered_approaches}
 
 \section{Propuesta de solución diseñada} \label{designed_proposal}
 
@@ -52,9 +54,39 @@ Una vez que el \texttt{GraphContractor} está conectado a la base de datos, es p
 
 En resumen, \texttt{GraphContractor} encapsula la complejidad de la gestión de la conexión a la base de datos y la ejecución de consultas, proporcionando una interfaz simplificada para interactuar con \textit{Neo4J}. Esto permite a los usuarios centrarse en la lógica de sus consultas y manejo de datos, en lugar de en los detalles subyacentes de la implementación de la base de datos.
 
+\subsection{Extracción de información de una base de datos \textit{Neo4J}} \label{knowledge_base}
+
+En el ámbito de la extracción de información de bases de datos orientadas a grafos, como \textit{Neo4J}, se ha desarrollado un componente denominado \texttt{KnowledgeBase}. Este componente actúa como una interfaz avanzada para la interacción con dichas bases de datos, aprovechando las capacidades del componente \texttt{GraphContractor}. La funcionalidad principal de \texttt{KnowledgeBase} radica en su habilidad para encapsular consultas predefinidas en el lenguaje \textit{Cypher}, el cual es específico para bases de datos \textit{Neo4J}.
+
+El diseño de \texttt{KnowledgeBase} tiene como objetivo principal facilitar la extracción de información de manera eficiente y transparente. Para lograr esto, utiliza consultas en \textit{Cypher} que están integradas dentro de sus funcionalidades. Estas consultas son ejecutadas a través de \texttt{GraphContractor}, proporcionando una capa de abstracción que simplifica las interacciones del usuario con la base de datos.
+
+Sus funcionalidades principales implementadas fueron:
+
+\begin{itemize}
+\item \textbf{Inicialización y Configuración}: El proceso de inicialización establece una conexión vital con la base de datos y prepara el componente para operaciones de consulta. Esto implica la integración con un sistema central que maneja las interacciones con la base de datos.
+
+\item \textbf{Verificación de Existencia de Entidades}: Una funcionalidad central permite verificar la presencia de entidades específicas en la base de datos. Se emplean etiquetas y propiedades para formular consultas que determinan la existencia de la entidad.
+
+\item \textbf{Comprobación de Atributos en Entidades}: Otra capacidad importante es determinar si una entidad posee un atributo específico. Esta función es clave para validar la integridad y completitud de los datos.
+
+\item \textbf{Extracción y Análisis de Entidades y Atributos}: La extracción de etiquetas de entidades provee una visión general de los tipos de datos almacenados. Adicionalmente, se realiza un análisis detallado de los atributos asociados con cada entidad y relación, incluyendo el tipo de dato y los rangos de valores.
+
+\item \textbf{Inferencia del Tipo de Dato}: La habilidad para identificar el tipo de dato de un valor proporcionado es esencial para el manejo adecuado de los datos, permitiendo realizar conversiones y validaciones de tipo cuando sea necesario.
+
+\item \textbf{Identificación de Claves y Atributos}: Se realizan operaciones para extraer claves de entidades y relaciones. Esto proporciona información detallada sobre los campos disponibles en diferentes tipos de nodos y enlaces.
+
+\item \textbf{Análisis de Relaciones entre Entidades}: Identificar y catalogar las relaciones entre distintas entidades es crucial para comprender las interacciones y conexiones dentro de la base de datos.
+\end{itemize}
+
+\begin{figure}[H]\label{dbseeder}
+	\centering
+	\includegraphics[width = 0.9\textwidth]{./Graphics/knowledgebase}
+	\caption{Flujo de funcionamiento del componente \texttt{KnowledgeBase}.}
+\end{figure}
+
 \subsection{Almacenamiento de información en una base de datos \textit{Neo4J}} \label{dbseeding}
 
-El componente \texttt{DBSeeder} es una herramienta diseñada para cargar datos en una base de datos de grafos. Su propósito es automatizar el proceso de toma de datos estructurados y su inserción en la base de datos, creando nodos y relaciones entre ellos según se define en los datos de entrada.
+El componente \texttt{DBSeeder} es una herramienta diseñada para cargar datos en una base de datos en forma de grafo. Su propósito es automatizar el proceso de toma de datos estructurados y su inserción en la base de datos, creando nodos y relaciones entre ellos según se define en los datos de entrada.
 
 Al inicializar esta herramienta, se le proporcionan dos piezas de información esenciales: un conjunto de conocimientos que describe la estructura de la base de datos y una ruta a un archivo que contiene los datos a ser sembrados en la base de datos. Estos datos de entrada son esenciales para guiar el proceso de sembrado.
 
@@ -115,10 +147,34 @@ Por lo mencionado anteriormente, el texto de entrada al modelo deberá contener:
 
 \begin{itemize}
 	\item \textbf{La tarea a ejecutar}: Se le describirá al modelo la tarea a realizar, mencionando los datos que recibirá de entrada y el formato en que se desea obtener la respuesta.
-	\item \textbf{Esquema de la base de datos}: Se especificará el contenido de la base de datos objetivo en forma de grafo, mencionando las entidades, relaciones y atributos presentes en la misma.
+	\item \textbf{Esquema de la base de datos}: Se especificará el contenido de la base de datos objetivo en forma de grafo, mencionando las entidades, relaciones (especificando si son en una sola o ambas direcciones entre un par de entidades) y atributos presentes en la misma (correspondientes tanto a las entidades como a las relaciones entre estas).
 	\item \textbf{Consulta en lenguaje natural}: En este caso, se añadirá la consulta en lenguaje natural humano a traducir.
 \end{itemize}
 
-Para la obtención del esquema de la base de datos de tipo \textit{Neo4J} se diseñó el componente \texttt{SchemaMaker}. Con el fin de elaborar la descripción de la estructura de la fuente de datos objetivo, este recibe los nombres de las entidades, las relaciones y los atributos presentes en la misma. Dicha información la obtiene auxiliándose del componente \texttt{GraphContractor} \ref{graph_contractor}, mediante el cual se realizan las consultas en lenguaje \textit{Cypher} pertinentes a la instancia de la fuente de datos \textit{Neo4J} en cuestión. A continuación se muestra un ejemplo del funcionamiento de la herramienta \texttt{SchemaMaker}:
+Para la obtención del esquema de la base de datos de tipo \textit{Neo4J} se diseñó el componente \texttt{SchemaMaker}. Con el fin de elaborar la descripción de la estructura de la fuente de datos objetivo, este recibe los nombres de las entidades, las relaciones y los atributos presentes en la misma. Dicha información la obtiene auxiliándose del componente \texttt{KnowlegdeBase} analizado en la sección \ref{knowledge_base}, mediante el cual se realizan las consultas en lenguaje \textit{Cypher} pertinentes a la instancia de la fuente de datos \textit{Neo4J} en cuestión. A continuación se muestra un ejemplo del funcionamiento de la herramienta \texttt{SchemaMaker}:
+
+\begin{figure}[H]\label{schemamaker}
+	\centering
+	\includegraphics[width = 0.9\textwidth]{./Graphics/schemamaker}
+	\caption{Ejemplo del proceso que se realiza para obtener un formato verbalizado de una base de datos \textit{Neo4J} con el uso del \texttt{SchemaMaker}.}
+\end{figure}
+
+Finalmente, el texto de entrada para el modelo a utilizar mencionado en la sección \ref{model_selection} se integraría de la siguiente manera al proceso de traducción de lenguaje natural a lenguaje \textit{Cypher}:
+
+\begin{figure}[H]\label{completeinoutgpt4}
+	\centering
+	\includegraphics[width = 1\textwidth]{./Graphics/inoutgpt4}
+	\caption{Flujo de entrada y salida en el proceso de traducción de lenguaje natural a código en \textit{Cypher}.}
+\end{figure}
+
+Tal y como se muestra en la imagen anterior, junto con la entrada de una consulta en lenguaje natural se elabora un texto de entrada al modelo utilizando además, el esquema de la base de datos \textit{Neo4J} a consultar, la cual como ya se mencionó en esta subsección, es producida por el \texttt{SchemaMaker}.
 
 \subsection{Caso de estudio} \label{sample_case}
+
+A partir de los contenidos abordados en esta sección, resulta importante mostrar la arquitectura general del sistema diseñado, así como el flujo de funcionamiento de la misma.
+
+\begin{figure}[H]\label{caseofstudy}
+	\centering
+	\includegraphics[width = 1.05\textwidth]{./Graphics/case_of_study}
+	\caption{Arquitectura y funcionamiento de la propuesta de solución.}
+\end{figure}
