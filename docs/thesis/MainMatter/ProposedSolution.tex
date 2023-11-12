@@ -24,6 +24,14 @@ Uno de los hallazgos más reveladores en el campo reciente es el concepto de apr
 
 \section{Enfoques considerados} \label{considered_approaches}
 
+El desarrollo de un sistema con un LLM (\textit{Large Language Model}) para hacer inferencias de \textit{Zero-Shot} y generar \textit{Cypher} implica varios enfoques y desafíos. A continuación, se detallan los enfoques considerados y las dificultades encontradas.
+
+Primero, se exploraron modelos de código abierto. El primer modelo probado fue \texttt{Alpaca Lora 7-B} \cite{alpacalora}. Sin embargo, la calidad de las inferencias no fue la adecuada. En algunos casos, las respuestas eran \textit{Cypher} no compilable con errores de sintaxis. En otros casos, el modelo generaba otro lenguaje de consulta que no era \textit{Cypher}, como por ejemplo \textit{SQL}. Posteriormente, se probó con \texttt{GPT4All} \cite{gpt4all} y con \texttt{Vicuna-7B} \cite{vicuna7b}, obteniendo resultados similares. Estos modelos, aunque útiles, no proporcionaban la precisión y la generación de \textit{Cypher} que se requería para el sistema.
+
+Además, se consideró la posibilidad de entrenar un propio modelo de lenguaje grande con muchos parámetros para tareas específicas. Este modelo podría ser capaz de generar \textit{Cypher} sin haber sido entrenado específicamente para eso. Sin embargo, esta opción fue descartada debido a la inviabilidad total. Entrenar un modelo de lenguaje grande requiere una gran cantidad de recursos de computación \cite{finetunellms}. Además, la tarea de entrenar un modelo para generar \textit{Cypher} sin haber sido entrenado específicamente para eso es extremadamente desafiante. Aunque técnicamente posible, requeriría una inversión significativa de tiempo y recursos, así como un conocimiento profundo de los modelos de lenguaje y el aprendizaje profundo.
+
+En resumen, el desarrollo de un sistema con un LLM para hacer inferencias de \textit{Zero-Shot} y generar \textit{Cypher} implica una serie de desafíos. Estos incluyen la elección del modelo correcto, la necesidad de entrenar el modelo para generar \textit{Cypher} específicamente, y la inversión significativa de recursos y tiempo. A pesar de estos desafíos, el uso de LLMs ofrece la promesa de generar \textit{Cypher} de manera eficiente y precisa, lo que puede ser de gran utilidad en una variedad de aplicaciones.
+
 \section{Propuesta de solución diseñada} \label{designed_proposal}
 
 En el desarrollo de sistemas de bases de datos, la interacción eficiente y la gestión de esquemas son fundamentales para la manipulación y el mantenimiento de datos. En este contexto, se ha desarrollado una arquitectura de software compuesta por varios componentes interconectados diseñados para interactuar con una base de datos de grafos, con especial atención en \textit{Neo4J}, un sistema de manejo de bases de datos basado en grafos.
@@ -173,8 +181,30 @@ Tal y como se muestra en la imagen anterior, junto con la entrada de una consult
 
 A partir de los contenidos abordados en esta sección, resulta importante mostrar la arquitectura general del sistema diseñado, así como el flujo de funcionamiento de la misma.
 
-\begin{figure}[H]\label{caseofstudy}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 1.05\textwidth]{./Graphics/case_of_study}
 	\caption{Arquitectura y funcionamiento de la propuesta de solución.}
-\end{figure}
+\end{figure}\label{fig:caseofstudy}
+
+Para una mejor comprensión de la figura \ref{fig:caseofstudy} se añadieron un conjunto de íncides que resaltan las distintas fases por las que pasa el sistema implementado. A continuación se enumeran y explican en qué consisten cada una de estas etapas:
+
+\begin{enumerate}
+
+\item \textbf{Paso 0}: Este representa el proceso mediante el cual se construye una instancia de una base de datos \textit{Neo4J}  a partir de un conjunto de ficheros de texto. Esta tarea se puede llevar a cabo mediante el componente \texttt{DBSeeder}, el cual puede programarse con funcionalidades específicas de acuerdo al formato de los ficheros iniciales y los datos que estos contienen. Como se mencionó en la sección \ref{dbseeder}, el componente \texttt{DBSeeder} se apoya del componete \texttt{GraphContractor} internamente para realizar peticiones a la base de datos con el objetivo de añadir nuevos registros de información, traduciendo la creación de entidades, relaciones y atributos en instrucciones de \textit{Cypher} ejecutadas sobre una base de datos \textit{Neo4J} objetivo.
+
+\item \textbf{Paso 1}: En esta fase, el componente \texttt{KnowledgeBase} extrae la información referente a las entidades, relaciones y atributos de una base de datos \textit{Neo4J} existente. Para ello, hace uso internamente de una instancia de un \texttt{GraphContractor} \ref{graph_contractor}.
+
+\item \textbf{Paso 2}: En este paso, se utiliza la herramienta \texttt{SchemaMaker} \ref{schemamaker}, el cual recibe la información de la base de datos procedente del componente \texttt{KnowledgeBase} y produce una descripción verbalizada y legible en lenguaje natural sobre la estructura de la instancia de \textit{Neo4J} objetivo.
+
+\item \textbf{Paso 3}: En este momento del proceso general, se recibe una consulta descrita en lenguaje natural humano sobre una solicitud de datos de la base de datos objetivo. Luego esta es utilizada junto con el esquema de la base de datos obtenido del \texttt{SchemaMaker}  para conformar un texto de entrada al modelo \texttt{GPT-4} con las características mencionadas en la sección \ref{prompt_design}.
+
+\item \textbf{Paso 4}: Una vez obtenido el texto de entrada para realizar una inferencia con el modelo \texttt{GPT-4}, se procede a hacer una ejecución de este, produciendo así como salida un texto que representa un código en lenguaje \textit{Cypher}.
+
+\item \textbf{Paso 5}: En esta etapa, se utiliza la salida del modelo \texttt{GPT-4} para ser ejecutada sobre la base de datos \textit{Neo4J} objetivo mediante la herramienta \texttt{KnowledgeBase}.
+
+\item \textbf{Paso 6}: Finalmente, se obtiene la respuesta procedente de la base de datos \textit{Neo4J} con la información solicitada.
+
+Con lo anteriormente explicado se expone un ejemplo de caso de uso donde se tienen como entradas al sistema una instancia de una base de datos \textit{Neo4J} y una consulta en lenguaje humano para obtener como salida final el conjunto de datos extraídos de dicha base de datos objetivo correspondientes a la solicitud textual dada sobre estos.
+
+\end{enumerate}
