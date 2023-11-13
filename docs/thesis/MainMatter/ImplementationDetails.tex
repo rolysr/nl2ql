@@ -1,1 +1,215 @@
 \chapter{Detalles de Implementación}\label{chapter: implementation}
+
+En este capítulo se exponen los detalles sobre la implementación de los componentes que intervinieron en el proyecto, resaltando los principales aspectos de programación tenidos en cuenta.
+
+El sistema implementado fue desarrollado con el \textit{IDE} \textit{VSCode} \cite{vscode}, el cual fue configurado para utilizar el lenguaje \textit{Python} (versión 3.9) \cite{python} y contar con las facilidades que esta herramienta ofrece para detectar errores de sintaxis y de dependencias en tiempo de compilación. Por otro lado, el sistema operativo utilizado para implementar el proyecto fue \textit{Ubuntu-22.04}, con el cual se facilitó el proceso de instalación de bibliotecas para el lenguaje de programación utilizado.
+
+En general, no se optó por utilizar una arquitectura de software específica, ya que el objetivo del proyecto se centra fundamentalmente en utilizar el sistema resultante para evaluar los experimentos orientados a responder la hipótesis de estudio y no en desarrollar una aplicación a ser llevada a producción para emplearse por usuarios humanos.
+
+\section{Despliegue de una instancia de una base de datos \textit{Neo4J}}
+
+Para desplegar una instancia de una base de datos en forma de grafo de tipo \textit{Neo4J} nos apoyamos en \textit{Docker} \cite{docker}, con el cual se desplegó un contenedor que pudiese ejecutar el sistema de gestión de \textit{Neo4J} y ser accesible ante peticiones de una aplicación mediante el protocolo \textit{Bolt} \cite{boltprotocol}.
+
+Una vez intalado \textit{Docker} se utilizó el siguiente comando:
+
+\begin{figure}[h]
+\begin{lstlisting}[language=bash]
+ docker run \
+--name testneo4j \
+-p 7474:7474 -p 7687:7687 \
+-d \
+-v $HOME/neo4j/data:/data \
+-v $HOME/neo4j/logs:/logs \
+-e NEO4J_AUTH=neo4j/testpassword \
+neo4j
+\end{lstlisting}
+\caption{Comando utilizado para desplegar una base de datos \textit{Neo4J}.}
+\end{figure}
+
+este comando ejecuta un contenedor Docker con la imagen de \textit{Neo4J}, expone los puertos 7474 y 7687, guarda los datos y los registros en el \textit{host}, y establece las credenciales de autenticación para la interfaz de usuario de \textit{Neo4J}:
+
+\begin{itemize}
+
+    \item \textbf{--name testneo4j}: Esto asigna el nombre testneo4j al contenedor que se está.
+
+   	\item \textbf{-p 7474:7474 -p 7687:7687}: Estas opciones mapean los puertos 7474 y 7687 del contenedor a los mismos puertos del \textit{host}. Esto permite acceder a los servicios que se ejecutan en estos puertos dentro del contenedor desde el \textit{host}.
+
+    \item \textbf{-d}: Esta opción hace que el contenedor se ejecute en segundo plano (modo \textit{detached}).
+
+    \item \textbf{-v $HOME/neo4j/data:/data -v $HOME/neo4j/logs:/logs}: Estas opciones montan los directorios $HOME/neo4j/data y $HOME/neo4j/logs del \textit{host} en los directorios \textit{/data} y \textit{/logs} del contenedor, respectivamente. Esto permite que los datos y los registros generados por el contenedor se guarden en el \textit{host}.
+
+    \item \textbf{-e NEO4J\_AUTH=neo4j/testpassword}: Esta opción establece la variable de entorno \texttt{NEO4J\_AUTH} en el contenedor con el valor \textit{neo4j/testpassword}. Esto se utiliza para configurar la autenticación en \textit{Neo4J}.
+
+    \item \textbf{neo4j}: Esta es la imagen de la que se está creando el contenedor. En este caso, se está utilizando la imagen oficial de \textit{Neo4J}.
+
+\end{itemize}
+
+\section{\texttt{GraphContractor}}
+
+Para la implementación del componente \texttt{GraphContractor} se diseñó una clase para interactuar con una instancia de base de datos \textit{Neo4J}. La clase hereda de la clase \texttt{Graph} del módulo \texttt{py2neo}, que proporciona una interfaz de alto nivel para interactuar con bases de datos \textit{Neo4J}.
+
+\begin{figure}[H]
+\begin{lstlisting}[language=python]
+class GraphContractor(Graph):
+    """
+        Graph Contractor class for interacting with a Neo4J DB instance
+    """
+
+    def __init__(self, url, name, password):
+        try:
+            self.graph = Graph(url, auth=(name, password))
+
+        except Exception as e:
+            print(e)
+            print('Error connecting to the database(Remember VPN)')
+
+    def make_query(self, query: str):
+        try:
+            return self.graph.run(query).data()
+        except BaseException as e:
+            print(e)
+            return str(e)
+\end{lstlisting}
+\caption{Implementación de la clase \texttt{GraphContractor}.}
+\end{figure}
+
+La clase GraphContractor tiene un método \texttt{\_\_init\_\_} que se utiliza para inicializar una nueva instancia de la clase. Este método toma tres argumentos: \texttt{url, name} y \texttt{password}, que se utilizan para establecer una conexión con la base de datos \textit{Neo4J}. Esta clase también tiene un método \texttt{make\_query} que se utiliza para ejecutar consultas en la base de datos \textit{Neo4J}. Este método toma una consulta en formato de cadena y la ejecuta en la base de datos.
+
+\section{\texttt{KnowledgeBase}}
+
+El componente \texttt{KnowledgeBase} fue implementado en una clase cuyo constructor recibe una instancia de una entidad de tipo \texttt{GraphContractor}:
+
+\begin{figure}[H]
+\begin{lstlisting}[language=python]
+class KnowledgeBase:
+	def __init__(self, graph: GraphContractor) -> None:
+        self.graph = graph
+
+    def entity_exists(self, label, property_name, property_value):
+    	...
+	def entity_has_attribute(self, label, property_name, entity_name):
+    	...
+
+	def compute_entities(self):
+        ent = self.graph.graph.run('CALL db.labels()')
+        entities = QueryUtils._unfold_graph_resp(ent)
+        return entities
+
+	def compute_attributes(self, entities, relations):
+		...
+	def compute_relations(self, entities):
+		...
+	def _infer_data_type(self, value):
+		...
+	def get_type_min_max_entity_attribute(self, entity, attribute_name):
+		...
+	def get_type_min_max_relation_attribute(self, relation, attribute_name):
+		...
+	def get_keys_of_label(self, label):
+		...
+	def get_keys_of_relation(self, relation):
+		...
+\end{lstlisting}
+\caption{Implementación de la clase \texttt{KnowledgeBase}.}
+\label{code:kbimage}
+\end{figure}
+
+Esta herramienta presenta un conjunto de métodos auxiliares para diversas tareas que impliquen la extracción de información de una base de datos, donde cada uno internamente utiliza la instancia del \texttt{GraphContractor} proporcionado. Por ejemplo, tal como se muestra en la figura \ref{code:kbimage}, para obtener el conjunto de entidades de la base de datos se ejecuta un código de \textit{Cypher} correspondiente sobre la instancia de \textit{Neo4J} a consultar.
+
+\section{\texttt{DBSeeder}}
+
+La clase \texttt{DBSeeder} en el código proporcionado en la figura \ref{code:dbseeder} se utiliza para poblar (\textit{seed}) una base de datos con información de una base de datos base y una base de conocimientos de tipo \textit{Neo4J}.
+
+\begin{figure}[H]
+\begin{lstlisting}[language=python]
+class DBSeeder:
+	def __init__(self, kb: KnowledgeBase, db_base_file_path: str) -> None:
+        self.kb = kb
+        self.db_base_file_path = db_base_file_path
+
+    def seed_db(self):
+		...
+	def create_entities_relations_attributes(self, entity1, relation_type, entity2):
+		...
+\end{lstlisting}
+\caption{Implementación de la clase \texttt{DBSeeder}.}
+\label{code:dbseeder}
+\end{figure}
+
+El método constructor \texttt{\_\_init\_\_} recibe dos argumentos: \texttt{kb}, que es una instancia de \texttt{KnowledgeBase}, y \texttt{db\_base\_file\_path}, que es la ruta del archivo de la base de datos base. Por otro lado, el método \texttt{seed\_db} se encarga de almacenar información en la base de datos objetivo. Este método abre el el conjunto de ficheros que contienen información de la base de datos para su lectura y luego itera sobre cada línea del archivo, llamando al método \texttt{create\_entities\_relations\_attributes}, el cual verifica si las entidades \texttt{entity1} y \texttt{entity2} existen en la base de datos. Si no existen, se crean. Luego, se crea una relación entre el par de entidades dadas y la relación especificada.
+
+
+\section{\texttt{SchemaMaker}}
+
+En la figura \ref{code:schemamaker} se muestra la implementación de la clase \texttt{SchemaMaker}, la cual tiene el método estático \texttt{compute\_schema\_description}. 
+
+\begin{figure}[H]
+\begin{lstlisting}[language=python]
+class SchemaMaker:    
+    @staticmethod
+    def compute_schema_description(entities, relations, attributes):
+        schema_description = ""
+        schema_description += f"Entities: {entities}\n"
+        for entity in entities:
+            entity_attrs = attributes[entity]
+            if len(entity_attrs) > 0:
+                schema_description += f"The entity named {entity} has the attributes: {[attr[0] for attr in entity_attrs]}\n"
+        for relation in relations:
+            for ent1, ent2, is_double_sense in relations[relation]: 
+                if is_double_sense:
+                    schema_description += f"There is a relation called {relation} between the entitites {ent1} and {ent2}. The relation {relation} can be used in both senses.\n"
+                    continue
+                schema_description += f"There is a directional relation called {relation} that has only direction from {ent1} to {ent2}.\n"
+            if len(attributes[relation]) > 0:
+                schema_description += f"The relation {relation} has attributes {attributes[relation]}\n"
+        return schema_description
+\end{lstlisting}
+\caption{Implementación de la clase \texttt{Schema Maker}.}
+\label{code:schemamaker}
+\end{figure}
+
+Dicho método toma tres argumentos: \texttt{entities}, \texttt{relations} y \texttt{attributes}, los cuales utiliza para generar una descripción del esquema de una base de datos. Este comienza inicializando una cadena vacía \texttt{schema\_description} y luego agrega información sobre las entidades y relaciones. Primero, agrega una línea que indica las entidades presentes en el esquema. Luego, para cada entidad, si tiene atributos, agrega una línea que indica los atributos de esa entidad. Después de manejar las entidades, el método pasa a las relaciones. Para cada relación, si es de doble sentido, agrega una línea que indica que existe una relación bidireccional entre las dos entidades involucradas. Si no es de doble sentido, agrega una línea que indica que existe una relación unidireccional desde la primera entidad a la segunda. Finalmente, si la relación tiene atributos, agrega una línea que indica los atributos de la relación.
+
+\section{\texttt{GPT-4}}
+
+Para implementar una estructura capaz de realizar inferencias a partir del model \texttt{GPT-4} se utilizó la biblioteca \textit{Langchain} y se definió una función \texttt{get\_model} que se utiliza para inicializar un modelo de lenguaje basado en el tipo de modelo especificado. Fue necesario además, el uso de una \texttt{API\_KEY} de \textit{OpenAI} con el objetivo de acceder a los modelos disponibles \cite{openaiapikey}.
+
+La función \texttt{get\_model} toma dos argumentos: \texttt{model\_type} y \texttt{model\_name}. La variable \texttt{model\_type} puede ser chat o cualquier otro tipo de modelo, y \texttt{model\_name} es el nombre del modelo específico que se va a utilizar. Para el caso específico de este trabajo el tipo de modelo fue chat y el nombre utilizado fue gpt-4.
+
+Primero, la función inicializa una plantilla de \textit{prompt} utilizando de acuerdo a si el modelo a utilizar es de tipo chat o generativo. La plantilla de \textit{prompt} se inicializa con un texto predefinido que describe la tarea del modelo y los marcadores de posición para el lenguaje de consulta, el tipo de base de datos, el esquema y la consulta. Luego, la función inicializa un modelo de lenguaje basado en \texttt{model\_type}. Ambos modelos se inicializan con un nombre de modelo y una temperatura. Finalmente, la función inicializa una instancia de un modelo capaz de hacer inferencias a partir de un texto de entrada predefinido con variables.
+
+\begin{figure}[H]
+\begin{lstlisting}[language=python]
+from langchain.prompts import PromptTemplate, ChatPromptTemplate
+from langchain.chat_models import ChatOpenAI
+from langchain import LLMChain
+from langchain import OpenAI
+
+# template for the model
+template = """
+You are an agent capable of transforming natural language queries to queries in the query language {query_language}. Your task is: Given a database schema of type {database_type} and a query written in human natural language, return only the code to answer that query in the query language {query_language} and respect the relations directions.
+
+The database schema is: {schema}
+
+The natural language query is: {query}
+
+The code in the query language {query_language} is:
+
+""".strip()
+
+def get_model(model_type, model_name):
+    # Init prompt template
+    prompt = ChatPromptTemplate.from_template(template=template) if model_type == "chat" else PromptTemplate(template=template, input_variables=[
+        "query_language", "database_type", "schema", "query"])
+    
+    # Init llm
+    llm = ChatOpenAI(model=model_name, temperature=0.7) if model_type == "chat" else OpenAI(temperature=0.7)
+
+    # Init chain
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+
+    return llm_chain
+\end{lstlisting}
+\caption{Implementación para utilizar el modelo \texttt{GPT-4}.}
+\label{code:schemamaker}
+\end{figure}

@@ -11,7 +11,6 @@
 \usepackage{braket}
 \setlength {\marginparwidth }{3cm}
 
-
 \usepackage[spanish]{babel}
 \usepackage{graphicx}
 
@@ -21,7 +20,6 @@
 \usepackage{multirow}
 \usepackage{ragged2e}
 \usepackage{multicol}
-\usepackage{listings}
 
 \floatstyle{ruled}
 \restylefloat{table}
@@ -31,7 +29,7 @@
 \definecolor{gray}{rgb}{0.2,0,0}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstset{language=Lisp,
+\lstset{language=sql,
 	aboveskip=10mm,
 	belowskip=10mm,
 	showstringspaces=false,
@@ -46,6 +44,9 @@
 	numbers=left, numberstyle=\tiny, stepnumber=1,firstnumber=1,
 	numbersep=5pt
 }
+
+\lstdefinelanguage{cypher}{
+ morekeywords={MATCH, RETURN}}
 
 \renewcommand{\tablename}{Tabla}
 \title{Enfoques Zero-Shot para la Extracción de Conocimiento a partir de Lenguaje Natural}
@@ -70,7 +71,6 @@
 \include{FrontMatter/SupervisorOpinion}
 \include{FrontMatter/Abstract}
 \include{FrontMatter/Contents}
-
 
 %\mainmatter
 	

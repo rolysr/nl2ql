@@ -45,11 +45,15 @@ El lenguaje de consulta utilizado en \textit{Neo4J} es \textit{Cypher}, un lengu
 
 \item \textbf{Patrones de coincidencia (Pattern Matching)}:
 Cypher utiliza una sintaxis que se asemeja a los diagramas de entidad-relación ASCII para patrones de coincidencia, lo que facilita la representación visual de la estructura del grafo en el propio código \cite{rodriguez2015}. Su sintaxis intuitiva hace que la comprensión y escritura de consultas sea más accesible, especialmente para usuarios nuevos en el manejo de bases de datos de grafos. Por ejemplo, para encontrar a un usuario y sus amigos en \textit{Neo4J}, podríamos escribir una consulta como:
+
+\begin{figure}[h]
 \begin{center}
-\begin{lstlisting}[language=sql, caption=Ejemplo de código \textit{Cypher}]
+\begin{lstlisting}[language=cypher]
 MATCH (user:Person)-[:FRIEND]->(friend) RETURN user, friend
 \end{lstlisting}
+\caption{Ejemplo de código \textit{Cypher}.}
 \end{center}
+\end{figure}
 
 \item \textbf{Filtrado y condiciones}: \textit{Cypher} permite incorporar condiciones dentro de los patrones de coincidencia o en cláusulas \texttt{WHERE} para filtrar resultados. Esto se asemeja al uso de \texttt{WHERE} en \textit{SQL} pero está optimizado para trabajar con las conexiones entre nodos \cite{webber2012}.
 
