@@ -189,7 +189,7 @@ A partir de los contenidos abordados en esta sección, resulta importante mostra
 
 Para una mejor comprensión de la figura \ref{fig:caseofstudy} se añadieron un conjunto de íncides que resaltan las distintas fases por las que pasa el sistema implementado. A continuación se enumeran y explican en qué consisten cada una de estas etapas:
 
-\begin{enumerate}
+\begin{enumerate} \label{pipeline_algorithm}
 
 \item \textbf{Paso 0}: Este representa el proceso mediante el cual se construye una instancia de una base de datos \textit{Neo4J}  a partir de un conjunto de ficheros de texto. Esta tarea se puede llevar a cabo mediante el componente \texttt{DBSeeder}, el cual puede programarse con funcionalidades específicas de acuerdo al formato de los ficheros iniciales y los datos que estos contienen. Como se mencionó en la sección \ref{dbseeder}, el componente \texttt{DBSeeder} se apoya del componete \texttt{GraphContractor} internamente para realizar peticiones a la base de datos con el objetivo de añadir nuevos registros de información, traduciendo la creación de entidades, relaciones y atributos en instrucciones de \textit{Cypher} ejecutadas sobre una base de datos \textit{Neo4J} objetivo.
 

@@ -1,9 +1,66 @@
 \chapter{Análisis Experimental}\label{chapter: experiment}
 
-\section{Enfoques considerados en la evaluación} \label{unused_approaches}
+En este capítulo se presentan los marcos experimentales utilizados para evaluar la efectividad del sistema propuesto en el capítulo \ref{chapter: proposedsolution} para la traducción de una consulta en lenguaje natural al lenguaje de consulta formal \textit{Cypher}. Cada enfoque utilizado consistió en el uso de un conjunto de tuplas que contenían común una consulta en lenguaje natural de ejemplo a traducir hacia un segundo elemento correspondiente con un objetivo a medir en la traducción.
 
-\subsection{Elaboración manual de consultas de prueba} \label{handmade_eval}
+Todos los experimentos fueron ejecutados en un servidor privado virtual (\textit{VPS}) con sistema operativo \textit{Ubuntu-20.04}, memoria \textit{RAM} de 16Gb, una \textit{CPU} AMD basada en la arquitectura \textit{x86\_64}, con 8 núcleos y una velocidad de 2649.998 MHz y con un ancho de banda de 16Mb/s para la comunicación con servicios como la \textit{API} de \textit{OpenAI}.
 
-\subsection{Generación de consultas de prueba sintéticas} \label{synthetic_eval}
+El primer sistema de evaluación fue sobre el \textit{benchmark MetaQA} \ref{classic_metaqa}, el cual constituye el principal conjunto de datos de evaluación para la tarea \textit{Text-to-Cypher} vista en la sección \ref{problem_definition}. En este caso se utilizó la versión clásica, donde los pares de evaluación consistían en una consulta en lenguaje natural con su correspondiente respuesta en la base de datos.
 
-\subsection{\textit{Benchmark} orientado a \textit{Cypher}} \label{bench_eval}
+\section{Evaluación sobre el \textit{benchmark} \textit{MetaQA} \cite{meta}} \label{classic_metaqa}
+\textit{MetaQA} \cite{metaqa} es un conjunto de datos diseñado para la tarea de razonamiento de múltiples pasos (\textit{multi-hop}) en respuesta a preguntas. Está compuesto por entidades, relaciones y preguntas en lenguaje natural relacionadas con películas. Cada nodo en el grafo de conocimientos representa una entidad (como una película, actor o director), y las aristas representan relaciones entre las entidades. El conjunto de datos también incluye preguntas a tres niveles de complejidad (\textit{1-hop,} \textit{2-hop} y \textit{3-hop}), con cada nivel requiriendo razonamiento sobre un número creciente de aristas en la base de datos en forma de grafos analizada para responder correctamente a las preguntas. A continuación se muestra un ejemplo de la distribución de dicho conjunto de datos:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|r|r|r|}
+\hline
+ & \textbf{1-hop} & \textbf{2-hop} & \textbf{3-hop} \\ \hline
+\textbf{Train} & 96,106 & 118,980 & 114,196 \\ \hline
+\textbf{Dev} & 9,992 & 14,872 & 14,274 \\ \hline
+\textbf{Test} & 9,947 & 14,872 & 14,274 \\ \hline
+\end{tabular}
+\caption{Distribución de los conjuntos de datos del \textit{benchmark MetaQA}.}
+\label{tab:metaqatable}
+\end{table}
+
+En este estudio solo se utilizarán los datos referentes a los conjuntos de evaluación (\texttt{Test}) para cada uno de los grupos especificados, ya que el modelo empleado es un gran modelo de lenguaje mediante la técnica \textit{Zero-Shot}, por lo que no es necesario hacer un proceso de entrenamiento al mismo para realizar la tarea en cuestión, ya que se desea analizar la capacidad de inferencia del mismo sin haber sido entrenado específicamente para esta.
+
+Las principales métricas de evaluación utilizadas fueron el número de consultas que al ser traducidas a \textit{Cypher} y ser ejecutadas ejecutadas sobre la base de conocimiento daban una respuesta idéntica a la respuesta objetivo (\texttt{correct}), así como el porcierto de dichas consultas acertadas (\texttt{correct\%}) sobre el total de consulta (\texttt{n}) y el número de consultas que generaron un código de \textit{Cypher} compilable (\texttt{compiled}), entre otras relacionadas con los recursos consumidos para el experimento como el costo monetatrio (\texttt{cost} (USD)) y el tiempo de ejecución de la evaluación en segundos (\texttt{elapsed\_seconds}). La segunda de dichas métricas fue la utilizada para comparar el resultado del modelo empleado sobre otros resultados en el estado del arte \ref{gpt4allpaper2023}. Además, implícitamente, al evaluar la efectividad del modelo sobre las consultas de los conjuntos de evaluación de \textit{1-hop, 2-hop} y \textit{3-hop}, se evalúa la eficacia del modelo sobre consultas que requieren de una relación, dos relaciones y hasta tres relaciones de conexión respectivamente para encontrar la respuesta a la consulta.
+
+Para la preparación del conjunto de datos se insertaron los elementos correspondientes a la base de conocimientos en una instancia de \textit{Neo4J} con ayuda del componente \texttt{DBSeeder} visto en la sección \ref{dbseeder}. Luego se tomaron los conjuntos de prueba (\textit{Test}) para \textit{1-hop, 2-hop} y \textit{3-hop} y para cada par de evaluación se ejecutó el procedimiento descrito en el listado \ref{pipeline_algorithm}. 
+
+\subsection{Resultados}
+
+Los resultados obtenidos para cada métrica analizada para cada conjunto de evaluación se muestran en la siguiente figura:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & \textbf{n} & \textbf{compiled} & \textbf{correct} & \textbf{compiled\%} & \textbf{correct\%} \\ \hline
+\textbf{hop 1} & 9947 & 9947 & 7613 & 100.0 & 76.53  \\ \hline
+\textbf{hop 2} & 14872 & 14872 & 6462 & 100.0 & 43.45  \\ \hline
+\textbf{hop 3} & 14274 & 14274 & 4430 & 100.0 & 31.03  \\ \hline
+\end{tabular}
+\caption{Resultados de ejecutar \texttt{GPT-4} en los conjuntos de datos de prueba de \textit{MetaQA} para \textit{hop1, hop2} y \textit{hop3}.}
+\label{tab:results1}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & \textbf{cost (USD)} & \textbf{elapsed\_seconds} \\ \hline
+\textbf{hop 1} & 139.33 & 57587.00 \\ \hline
+\textbf{hop 2} & 220.66 & 79240.58 \\ \hline
+\textbf{hop 3} & 218.62 & 92191.07 \\ \hline
+\end{tabular}
+\caption{Costo monetario y tiempo de ejecución del experimento.}
+\label{tab:result2}
+\end{table}
+
+En la primera tabla \ref{tab:results1}
+
+
+\subsection{Discusiones}
+
+
