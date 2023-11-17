@@ -2,7 +2,7 @@
 
 En este capítulo se presentan los marcos experimentales utilizados para evaluar la efectividad del sistema propuesto en el capítulo \ref{chapter: proposedsolution} para la traducción de una consulta en lenguaje natural al lenguaje de consulta formal \textit{Cypher}. Cada enfoque utilizado consistió en el uso de un conjunto de tuplas que contenían común una consulta en lenguaje natural de ejemplo a traducir hacia un segundo elemento correspondiente con un objetivo a medir en la traducción.
 
-Todos los experimentos fueron ejecutados en un servidor privado virtual (\textit{VPS}) con sistema operativo \textit{Ubuntu-20.04}, memoria \textit{RAM} de 16Gb, una \textit{CPU} AMD basada en la arquitectura \textit{x86\_64}, con 8 núcleos y una velocidad de 2649.998 MHz y con un ancho de banda de 16Mb/s para la comunicación con servicios como la \textit{API} de \textit{OpenAI}.
+Todos los experimentos fueron ejecutados en un servidor privado virtual (\textit{VPS}) \label{used_machine} con sistema operativo \textit{Ubuntu-20.04}, memoria \textit{RAM} de 16Gb, una \textit{CPU} AMD basada en la arquitectura \textit{x86\_64}, con 8 núcleos y una velocidad de 2649.998 MHz y con un ancho de banda de 16Mb/s para la comunicación con servicios como la \textit{API} de \textit{OpenAI}.
 
 El primer sistema de evaluación fue sobre el \textit{benchmark MetaQA} \ref{classic_metaqa}, el cual constituye el principal conjunto de datos de evaluación para la tarea \textit{Text-to-Cypher} vista en la sección \ref{problem_definition}. En este caso se utilizó la versión clásica, donde los pares de evaluación consistían en una consulta en lenguaje natural con su correspondiente respuesta en la base de datos.
 
@@ -26,7 +26,7 @@ En este estudio solo se utilizarán los datos referentes a los conjuntos de eval
 
 Las principales métricas de evaluación utilizadas fueron el número de consultas que al ser traducidas a \textit{Cypher} y ser ejecutadas ejecutadas sobre la base de conocimiento daban una respuesta idéntica a la respuesta objetivo (\texttt{correct}), así como el porcierto de dichas consultas acertadas (\texttt{correct\%}) sobre el total de consulta (\texttt{n}) y el número de consultas que generaron un código de \textit{Cypher} compilable (\texttt{compiled}), entre otras relacionadas con los recursos consumidos para el experimento como el costo monetatrio (\texttt{cost} (USD)) y el tiempo de ejecución de la evaluación en segundos (\texttt{elapsed\_seconds}). La segunda de dichas métricas fue la utilizada para comparar el resultado del modelo empleado sobre otros resultados en el estado del arte \ref{gpt4allpaper2023}. Además, implícitamente, al evaluar la efectividad del modelo sobre las consultas de los conjuntos de evaluación de \textit{1-hop, 2-hop} y \textit{3-hop}, se evalúa la eficacia del modelo sobre consultas que requieren de una relación, dos relaciones y hasta tres relaciones de conexión respectivamente para encontrar la respuesta a la consulta.
 
-Para la preparación del conjunto de datos se insertaron los elementos correspondientes a la base de conocimientos en una instancia de \textit{Neo4J} con ayuda del componente \texttt{DBSeeder} visto en la sección \ref{dbseeder}. Luego se tomaron los conjuntos de prueba (\textit{Test}) para \textit{1-hop, 2-hop} y \textit{3-hop} y para cada par de evaluación se ejecutó el procedimiento descrito en el listado \ref{pipeline_algorithm}. 
+Para la preparación del conjunto de datos se insertaron los elementos correspondientes a la base de conocimientos en una instancia de \textit{Neo4J} con ayuda del componente \texttt{DBSeeder} visto en la sección \ref{dbseeder}. Luego se tomaron los conjuntos de prueba (\textit{Test}) para \textit{1-hop, 2-hop} y \textit{3-hop} y para cada par de evaluación se ejecutó el procedimiento descrito en el listado \ref{pipeline_algorithm}.
 
 \subsection{Resultados}
 
@@ -45,6 +45,8 @@ Los resultados obtenidos para cada métrica analizada para cada conjunto de eval
 \label{tab:results1}
 \end{table}
 
+En la tabla \ref{tab:results1} se muestran los resultados de eficacia del modelo \texttt{GPT-4} para traducir consultas a \textit{Cypher} tal que puedan ser utilizadas para extraer información de la base de datos objetivo. Para aquellas consultas cuyo código de \textit{Cypher} correspondiente requería de la presencia de una relacion específica entre dos entidades en cuestión se tuvo relevante resultado del $76.53\%$ de acierto. Por otro lado, aquellas consultas que requerían de la generación de una consulta con dos y haste tres relaciones tuvieron como resultados unos discretos $43.45\%$ y $31.03\%$ respectivamente, lo que nos indica la deficiencia de este modelo para responder expresiones en lenguaje natural complejas que requieran acceder a la información de más una relación entre dos entes de la base de datos en forma de grafo. Además, resulta importante mencionar la efectividad del modelo \texttt{GPT-4} para generar código de \textit{Cypher} compilable, es decir, sin errores sintácticos ni semánticos al ser preprocesado antes de ejecutar en una base de conocimiento de tipo \textit{Neo4J}. 
+ 
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|}
@@ -55,12 +57,50 @@ Los resultados obtenidos para cada métrica analizada para cada conjunto de eval
 \textbf{hop 3} & 218.62 & 92191.07 \\ \hline
 \end{tabular}
 \caption{Costo monetario y tiempo de ejecución del experimento.}
-\label{tab:result2}
+\label{tab:results2}
 \end{table}
 
-En la primera tabla \ref{tab:results1} se muestra la eficacia del modelo \texttt{GPT-4} para traducir consultas a \textit{Cypher} tal que puedan ser utilizadas para extraer información de la base de datos objetivo.
+En la tabla \ref{tab:results2} es posible ver reflejados los recursos monetarios y de tiempo consumidos por la realización del experimento en el \textit{VPS} utilizado \ref{used_machine}. Como se muestra, la ejecución del modelo \textit{GPT-4} a partir de la \textit{API} de \textit{OpenAI} resulta costoso y requiere de condiciones ideales de ejecución, como por ejemplo una conexión a \textit{Internet} estable para poder acceder a la misma.
 
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|l}
+\hline
+Método & 1-hop & 2-hop & 3-hop \\
+\hline
+SOTA  & 97.50 & 98.80 & 94.80 \\
+\hline
+zero-shot  & 24.75 & 6.37 & 9.72 \\
+\hline
+zero-shot-cot & 18.41 & 12.86 & 21.89 \\
+\hline
+zero-shot+graph & 91.69 & 46.82 & 19.40 \\
+\hline
+zero-shot-cot+graph & 86.16 & 47.36 & 19.29 \\
+\hline
+zero-shot+graph+change-order & 95.20 & 40.48 & 20.17 \\
+\hline
+zero-shot-cot+graph+change-order & 95.87 & 47.71 & 23.95 \\
+\hline
+zero-shot Cypher Generation  & 30.00 & 10.00 & 13.00 \\
+\hline
+\textbf{GPT-4 zero-shot Cypher Generation}  & \textbf{76.53} & \textbf{43.45} & \textbf{31.03} \\
+\hline
+one-shot Cypher Generation & 99.00 & 77.00 & 96.00 \\
+\hline
+\end{tabular}
+\caption{Comparación de los resultados de otros modelos respecto al \textit{benchmark MetaQA}.}
+\label{tab:results3}
+\end{table}
 
-\subsection{Discusiones}
+La tabla \ref{tab:results3} refleja el resultado del sistema implementado comparado con otros enfoques utilizados sobre \textit{MetaQA}. En cada columna de la tabla relacionada con \textit{1-hop, 2-hop} y \textit{3-hop} se reflejan los valores porcentuales de acierto de ejecución de dichas vías de solución propuestas sobre el conjunto de evaluación (\texttt{Test}) correspondiente. La primera fila contiene el mejor resultado para cada conjunto con respecto al estado del arte, las seis filas representan el resultado de utilizar \texttt{GPT-3 (code-davinci-003)} para la tarea de extracción de información de la base de datos sin utilizar lenguaje \textit{Cypher} como paso intermedio. En las filas 8 y 10 se reflejan los resultados para \texttt{GPT-3} utilizando \textit{Cypher} como vía para extraer información de una base de datos \textit{Neo4J} utilizando los enfoques \textit{Zero-Shot} y \textit{One-Shot}. Finalmente, la fila 9 contiene los resultados referentes para cada conjunto del modelo propuesto.
 
+De acuerdo con el estudio más reciente realizado por Guo et al. \cite{gpt4graphpaper2023}, la propuesta de sistema de traducción de esta investigación supera el mejor resultado que se tenía para la traducción de lenguaje natural a lenguaje \textit{Cypher} utilizando aprendizaje \textit{Zero-Shot} sobre el \textit{benchmark MetaQA} y donde el modelo utilizado fue \texttt{GPT-3}, sin embargo, sus capacidades de extracción de conocimiento a partir de \textit{Cypher} quedan todavía lejos de los mejores resultados del estado del arte para dicha tarea.
 
+\section{Discusiones}
+
+Después de aplicar \texttt{GPT-4} para traducir consultas a Cypher, es pertinente destacar tanto las fortalezas como las deficiencias del sistema. Los resultados revelan una eficiencia notable en la generación de código \textit{Cypher} compilable, alcanzando un $100$\% de éxito en todas las pruebas realizadas. Este alto grado de precisión indica que el modelo es eficaz en la creación de consultas sin errores sintácticos ni semánticos, lo que es esencial para su aplicación práctica en entornos de bases de datos como \textit{Neo4J}.
+
+Sin embargo, a pesar de esta eficacia en la compilación, el modelo demostró limitaciones en su capacidad para generar consultas correctas a medida que aumentaba la complejidad de las relaciones entre entidades. Se observó un descenso significativo en la precisión, pasando de un $76.53$\% en consultas simples (\textit{1-hop}) a $43.45$\% y $31.03$\% en consultas más complejas (\textit{2-hop} y \textit{3-hop}). Esto sugiere que, aunque \texttt{GPT-4} es competente en la traducción de consultas sencillas, su rendimiento se reduce considerablemente con consultas que involucran múltiples relaciones entre entidades.
+
+En cuanto a las deficiencias del sistema, se identificaron varios aspectos que no se abordaron en el estudio. Uno de los más críticos fue la incapacidad del modelo para evaluar consultas anidadas y funciones de agregación, lo cual limita su aplicabilidad en escenarios de análisis de datos más complejos. Asimismo, la ausencia de un análisis multidominio impidió una evaluación adecuada de la capacidad de generalización del modelo, un factor crucial para determinar su eficacia en diferentes contextos y bases de datos. Además, el formato de las respuestas generadas por el modelo fue bastante básico, lo que plantea un área de mejora para futuras versiones, especialmente en aplicaciones que requieren un análisis de datos más detallado y avanzado.
