@@ -1,0 +1,6 @@
+,query,target_query,generated_query
+0,[Clifford Rose] &apos; s films were written by whom,set(),"{'Adrian Mitchell', 'Geoffrey Skelton', 'Peter Weiss'}"
+1,When were the films released by [Meredith Edwards] released,set(),{'1949'}
+2,The director of [The Brown Bunny] also directed the films,"{'The Brown Bunny', 'Buffalo 66'}","{""Buffalo '66""}"
+3,the films run by [Philippe Grandrieux],{'Sombre'},"{'Elina Löwensohn', 'Marc Barbé'}"
+4,which films have the same [Jack the Bear] actor,set(),"{'Tin Men', 'Apollo 13', 'Batman Returns', 'Hoffa', 'Renaissance Man', 'Impostor', 'Ruthless People', 'Of Mice and Men', 'Just Add Water', 'The Rainmaker', 'Romancing the Stone', 'The Good Night', 'Matilda', 'Screwed', 'Going Ape!', 'Terms of Endearment', 'Open Season', 'Wise Guys', 'Mission to Mars', 'Drowning Mona', 'Deck the Halls', 'The Jewel of the Nile', 'Bingo', ""Other People's Money"", 'Snake Eyes', 'Living Out Loud', 'Death to Smoochy', 'Throw Momma from the Train', 'Albino Alligator', 'Heist', 'Ransom', 'The War of the Roses', 'The Lorax', 'Solitary Man', 'Twins', 'The Human Stain', 'Get Shorty', ""What's the Worst That Could Happen?""}"
