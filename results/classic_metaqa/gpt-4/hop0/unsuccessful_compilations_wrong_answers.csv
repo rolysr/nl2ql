@@ -1,67 +1,1468 @@
 ,query,target_query,generated_query
-0,ce qui fait [Helen Mack] star dans,"[Statement.SyntaxError] Invalid input 'MATCH (a:Actor {name: 'Helen Mack'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name': expected
-  ""ALTER""
-  ""CALL""
-  ""CREATE""
-  ""DEALLOCATE""
-  ""DELETE""
-  ""DENY""
-  ""DETACH""
-  ""DROP""
-  ""DRYRUN""
-  ""ENABLE""
-  ""FOREACH""
-  ""GRANT""
-  ""LOAD""
-  ""MATCH""
-  ""MERGE""
-  ""OPTIONAL""
-  ""REALLOCATE""
-  ""REMOVE""
-  ""RENAME""
-  ""RETURN""
-  ""REVOKE""
-  ""SET""
-  ""SHOW""
-  ""START""
-  ""STOP""
-  ""TERMINATE""
-  ""UNWIND""
-  ""USE""
-  ""USING""
-  ""WITH"" (line 1, column 1 (offset: 0))
-""""MATCH (a:Actor {name: 'Helen Mack'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""""
- ^","{'Kiss and Make-Up', 'The Son of Kong', 'Divorce'}"
-1,ce qui fait [Doug Collins] star dans,"[Statement.SyntaxError] Invalid input 'MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Doug Collins'}) RETURN m.name': expected
-  ""ALTER""
-  ""CALL""
-  ""CREATE""
-  ""DEALLOCATE""
-  ""DELETE""
-  ""DENY""
-  ""DETACH""
-  ""DROP""
-  ""DRYRUN""
-  ""ENABLE""
-  ""FOREACH""
-  ""GRANT""
-  ""LOAD""
-  ""MATCH""
-  ""MERGE""
-  ""OPTIONAL""
-  ""REALLOCATE""
-  ""REMOVE""
-  ""RENAME""
-  ""RETURN""
-  ""REVOKE""
-  ""SET""
-  ""SHOW""
-  ""START""
-  ""STOP""
-  ""TERMINATE""
-  ""UNWIND""
-  ""USE""
-  ""USING""
-  ""WITH"" (line 1, column 1 (offset: 0))
-""""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Doug Collins'}) RETURN m.name""""
- ^",{'Michael Jordan to the Max'}
+0,ce qui fait [Helen Mack] star dans,"""MATCH (a:Actor {name: 'Helen Mack'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""","{'Kiss and Make-Up', 'The Son of Kong', 'Divorce'}"
+1,ce qui fait [Doug Collins] star dans,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Doug Collins'}) RETURN m.name""",{'Michael Jordan to the Max'}
+2,ce qui fait [Hiromi Nagasaku] star dans,"""MATCH (a:Actor {name: 'Hiromi Nagasaku'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'Doppelganger'}
+3,What makes [Sharon Gans] to do,"The query is unclear as it doesn't specify the role of Sharon Gans in the movie industry, whether she is a Director, Writer, or Actor. Please provide a more specific query.",{'Slaughterhouse-Five'}
+4,What makes [Haley Joel],"The provided natural language query is ambiguous. It's unclear what information is needed about ""Haley Joel"". For example, are you asking about the movies they've acted in, directed, or written? Please provide more specific information.",{'Abominable'}
+5,[Mehdi Nebbou] appears on which movies,"""MATCH (a:Actor {name: 'Mehdi Nebbou'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'English Vinglish'}
+6,The films have made [Duong Don] take action in the,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Duong Don' RETURN m.name""",{'Green Dragon'}
+7,[Stephen Frears] appears in which film,"The provided natural language query seems to be incorrect based on the provided database schema. Stephen Frears is likely to be a Director, not an Actor, and a Director doesn't ""appear"" in a film. They direct it.
+
+However, if we interpret the query as asking for movies directed by Stephen Frears, the Cypher query would be:
+
+```
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE d.name = ""Stephen Frears""
+RETURN m.name
+```",{'Great Directors'}
+8,What makes [Leandro Firmino] action,The given natural language query seems to be incomplete or ambiguous. It is unclear what exactly is being asked about Leandro Firmino and action. Please provide a complete and clear query.,{'City of God'}
+9,What makes [Brendan Coyle] to do,This query is not clear enough to be translated into a Cypher query. Please provide more context or specify the information you want to find about Brendan Coyle.,{'Offside'}
+10,Ce qui fait [Ronald Zehrfeld] star dans,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Ronald Zehrfeld'}) RETURN m.name""",{'Inbetween Worlds'}
+11,What causes [Edward Chapman] to act in,"The provided query ""What causes [Edward Chapman] to act in"" is not clear and does not specify what specific information needs to be retrieved. It could possibly be asking for the movies Edward Chapman acted in. If that is the case, the following Cypher query should provide the answer:
+
+```cypher
+MATCH (a:Actor {name: ""Edward Chapman""})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```
+
+This query will return the names of the movies where Edward Chapman is one of the actors.
+
+If the query is asking for something else, please provide more context or clarification.",{'Murder!'}
+12,What makes [Larry Fessenden] to do,"This query is ambiguous as it is not specified what kind of role Larry Fessenden has in the movies. They could be a Director, Writer, or Actor. 
+
+Assuming Larry Fessenden is an Actor:
+
+```cypher
+MATCH (a:Actor {name: 'Larry Fessenden'})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```
+
+Assuming Larry Fessenden is a Director:
+
+```cypher
+MATCH (d:Director {name: 'Larry Fessenden'})<-[:DIRECTED_BY]-(m:Movie)
+RETURN m.name
+```
+
+Assuming Larry Fessenden is a Writer:
+
+```cypher
+MATCH (w:Writer {name: 'Larry Fessenden'})<-[:WRITTEN_BY]-(m:Movie)
+RETURN m.name
+```
+
+Please provide more context or specifics for a more precise query.","{'Jug Face', 'Bitter Feast', 'Habit', 'I Sell the Dead'}"
+13,[Richard Armitage] appears in which movies,"""MATCH (a:Actor {name: 'Richard Armitage'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'Into the Storm'}
+14,What is [Carla Balenda] action in,"The provided natural language query ""What is [Carla Balenda] action in"" is incomplete and does not specify the context or action of Carla Balenda in relation to the database schema. Thus, it is not possible to formulate a corresponding Cypher query.",{'The Whip Hand'}
+15,Ce qui fait [Anton Corbijn] star dans,"The query seems to be asking for movies where Anton Corbijn is a star. However, according to the provided database schema, Anton Corbijn can only be a Director, Writer, or Actor. Assuming Anton Corbijn is an actor, the Cypher query would be:
+
+```
+MATCH (a:Actor {name: 'Anton Corbijn'})<-[:STARRED_ACTORS]-(m:Movie) 
+RETURN m.name
+```",{'Joy Division'}
+16,What is [Reika Hashimoto] action in,Your natural language query is incomplete. Please provide more details for a proper Cypher query.,{'Survive Style 5+'}
+17,What makes [Gwenaëlle Simon] to do,The provided natural language query is not clear. Could you please provide more details or clarify your request?,"{""A Summer's Tale""}"
+18,What the films [Vince Edwards] an actor in ,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Vince Edwards' RETURN m.name""","{'The Killing', 'The Desperados'}"
+19,What the films have done [Dendrie Taylor] to do in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Dendrie Taylor' RETURN m.name""",{'Torn'}
+20,the films have made [Eddie Marsan] act in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor{name:'Eddie Marsan'}) RETURN m.name""",{'The Disappearance of Alice Creed'}
+21,Ce qui fait [Patty Duke] star dans,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor{name:'Patty Duke'}) RETURN m.name""",{'Valley of the Dolls'}
+22,[Owen Moore] is shown in which movies,"""MATCH (a:Actor {name: 'Owen Moore'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'She Done Him Wrong'}
+23,What makes [Pamela Tola],"This query is ambiguous as it does not specify the role of Pamela Tola in a movie. It should specify whether she is a director, writer, or actor in the movie. However, assuming Pamela Tola is an actor, the Cypher query would be:
+
+```
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Pamela Tola'})
+RETURN m.name
+```","{'Frozen Land', 'Lapland Odyssey'}"
+24,the films have made [Pam Ferris] take action in the,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Pam Ferris' RETURN m.name""",{'Meantime'}
+25,what is [Tobe Hooper] appear in,"This query is a bit ambiguous, as Tobe Hooper could potentially be a director, writer, or actor. However, assuming that we are looking for movies where Tobe Hooper is the director, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Tobe Hooper'}) RETURN m.name
+``` 
+
+If we are looking for movies where Tobe Hooper is a writer, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Tobe Hooper'}) RETURN m.name
+``` 
+
+If we are looking for movies where Tobe Hooper is an actor, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Tobe Hooper'}) RETURN m.name
+``` 
+
+You will need to choose the correct query based on the context of the question.",{'Body Bags'}
+26,what makes [Amanda Peterson] appear in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Amanda Peterson'}) RETURN m.name""","{""Can't Buy Me Love""}"
+27,What makes [Earle Hodgins] to do,"The given natural language query is not clear about what information is needed about Earle Hodgins. Please specify whether you want to know which movies he directed, wrote, or acted in, or if you want some other information about him.",{'Paradise Canyon'}
+28,What makes [Tatanka Means] to do,"The query is not clear about what exactly is expected. Tatanka Means could be an actor, director, or writer. Let's assume Tatanka Means is an actor and you want to know which movies he has acted in.
+
+The Cypher query would be:
+
+```cypher
+MATCH (a:Actor {name: 'Tatanka Means'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name
+```
+
+This query will return the names of all movies that Tatanka Means has acted in. 
+
+If Tatanka Means is a director or a writer, you need to replace the entity 'Actor' with 'Director' or 'Writer' and the relationship 'STARRED_ACTORS' with 'DIRECTED_BY' or 'WRITTEN_BY' respectively.",{'Tiger Eyes'}
+29,What the films have done [Peter Graves] to act in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Peter Graves' RETURN m.name""","{'Killers from Space', 'The Five Man Army', 'Number One with a Bullet', 'Beginning of the End', 'Airplane!', 'It Conquered the World'}"
+30,[David Kelly] appears on which movies,"```
+MATCH (a:Actor {name: 'David Kelly'})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```",{'Stardust'}
+31,What the movies have made [André Hennicke] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'André Hennicke'}) RETURN m.name""",{'Antibodies'}
+32,What films have made [Virginia Weidler] star in,"```
+MATCH (a:Actor {name: ""Virginia Weidler""})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```","{'Babes on Broadway', 'The Lone Wolf Spy Hunt', 'The Youngest Profession', 'Best Foot Forward'}"
+33,What makes [Billy Bob Thornton],"Since the query ""What makes [Billy Bob Thornton]"" is quite ambiguous, I will assume you intend to ask for the movies in which Billy Bob Thornton has been involved either as a Director, Writer, or Actor. 
+
+The Cypher query for this would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Billy Bob Thornton'})
+RETURN m.name as Movies_Directed
+UNION
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Billy Bob Thornton'})
+RETURN m.name as Movies_Written
+UNION
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Billy Bob Thornton'})
+RETURN m.name as Movies_Acted
+```","{'Bad Santa', ""The Man Who Wasn't There"", 'Pushing Tin', 'Mr. Woodcock', ""Monster's Ball"", 'Primary Colors', 'Some Folks Call It a Sling Blade', ""Jayne Mansfield's Car"", 'The Badge', 'One False Move', 'The Ice Harvest', 'A Simple Plan', 'Armageddon', 'Sling Blade', 'Bad News Bears', 'School for Scoundrels', 'Daddy and Them', 'The Judge', 'U Turn', 'Bandits', 'South of Heaven, West of Hell', 'The Alamo', 'Puss in Boots'}"
+34,What films make [Gerard Butler] appear in,"""MATCH (a:Actor {name: 'Gerard Butler'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""","{'300', 'The Ugly Truth', 'Playing for Keeps', ""Nim's Island"", 'Machine Gun Preacher', 'RocknRolla', 'Olympus Has Fallen', 'How to Train Your Dragon', 'Gamer', 'Dracula 2000', 'Timeline', 'How to Train Your Dragon 2', 'Reign of Fire', 'The Phantom of the Opera', 'The Bounty Hunter', 'Law Abiding Citizen'}"
+35,[Jorma Taccone] appears in which movies,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Jorma Taccone' RETURN m.name""",{'Hot Rod'}
+36,What the movies made [Mari Natsuki] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Mari Natsuki' RETURN m.name""",{'Spirited Away'}
+37,That makes [Nic Campos] star in,"```cypher
+MATCH (a:Actor {name: ""Nic Campos""})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```",{'Darkest Night'}
+38,Ce qui fait [Veronica Sywak] star dans,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Veronica Sywak' RETURN m.name""",{'Welcome to the Jungle'}
+39,ce qui fait [Jeremy Davies] star dans,"""MATCH (a:Actor {name: 'Jeremy Davies'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""","{'The Locusts', 'Teknolust', 'CQ', 'The Million Dollar Hotel', '29 Palms', 'Helter Skelter'}"
+40,[Murray Head] appears in what movies,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Murray Head'}) RETURN m.name""",{'Sunday Bloody Sunday'}
+41,What makes [Tina Holmes] action in,"The provided natural language query ""What makes [Tina Holmes] action in"" is not clear enough to be converted into a Cypher query. Please provide more details.","{'Shelter', 'Edge of Seventeen'}"
+42,ce qui fait [Lee Horsley] star dans,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Lee Horsley'}) RETURN m.name""",{'The Sword and the Sorcerer'}
+43,What films make [Hugues Quester] appear in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Hugues Quester'}) RETURN m.name""",{'A Tale of Springtime'}
+44,ce qui fait [Trond Fausa] star dans,"""MATCH (a:Actor {name: 'Trond Fausa'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'The Bothersome Man'}
+45,What makes [Peter Bogdanovich] to act in the,The provided natural language query is incomplete and doesn't provide enough information to generate a Cypher query. Please provide a complete query.,"{'The Dukes', 'Humboldt County'}"
+46,ce qui fait [George Hardy] star dans,"""MATCH (a:Actor {name: 'George Hardy'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'Troll 2'}
+47,films have made [Andrew Howard] act in,"""MATCH (a:Actor {name: 'Andrew Howard'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'I Spit on Your Grave'}
+48,What causes [Rosa Sánchez] to act in,"Your query is not clear. If you want to know the movies in which Rosa Sánchez acted, the correct Cypher query would be:
+
+```
+MATCH (a:Actor {name: ""Rosa Sánchez""})-[:STARRED_ACTORS]-(m:Movie) RETURN m.name
+```",{'Bolivia'}
+49,What the films have [Nanette Newman] an actor in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Nanette Newman' RETURN m.name""",{'The Stepford Wives'}
+50,What the films made [Rod La Rocque] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Rod La Rocque' RETURN m.name""",{'Our Modern Maidens'}
+51,What makes [Claude Lelouch] to act in,"There seems to be some confusion in the query. The entity ""Claude Lelouch"" could either be an Actor or Director but there's no direct relationship from Actor or Director to Movie in the schema provided. Therefore, it's impossible to construct a Cypher query based on the provided schema and the query. Please provide more details or correct the relationships in the schema.",{'Happy New Year'}
+52,That makes [Mary Kay Place] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Mary Kay Place'}) RETURN m.name""","{'Captain Ron', 'Eye of God'}"
+53,Ce qui fait [Candace Cameron Bure] star dans,"""MATCH (a:Actor {name: 'Candace Cameron Bure'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'She Cried No'}
+54,the films have made [Joanna Pacula] take action in the,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Joanna Pacula'}) RETURN m.name""",{'The Kiss'}
+55,What makes [Kathleen Ryan] to do,"The natural language query provided is unclear and does not specify what information is required about Kathleen Ryan. Possible queries could include finding out what movies Kathleen Ryan has directed, written, or acted in. However, without this information, a specific Cypher query cannot be provided. Please provide a more specific query.",{'The Sound of Fury'}
+56,ce qui fait [Marcus Patrick] star dans,"""MATCH (a:Actor {name:'Marcus Patrick'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'Violet Tendencies'}
+57,That makes [Odette Annable] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Odette Annable'}) RETURN m.name""",{'And Soon the Darkness'}
+58,Which films have made [Sharon Tate] star in,"```
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: ""Sharon Tate""}) 
+RETURN m.name
+```","{'The Wrecking Crew', 'Valley of the Dolls'}"
+59,what causes [Dexter Fletcher] to appear in,"There seem to be some misunderstanding in the query as ""what causes [Dexter Fletcher] to appear in"" is not a clear requirement. If you want to find the movies that Dexter Fletcher directed, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Dexter Fletcher'}) RETURN m.name
+```
+
+If you are interested in movies where Dexter Fletcher was an actor, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Dexter Fletcher'}) RETURN m.name
+```
+
+Please provide more specific information so I can assist you better.","{'Below', 'The Rachel Papers'}"
+60,What makes [Elisabeth Shue] to do,"The provided natural language query ""What makes [Elisabeth Shue] to do"" is not clear. It doesn't specify what kind of information is being sought about Elisabeth Shue. For instance, it could be asking for the movies in which Elisabeth Shue acted, or the movies she directed or wrote. 
+
+Assuming that we are looking for the movies in which Elisabeth Shue acted, the Cypher query would be:
+
+```cypher
+MATCH (a:Actor {name:'Elisabeth Shue'})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```
+For the movies she directed:
+
+```cypher
+MATCH (d:Director {name:'Elisabeth Shue'})<-[:DIRECTED_BY]-(m:Movie)
+RETURN m.name
+```
+For the movies she wrote:
+
+```cypher
+MATCH (w:Writer {name:'Elisabeth Shue'})<-[:WRITTEN_BY]-(m:Movie)
+RETURN m.name
+```
+
+Please provide more specific information in your query.","{'Palmetto', 'Piranha 3D', 'Adventures in Babysitting', 'Janie Jones', 'Link', 'The Karate Kid', 'Leaving Las Vegas', 'The Trigger Effect', 'Waking Madison', 'Cocktail', 'Molly', 'House at the End of the Street', 'Hollow Man', 'The Saint'}"
+61,What makes [Margaret Field] appear in,"""MATCH (a:Actor {name: 'Margaret Field'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'The Man from Planet X'}
+62,What is [Bruce Perens] action in,"The provided natural language query ""What is [Bruce Perens] action in"" is incomplete and does not provide enough information to generate a Cypher query. Please provide more details such as the entity type of 'Bruce Perens' and the specific action or connection you want to know about him.",{'Revolution OS'}
+63,ce qui fait [Oscar Redding] star dans,"""MATCH (a:Actor {name: 'Oscar Redding'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""","{""Van Diemen's Land""}"
+64,This makes [Camilla Sparv] star in,"```
+MATCH (a:Actor {name: ""Camilla Sparv""})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```","{'Downhill Racer', ""Mackenna's Gold"", 'Dead Heat on a Merry-Go-Round'}"
+65,The films have made [Thomas Mann] take action in the,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Thomas Mann' RETURN m.name""",{'Project X'}
+66,What makes [Tom Burke] to do,"The query ""What makes [Tom Burke] to do"" is ambiguous. It's unclear what kind of involvement Tom Burke has with the movies - is he an actor, a director, or a writer? Please provide more context.","{'Third Star', 'Donkey Punch'}"
+67,[Thi Loc Truong] appears in which movies,"```cypher
+MATCH (a:Actor {name: 'Thi Loc Truong'})<-[:STARRED_ACTORS]-(m:Movie) 
+RETURN m.name
+```",{'The Scent of Green Papaya'}
+68,Which films have made [Rita Wilson] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Rita Wilson' RETURN m.name""",{'Jingle All the Way'}
+69,The films have made [Joan Lorring] take action in the,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Joan Lorring'}) RETURN m.name""","{'The Big Night', 'Three Strangers', 'The Verdict'}"
+70,[Jimi Mistry] appears on which films,"""MATCH (a:Actor {name: 'Jimi Mistry'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'The Guru'}
+71,ce qui fait [Laurie Metcalf] star dans,"""MATCH (a:Actor {name: 'Laurie Metcalf'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""",{'Dear God'}
+72,What is [Yoshiko Shinohara] action in,The natural language query is not clear enough to be transformed into a Cypher query. Please provide more details.,{'Grave of the Fireflies'}
+73,What the movies did make [Mercedes Cabral] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Mercedes Cabral'}) RETURN m.name""",{'Thy Womb'}
+74,what movies have made [Colin Friels] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Colin Friels' RETURN m.name""","{'Class Action', 'Dingo', 'Darkman', 'Angel Baby'}"
+75,What films have [Oscar Polk] an actor in,"```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor)
+WHERE a.name = 'Oscar Polk'
+RETURN m.name
+```",{'The Green Pastures'}
+76,What is [Richard White] action in,"Your query is not clear. Could you please specify what action by Richard White you are referring to? Are you asking about a movie he directed, wrote, or acted in? Please provide more details.",{'Beauty and the Beast'}
+77,the films have made [Michael Rosenbaum] take action in the,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Michael Rosenbaum'}) RETURN m.name""","{'Poolhall Junkies', 'Back in the Day', ""Kickin' It Old Skool"", 'Urban Legend'}"
+78,What makes [Deanna Russo] to do,"Your query is not clear. If you want to find movies where Deanna Russo acted in, the Cypher query would be:
+
+```cypher
+MATCH (a:Actor {name: ""Deanna Russo""})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```
+
+If you want to find movies where Deanna Russo directed, the Cypher query would be:
+
+```cypher
+MATCH (d:Director {name: ""Deanna Russo""})<-[:DIRECTED_BY]-(m:Movie)
+RETURN m.name
+```
+
+If you want to find movies where Deanna Russo wrote, the Cypher query would be:
+
+```cypher
+MATCH (w:Writer {name: ""Deanna Russo""})<-[:WRITTEN_BY]-(m:Movie)
+RETURN m.name
+```",{'Ghost Voyage'}
+79,What makes [Leslie Bibb] to do,"This query is ambiguous and does not provide enough context to be transformed into a Cypher query. It is unclear what action or role of Leslie Bibb (presumably an actor) the query is referring to - whether it is movies they have acted in, directed, written etc. Please provide more specific details.","{'The Midnight Meat Train', 'Hell Baby', 'A Good Old Fashioned Orgy', 'The Skulls'}"
+80,What makes [Robert Foxworth] to do,"The provided natural language query ""What makes [Robert Foxworth] to do"" is ambiguous and doesn't clearly specify what information is needed regarding Robert Foxworth. Please provide a more specific query.
+
+For example, if you want to know which movies Robert Foxworth has directed, acted in, or written, the queries would be as follows:
+
+To find the movies directed by Robert Foxworth:
+```
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: ""Robert Foxworth""}) RETURN m.name
+```
+
+To find the movies where Robert Foxworth has acted:
+```
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: ""Robert Foxworth""}) RETURN m.name
+```
+
+To find the movies written by Robert Foxworth:
+```
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: ""Robert Foxworth""}) RETURN m.name
+```","{'Prophecy', 'The Questor Tapes'}"
+81,What the films [Laura San Giacomo] an actor in ,"""MATCH (a:Actor {name: 'Laura San Giacomo'})<-[:STARRED_ACTORS]-(m:Movie) RETURN m.name""","{'Stuart Saves His Family', 'Quigley Down Under', 'Once Around', 'Where the Day Takes You'}"
+82,Ce qui fait [John Canada Terrell] star dans,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'John Canada Terrell'}) RETURN m.name""","{""She's Gotta Have It""}"
+83,what is [Akira Kurosawa] appear in,"This query is ambiguous as it doesn't specify whether Akira Kurosawa is a director, writer or actor in the database. However, assuming Akira Kurosawa is a director, the cypher query to find the movies directed by Akira Kurosawa would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: ""Akira Kurosawa""})
+RETURN m.name
+```
+
+If Akira Kurosawa is an actor, the query would be:
+
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: ""Akira Kurosawa""})
+RETURN m.name
+```
+
+And if Akira Kurosawa is a writer, the query would be:
+
+```cypher
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: ""Akira Kurosawa""})
+RETURN m.name
+```
+
+However, without more specific information, it's impossible to write a definitive query.",{'A.K.'}
+84,[Hoji Fortuna] appears on which movies,"```
+MATCH (a:Actor {name: 'Hoji Fortuna'})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+```",{'Viva Riva!'}
+85,which films have made [Fabrício Boliveira] star in,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'Fabrício Boliveira' RETURN m.name""",{'Brazilian Western'}
+86,What makes [Amza Pellea] to do,"The query is not clear. Please provide more specific details such as what role Amza Pellea has (Director, Writer, Actor) and what specific information you need (movies worked on, genres, etc.).","{'Uncle Marin, the Billionaire'}"
+87,ce qui fait [Milo Ventimiglia] star dans,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Milo Ventimiglia'}) RETURN m.name""",{'The Divide'}
+88,This makes [Carl Reiner] star in,"The provided natural language query ""This makes [Carl Reiner] star in"" is not clear enough to be translated to a Cypher query. Could you please provide more details or clarify the query?","{""The Spirit of '76"", ""Dead Men Don't Wear Plaid""}"
+89,What makes [Julie Delpy],"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director{name:""Julie Delpy""}) 
+RETURN m.name as Movie_Directed_By_Julie_Delpy
+
+UNION 
+
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer{name:""Julie Delpy""}) 
+RETURN m.name as Movie_Written_By_Julie_Delpy
+
+UNION 
+
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor{name:""Julie Delpy""}) 
+RETURN m.name as Movie_Starred_Julie_Delpy","{'Before Midnight', 'Before Sunset', 'Killing Zoe', '2 Days in New York', 'An American Werewolf in Paris', 'The Air I Breathe', 'Before Sunrise', '2 Days in Paris', 'The Countess', 'The Passion of Ayn Rand', 'Broken Flowers', 'Voyager', 'Guilty Hearts'}"
+90,what was [Shane Acker] the manager of,"The provided natural language query does not correspond to the given database schema. The entity ""Shane Acker"" could correspond to an Actor, Director, or Writer, but there is no ""manager"" relationship defined in the schema. Please provide a valid query.",{'9'}
+91,[Joël Séria] to which the films,"""MATCH (d:Director {name: 'Joël Séria'})<-[:DIRECTED_BY]-(m:Movie) RETURN m.name""","{""Don't Deliver Us from Evil""}"
+92,what was [David Miller] the manager of,"The database schema provided does not have a Manager entity or a relation that connects a person to what they manage. Therefore, there is no Cypher query that can retrieve what David Miller managed.","{'Back Street', 'The Opposite Sex', 'Billy the Kid', 'Executive Action', 'Love Happy', 'Captain Newman, M.D.', 'Sudden Fear', 'The Story of Esther Costello', 'Lonely Are the Brave', 'Midnight Lace'}"
+93,what was [Rich Christiano] the manager of,"The natural language query provided does not match with the database schema provided. There is no entity or relation in the schema that would correspond to the concept of ""manager"". Therefore, it is not possible to convert this query into Cypher code. Please provide a query that matches with the given schema.","{'The Secrets of Jonathan Sperry', 'Time Changer'}"
+94,[Scott Kalvert]  directed towards which the films,"""MATCH (d:Director {name: 'Scott Kalvert'})<-[:DIRECTED_BY]-(m:Movie) RETURN m.name""","{'The Basketball Diaries', 'Deuces Wild'}"
+95,the films have [Sadao Yamanaka] live,"The natural language query seems to be unclear or incomplete. The query ""the films have [Sadao Yamanaka] live"" does not specify whether Sadao Yamanaka is a director, a writer, an actor, or has some other role in the movies. Also, the term ""live"" is not clear in the context of this database schema. Please provide a more specific query.",{'Humanity and Paper Balloons'}
+96,[Matt McCormick] was the film director on which the films have been published ,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Matt McCormick'}) RETURN m.name""",{'Some Days Are Better Than Others'}
+97,what was [Ricou Browning] the Director of,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Ricou Browning'}) RETURN m.name""",{'Hello Down There'}
+98,[Robert J. Siegel] was the film director on which the films have been published ,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Robert J. Siegel'}) RETURN m.name""",{'Swimming'}
+99,what was [Matthew Crouch] the manager of,"The given natural language query doesn't match with the provided database schema. There is no entity or relation in the schema that refers to a ""manager"". Please provide a valid query.",{'The Cross'}
+100,what has [Jonas Åkerlund] live,Your natural language query is not clear. Please provide more context or rephrase it.,"{'Horsemen', 'Spun', 'Small Apartments'}"
+101,what has [Trevor Nunn] live,"It seems like the natural language query is not clear. The query ""what has [Trevor Nunn] live"" doesn't provide enough information about what we are trying to retrieve related to Trevor Nunn. If Trevor Nunn is a Director, Writer, or Actor, depending on what information we want to retrieve (like movies he has directed, written or starred in), the query could be formed. But with the given query, it's not possible to form a proper Cypher query. Please provide a more specific question.",{'Lady Jane'}
+102,Which film did it [Christopher Kenneally] live,"The natural language query is not clear about the role of ""Christopher Kenneally"" in the movie. Assuming he is the director, the correct Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Christopher Kenneally'}) 
+RETURN m.name
+```
+
+This query will return the name of the movie directed by ""Christopher Kenneally"". If he was an actor, writer or had some other role in the movie, the relationship between the Movie node and the person's node would have to be adjusted accordingly.",{'Side by Side'}
+103,what has [David J. Burke],"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'David J. Burke'})
+RETURN m.name AS MovieDirectedByDavidJBurke
+UNION
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'David J. Burke'})
+RETURN m.name AS MovieWrittenByDavidJBurke
+UNION
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'David J. Burke'})
+RETURN m.name AS MovieStarredDavidJBurke",{'Edison'}
+104,what was [Reinhard Klooss] the manager of,"The natural language query seems to be confusing the term ""manager"" with ""director"". Assuming that we want to find the movies directed by Reinhard Klooss, the Cypher query would be:
+
+```
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: ""Reinhard Klooss""})
+RETURN m.name
+```","{'Tarzan', 'Animals United'}"
+105,what has [Marc Forster],"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: ""Marc Forster""}) 
+RETURN m.name AS Movies_Directed_By_Marc_Forster
+
+UNION
+
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: ""Marc Forster""}) 
+RETURN m.name AS Movies_Written_By_Marc_Forster","{'Stay', 'Machine Gun Preacher', 'World War Z', 'Everything Put Together', 'Quantum of Solace', 'Finding Neverland', 'The Kite Runner', ""Monster's Ball""}"
+106,Which films have [John Maloof] live,"Your query is ambiguous. If you mean which movies John Maloof has directed, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: ""John Maloof""})
+RETURN m.name
+```
+
+If you mean which movies John Maloof has written, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: ""John Maloof""})
+RETURN m.name
+```
+
+If you mean which movies John Maloof has acted in, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: ""John Maloof""})
+RETURN m.name
+```",{'Finding Vivian Maier'}
+107,what was [Gerald Potterton] the manager of,"The database schema provided does not contain any information about a 'manager' relationship or role. The entities available are 'Movie', 'Director', 'Writer', 'Actor', 'Year', 'Language', 'Tag', 'Genre', 'Votes', 'Rating', and none of them has a 'manager' attribute. Therefore, a Cypher query cannot be written to find what Gerald Potterton was the manager of.",{'Heavy Metal'}
+108,you can name a film produced by [Sean Baker],"The database schema does not provide information about a producer entity or a relation that could link a movie to a producer. Therefore, it is not possible to formulate a Cypher query based on the provided schema and the given natural language query.",{'Take Out'}
+109,what has [Cary Fukunaga] live,"The provided natural language query ""what has [Cary Fukunaga] live"" is not clear enough to be translated into a Cypher query. It requires additional context or clarification. For example, if you want to know which movies Cary Fukunaga has directed, the query would be different from the one asking for the movies where he was a writer or an actor. Please provide a more specific query.",{'Jane Eyre'}
+110,what has [Charles Kaufman] live,"Your query is ambiguous as the database schema does not have any information related to living conditions or location of any entity such as 'Director', 'Actor', etc. Please provide a more specific query.","{""Mother's Day""}"
+111,what has [Férid Boughedir] live,"The provided natural language query ""what has [Férid Boughedir] live"" is unclear, it does not specify what information is required about Férid Boughedir. Please provide a more specific query.",{'A Summer in La Goulette'}
+112,what was [Nancy Meckler] the manager of,"The database schema provided does not seem to support a query for a ""manager"" entity or a ""MANAGED_BY"" relationship. Please provide a valid query related to the available entities and relationships.",{'Sister My Sister'}
+113,what was [Henning Carlsen] the manager of,"The natural language query seems to be asking about the movies managed by a person named ""Henning Carlsen"". However, in the provided database schema, there is no clear indication of a ""manager"" role. The closest correlations could be either a ""Director"" or a ""Writer"". 
+
+Assuming that the ""manager"" refers to the ""Director"", here is how you might structure the Cypher query:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Henning Carlsen'}) 
+RETURN m.name
+```
+
+This query is looking for all movies that are associated (via the DIRECTED_BY relation) with a Director named ""Henning Carlsen"", and returns the names of those movies.","{'Hunger', 'Pan'}"
+114,what was [Andrew Mollo] the manager of,"The given natural language query is not valid as per the provided database schema. There is no information about a 'manager' role or relationship in the database schema. The schema includes the entities: 'Movie', 'Director', 'Writer', 'Actor', 'Year', 'Language', 'Tag', 'Genre', 'Votes', 'Rating', and their respective relationships. A valid query could ask about which movies Andrew Mollo directed, wrote, or acted in, but the role 'manager' is not defined in this schema. Please provide a valid query.",{'It Happened Here'}
+115,[Paul Rachman] to which the films,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE d.name = 'Paul Rachman' RETURN m.name""",{'American Hardcore'}
+116,what has [George Mendeluk] live,"Your query is ambiguous. The entity ""George Mendeluk"" could be a Director, Writer, or Actor, but the database schema does not provide information about where people live. Please provide a more specific query.",{'The Kidnapping of the President'}
+117,you can name a film produced by [Ryszard Bugajski],"The query does not specify the type of relation that Ryszard Bugajski has with the movie. Therefore, it is not possible to create an accurate Cypher query. Please provide more information.",{'Interrogation'}
+118,what has [Russell Crowe] direct,"This query is not valid because Russell Crowe is an Actor, and in the given database schema, there is no directional relation from Actor to Movie or Director. Therefore, Russell Crowe cannot direct anything according to this database schema.",{'The Water Diviner'}
+119,What was [Ron Mann] the manager of,"The provided natural language query cannot be converted to a Cypher query based on the given database schema. There is no 'manager' relation or 'Manager' entity defined in the schema, and there is no entity that Ron Mann could manage according to the relations provided. Please provide a query that applies to the given database schema.","{'Comic Book Confidential', 'Grass'}"
+120,which is the stars in [The Most Dangerous Game],"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = 'The Most Dangerous Game' RETURN a.name""","{'Joel McCrea', 'Robert Armstrong', 'Fay Wray', 'Leslie Banks'}"
+121,who are the [Mr. Smith Goes to Washington],"The natural language query is not clear. Please specify if you want to know the director, actors, writer or some other attribute of the movie ""Mr. Smith Goes to Washington"".","{'Edward Arnold', 'James Stewart', 'Jean Arthur', 'Claude Rains'}"
+122,the film [Esther Kahn] starred which actors,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = 'Esther Kahn' RETURN a.name""","{'Summer Phoenix', 'Ian Holm'}"
+123,in [Times Square],"Your query is not clear. The phrase ""in [Times Square]"" does not specify what you are looking for in the database. Please provide more details. Are you looking for a movie, director, actor or other entity associated with ""Times Square""? Or is ""Times Square"" a movie, actor, director or other attribute in the database? Please provide more details for a precise Cypher query.","{'Tim Curry', 'Robin Johnson', 'Trini Alvarado'}"
+124,in [No],"The query ""in [No]"" doesn't provide enough information to be translated into a Cypher query. Please provide more details.",{'Gael García Bernal'}
+125,which is the star in [The Escapist],"```
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor)
+WHERE m.name = ""The Escapist""
+RETURN a.name
+```","{'Andy Serkis', 'Gary Lewis', 'Jonny Lee Miller'}"
+126,which was in the film [The Fog],"The natural language query is ambiguous as it does not specify what exactly we are looking for in the film ""The Fog"". It could be the director, the actors, the writer, or some other attribute. Let's assume we want to know the actors.
+
+The Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor)
+WHERE m.name = 'The Fog'
+RETURN a.name
+```","{'Tom Welling', 'Selma Blair', 'Maggie Grace'}"
+127,by [The Garage],"This query is ambiguous because ""The Garage"" could potentially match with any of the attributes 'name' in the entities. However, assuming ""The Garage"" is a movie name, to find all related entities the Cypher query would be:
+
+```
+MATCH (m:Movie {name: 'The Garage'})-[]->(related)
+RETURN related
+```",{'Buster Keaton'}
+128,who are the [Interrupted Melody],"Your natural language query is not clear. Please clarify what you want to know about the movie ""Interrupted Melody"". Do you want to know about its director, actors, genre, etc.?","{'Glenn Ford', 'Roger Moore', 'Eleanor Parker', 'Cecil Kellaway'}"
+129,in [Scar],"The query ""in [Scar]"" is not clear. Please provide more information or context.",{'Angela Bettis'}
+130,in [Mary],"The provided natural language query ""in [Mary]"" is not a valid or complete query as it doesn't provide enough context or information about what kind of data needs to be fetched from the database. Please provide a more detailed and clear query. For example, ""Find all movies directed by Mary"" or ""Find all actors named Mary"".","{'Heather Graham', 'Matthew Modine', 'Forest Whitaker', 'Juliette Binoche'}"
+131,who are the [Notting Hill],"The given natural language query is ambiguous. ""Notting Hill"" is a movie, but the query does not specify what information about ""Notting Hill"" is being requested. It could be asking for the director, the actors, the writer, etc. Based on the database schema, the query could be clarified and rewritten as one of the following:
+
+1. Who directed ""Notting Hill""?
+2. Who are the actors in ""Notting Hill""?
+3. Who wrote ""Notting Hill""?
+
+If the user is asking for the director of ""Notting Hill"", the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = ""Notting Hill"" RETURN d.name
+```
+
+If the user is asking for the actors in ""Notting Hill"", the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = ""Notting Hill"" RETURN a.name
+```
+
+If the user is asking for the writer of ""Notting Hill"", the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE m.name = ""Notting Hill"" RETURN w.name
+```","{'Julia Roberts', 'Hugh Grant', 'Rhys Ifans'}"
+132,who are the [The Producers],"The natural language query is ambiguous as it doesn't specify who ""The Producers"" refers to. It could refer to directors, writers, or actors. 
+
+Assuming you want to get the director of the movie ""The Producers"", the Cypher code would be:
+
+```cypher
+MATCH (m:Movie {name: ""The Producers""})-[:DIRECTED_BY]->(d:Director) 
+RETURN d.name
+```
+
+If you want to get the writers of the movie ""The Producers"", the Cypher code would be:
+
+```cypher
+MATCH (m:Movie {name: ""The Producers""})-[:WRITTEN_BY]->(w:Writer) 
+RETURN w.name
+```
+
+If you want to get the actors of the movie ""The Producers"", the Cypher code would be:
+
+```cypher
+MATCH (m:Movie {name: ""The Producers""})-[:STARRED_ACTORS]->(a:Actor) 
+RETURN a.name
+```","{'Will Ferrell', 'Uma Thurman', 'Nathan Lane', 'Matthew Broderick'}"
+133,who are the [Kawa],"The natural language query is incomplete. It could refer to a movie, director, writer, actor, etc. named ""Kawa"" and could ask for various types of information. Please provide a more specific query.",{'Calvin Tuteao'}
+134,who are the [Love at Large],"Your query is not clear about what you want to know about ""Love at Large"". Do you want to know about its director, actors, writers, genre, or something else? Please provide more specific information.","{'Anne Archer', 'Elizabeth Perkins', 'Tom Berenger'}"
+135,by [Gallowwalkers],"It seems the query is incomplete. If you intend to find various details about the movie ""Gallowwalkers"", such as its director, actors, and genre, you might use the following Cypher queries:
+
+To find the director:
+```
+MATCH (m:Movie {name: ""Gallowwalkers""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```
+
+To find the actors:
+```
+MATCH (m:Movie {name: ""Gallowwalkers""})-[:STARRED_ACTORS]->(a:Actor)
+RETURN a.name
+```
+
+To find the genre:
+```
+MATCH (m:Movie {name: ""Gallowwalkers""})-[:HAS_GENRE]->(g:Genre)
+RETURN g.name
+```
+
+And so on, depending on what information you're seeking about the movie ""Gallowwalkers"".","{'Wesley Snipes', 'Tanit Phoenix', 'Kevin Howarth', 'Riley Smith'}"
+136,who are the actors in the [100 Rifles],"""MATCH (m:Movie {name: '100 Rifles'})-[:STARRED_ACTORS]->(a:Actor) RETURN a.name""","{'Jim Brown', 'Fernando Lamas', 'Burt Reynolds', 'Raquel Welch'}"
+137,by [O],Your query is incomplete. Please provide a full and clear query.,"{'Josh Hartnett', 'Mekhi Phifer', 'Martin Sheen', 'Andrew Keegan'}"
+138,that acted in the film [Country],"The natural language query is not clear. If you are trying to find the actors who acted in a film named ""Country"", the query would be:
+
+```
+MATCH (m:Movie {name: 'Country'})-[:STARRED_ACTORS]->(a:Actor)
+RETURN a.name
+```","{'Sam Shepard', 'Jessica Lange'}"
+139,who are the [Hotel Chevalier],"Your query ""who are the [Hotel Chevalier]"" is a bit ambiguous. Are you asking for the director, writer, actors or some other relationship to the movie ""Hotel Chevalier""? I will assume you are asking for the director, writer and actors of this movie.
+
+To get the director, writer and actors of the movie ""Hotel Chevalier"", the Cypher query would be:
+
+```cypher
+MATCH (m:Movie {name: 'Hotel Chevalier'})-[:DIRECTED_BY]->(d:Director),
+      (m)-[:WRITTEN_BY]->(w:Writer),
+      (m)-[:STARRED_ACTORS]->(a:Actor)
+RETURN d.name AS Director, w.name AS Writer, collect(a.name) AS Actors
+```","{'Natalie Portman', 'Jason Schwartzman'}"
+140,which stars in [Nancy Drew],"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = 'Nancy Drew' RETURN a.name""","{'Max Thieriot', 'Emma Roberts'}"
+141,by [King of Comedy],"Your query is incomplete and ambiguous. ""by [King of Comedy]"" could mean ""directed by King of Comedy"" or ""written by King of Comedy"". Please specify whether you mean the director, writer or another entity related to the movie. For example, if you meant to ask for movies directed by ""King of Comedy"", the Cypher query would be:
+
+```
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE d.name = ""King of Comedy"" RETURN m.name
+```",{'Stephen Chow'}
+142,in [Serial],"Your query ""in [Serial]"" is incomplete and not clear. It does not specify what you are looking for in relation to ""Serial"". Please provide a more comprehensive query. For instance, ""Find the movie named 'Serial'"", ""Find actors in the movie 'Serial'"", or ""Find the director of the movie 'Serial'"".","{'Martin Mull', 'Tuesday Weld'}"
+143,by [Harry + Max],"Your query is not clear enough. Please specify whether 'Harry + Max' are actors, directors, writers, or another entity in the database.","{'Bryce Johnson', 'Cole Williams'}"
+144,Actors in [Household Saints],"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = 'Household Saints' RETURN a.name""","{'Lili Taylor', 'Tracey Ullman', ""Vincent D'Onofrio""}"
+145,in [Jerusalem],This natural language query is not clear and does not provide enough information to generate a Cypher query. Please provide more context.,"{'Maria Bonnevie', 'Ulf Friberg', 'Pernilla August', 'Lena Endre'}"
+146,who are the [The Adventures of Sherlock Holmes],"The provided natural language query is not specific enough to be translated into a Cypher query. Please provide more context or specify what you want to know about ""The Adventures of Sherlock Holmes"" (e.g., who directed it, who starred in it, what genre it is, etc.).","{'Nigel Bruce', 'Basil Rathbone'}"
+147,who are the [Haunted],"Your query is incomplete. Please provide more details. Are you looking for the director, actor, writer of the movie ""Haunted"" or something else?","{'Kate Beckinsale', 'Anthony Andrews', 'Aidan Quinn', 'John Gielgud'}"
+148,the movie [Fitzcarraldo] starred who,"```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor)
+WHERE m.name = 'Fitzcarraldo'
+RETURN a.name
+```",{'Klaus Kinski'}
+149,the film [Joe + Belle] starred which actors,"```cypher
+MATCH (m:Movie {name: ""Joe + Belle""})-[:STARRED_ACTORS]->(a:Actor)
+RETURN a.name
+```",{'Veronica Kedar'}
+150,the movie [Young Ones] starred who,"```cypher
+MATCH (m:Movie {name: 'Young Ones'})-[:STARRED_ACTORS]->(a:Actor)
+RETURN a.name
+```","{'Elle Fanning', 'Michael Shannon', 'Nicholas Hoult'}"
+151,who acted in the [The January Man] film,"```
+MATCH (m:Movie {name: ""The January Man""})-[:STARRED_ACTORS]->(a:Actor)
+RETURN a.name
+```","{'Kevin Kline', 'Harvey Keitel', 'Mary Elizabeth Mastrantonio'}"
+152,the movie [Hercules] starred who,"""MATCH (m:Movie {name: 'Hercules'})-[:STARRED_ACTORS]->(a:Actor) RETURN a.name""","{'Ian McShane', 'John Hurt', 'Dwayne Johnson'}"
+153,who are the players in the [Most Wanted],"""MATCH (m:Movie {name: 'Most Wanted'})-[:STARRED_ACTORS]->(a:Actor) RETURN a.name""",{'Keenen Ivory Wayans'}
+154,in [Barcelona],"Your query ""in [Barcelona]"" is not specific enough to be translated into a Cypher query. Please provide more details such as what entity is being referred to by ""Barcelona"". For example, is it a Movie name, Director name, Writer name, or something else?","{'Mira Sorvino', 'Chris Eigeman', 'Taylor Nichols'}"
+155,who are the [Gambit],"The query is incomplete as it does not specify what we are looking for in relation to the movie ""Gambit"". It could be the director, actors, writers, etc. Could you please provide more specific details?","{'Michael Caine', 'Herbert Lom', 'Shirley MacLaine'}"
+156,acting in [Rogue Cop],"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = 'Rogue Cop' RETURN a.name""","{'Janet Leigh', 'Robert Taylor', 'George Raft'}"
+157,by [Prowl],"It seems like your query ""by [Prowl]"" is incomplete. Please provide more details. Are you looking for movies directed by Prowl, or written by Prowl, or movies where Prowl is an actor? Please provide more information.",{'Ruta Gedmintas'}
+158,by [Body Parts],"Your query ""by [Body Parts]"" is not clear enough to be converted into a Cypher query. Please provide more details like whether ""Body Parts"" is a movie name, actor name, director name, etc. and what specific information you're looking for.","{'Zakes Mokae', 'Kim Delaney', 'Jeff Fahey'}"
+159,that is the star in [Police],"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = 'Police' RETURN a.name""","{'Wesley Ruggles', 'Edna Purviance'}"
+160,the film [Jane Eyre] starred which actors,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = 'Jane Eyre' RETURN a.name""",{'Mia Wasikowska'}
+161,who are the [Piter FM],"The given natural language query ""who are the [Piter FM]"" is not clear. It doesn't specify what we want to find about ""Piter FM"". For example, we could be looking for its director, actors, writer, etc. Could you please provide more details? 
+
+For instance, if you want to find the director of the movie ""Piter FM"", the Cypher query would be:
+
+```cypher
+MATCH (m:Movie {name: ""Piter FM""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```","{'Ekaterina Fedulova', 'Aleksey Barabash', 'Evgeniy Tsyganov'}"
+162,who are the players in the [The Bothersome Man],"""MATCH (m:Movie {name: 'The Bothersome Man'})-[:STARRED_ACTORS]->(a:Actor) RETURN a.name""","{'Trond Fausa', 'Petronella Barker'}"
+163,who are the [Against the Current],"The query provided ""who are the [Against the Current]"" is not clear enough. Please provide more details on what you are looking for. For example, are you looking for the director, writer, or actors of the movie ""Against the Current""? Or are you looking for other details?","{'Joseph Fiennes', 'Justin Kirk', 'Pell James'}"
+164,who is the manager of [Casual Sex?],"The query is not clear as it asks for a ""manager"" and the database schema does not have a ""manager"" entity. The query might be referring to a 'Director', 'Writer', or another role. Please provide additional details.",{'Geneviève Robert'}
+165,who is the manager of [The Girl in a Swing],"The natural language query doesn't quite match with the provided database schema. In the schema, there's no concept of a 'manager' related to a movie. There are directors, writers, and actors associated with a movie, but no managers. Therefore, it's impossible to return a Cypher code query for this specific question. Please provide the correct relationship to query.",{'Gordon Hessler'}
+166,who is the manager of [Mid-August Lunch],"The given natural language query does not match the schema provided. The term ""manager"" is not defined in the schema, and no entity or relation corresponds to it. Thus, the query cannot be translated into Cypher. Please provide a valid query according to the given schema.",{'Gianni Di Gregorio'}
+167,who is the manager of [The Adventures of Milo and Otis],"The provided natural language query is not valid according to the given database schema. There is no entity or relationship that can be identified as a ""manager"" in the provided schema. Please provide a valid query.",{'Masanori Hata'}
+168,which person headed [Mrs. Miniver],"This query is a bit ambiguous because it doesn't specify what it means by ""headed"". But let's assume it means who directed the movie. In that case, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) 
+WHERE m.name = 'Mrs. Miniver' 
+RETURN d.name
+```",{'William Wyler'}
+169,who is the manager of [Zozo],"The provided natural language query doesn't match the given database schema. The schema doesn't contain any entity or relation that indicates a ""manager"" for any other entity, specifically for the entity [Zozo], which is not a defined entity in the provided schema. Please provide a valid query that corresponds to the given schema.",{'Josef Fares'}
+170,The director of [Accident on Hill Road] was who was in charge of the,"""MATCH (m:Movie {name: 'Accident on Hill Road'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Mahesh Nair'}
+171,who is [3 Godfathers] &apos;s director,"```
+MATCH (m:Movie {name: ""3 Godfathers""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```",{'John Ford'}
+172,who is the manager of [Bird],The given natural language query is incorrect or incomplete as it doesn't match with the given database schema. There is no entity or relation called 'manager' in the provided schema. Please provide a valid query.,{'Clint Eastwood'}
+173,[Fly Away Home] &apos;s director was,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Fly Away Home' RETURN d.name""",{'Carroll Ballard'}
+174,who is the manager of [Cat Chaser],The given natural language query does not match the database schema provided. There is no entity or relationship that refers to a 'manager' in the given database schema. Please provide a valid query that matches the provided database schema.,{'Abel Ferrara'}
+175,[The Merchant of Venice] &apos;s director was,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'The Merchant of Venice' RETURN d.name""",{'Jack Gold'}
+176,who is the manager of [Abominable],"The provided natural language query cannot be translated into a Cypher query due to the unavailability of the relevant information in the database schema. The database schema does not contain any entity or attribute named 'manager'. It would be helpful if the query was more specific, such as asking for the director, writer, or actors of the movie ""Abominable"".",{'Ryan Schifrin'}
+177,who is the manager of [The Devil's Rejects],"The query is ambiguous because it is not clear which role (Director, Writer) is considered as a manager in the context of a movie. Please provide more context.",{'Rob Zombie'}
+178,who were [Return to Horror High] headed by,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Return to Horror High' RETURN d.name""",{'Bill Froehlich'}
+179,who is the manager of [Jud Süß],The query does not match the database schema. The schema does not contain information about a manager related to a movie. Please revise the query.,{'Veit Harlan'}
+180,who is the manager of [Where the Buffalo Roam],"The query does not provide enough context. The term ""manager"" is not defined in the database schema. Please provide a query that matches with the given database schema.",{'Art Linson'}
+181,which led to [Die Hard],"The natural language query ""which led to [Die Hard]"" is quite ambiguous and could refer to a number of different things, such as the director, actors, writers, etc. involved in the movie ""Die Hard"". Therefore, I can't provide a specific Cypher query for it. 
+
+If you are looking for the director who directed the movie ""Die Hard"", the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = ""Die Hard"" RETURN d.name
+```
+
+If you are looking for the actors who played in the movie ""Die Hard"", the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE m.name = ""Die Hard"" RETURN a.name
+```
+
+Please provide a more specific query so that I can help you better.",{'John McTiernan'}
+182,who led the film [Weekend at Bernie's],"```cypher
+MATCH (m:Movie {name: 'Weekend at Bernie\'s'})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```",{'Ted Kotcheff'}
+183,who were [Newlyweds] headed by,"""MATCH (m:Movie {name: 'Newlyweds'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Edward Burns'}
+184,The director of [Upstream] was who was in charge of the,"""MATCH (m:Movie {name:'Upstream'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'John Ford'}
+185,who is the director of [Wolf Creek],"""MATCH (m:Movie {name: 'Wolf Creek'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Greg Mclean'}
+186,who is the manager of [Calendar Girl],"The query does not match the given schema. The term ""manager"" is not defined in the schema, and the entity ""Calendar Girl"" does not exist. The query cannot be translated into Cypher.",{'John Whitesell'}
+187,who is the manager of [The Brothers],"The query is invalid. The database schema does not contain information about a ""manager"" related to the ""Movie"" entity. Please provide a valid query.",{'Gary Hardwick'}
+188,which headed [The Krays],"Your query is ambiguous. Please provide more context or specify whether you want to know the director, writer, actors, year, language, tags, genre, votes, or rating of the movie ""The Krays"".",{'Peter Medak'}
+189,who is the manager of [The Page Turner],"The provided natural language query cannot be converted into a Cypher query as there is no information about a 'manager' in the given database schema. The entities in the database schema include 'Movie', 'Director', 'Writer', 'Actor', 'Year', 'Language', 'Tag', 'Genre', 'Votes', and 'Rating'. The possible relationships are 'DIRECTED_BY', 'WRITTEN_BY', 'STARRED_ACTORS', 'RELEASE_YEAR', 'IN_LANGUAGE', 'HAS_TAGS', 'HAS_GENRE', 'HAS_IMDB_VOTES', and 'HAS_IMDB_RATING'. None of these entities or relationships include information about a 'manager'. Please provide a valid query related to the provided database schema.",{'Denis Dercourt'}
+190,who is the manager of [Grave Encounters 2],"The provided natural language query seems to be incorrect or insufficient. The term ""manager"" is not defined in the given database schema. Please provide a valid query related to the given entities and relationships.",{'John Poliquin'}
+191,which is the Director of [To the Left of the Father],"""MATCH (m:Movie {name: 'To the Left of the Father'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Luiz Fernando Carvalho'}
+192,who is the manager of [Bedtime Story],"The provided natural language query is not clear. In the context of the given database schema, there is no 'manager' attribute or relation available. Please provide a valid query such as 'who is the director of [Bedtime Story]' or 'who is the writer of [Bedtime Story]'.",{'Ralph Levy'}
+193,which is the Director of [The Karate Kid],"```
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE m.name = ""The Karate Kid""
+RETURN d.name
+```",{'John G. Avildsen'}
+194,which was the director of [Norwegian Wood],"""MATCH (m:Movie {name: 'Norwegian Wood'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Tran Anh Hung'}
+195,which is the director of [Traces of Red],"""MATCH (m:Movie {name: 'Traces of Red'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Andy Wolk'}
+196,the film [Cherry] was led by whom,"""MATCH (m:Movie {name: 'Cherry'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Jeffrey Fine'}
+197,The [The Adventures of Tintin] film was led by whom,"""MATCH (m:Movie {name: 'The Adventures of Tintin'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Steven Spielberg'}
+198,who is the manager of [Laurel Canyon],"The given query does not match with the provided schema. There is no 'manager' entity or relationship in the schema. Therefore, a Cypher query cannot be generated based on the provided information. Please provide a valid query according to the given database schema.",{'Lisa Cholodenko'}
+199,"who is the manager of [Late August, Early September]","The query is asking for the manager of a movie, but the database schema doesn't contain a 'Manager' entity or similar relation. Therefore, the query can't be answered with the given database schema.",{'Olivier Assayas'}
+200,The film [Maniac] was led by whom,"""MATCH (m:Movie {name: 'Maniac'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'William Lustig'}
+201,Which person headed [College],"The provided natural language query and the database schema do not match. The database schema is related to the movie industry and does not contain any information related to a ""College"" entity or a ""person"" entity that could be heading it. Please provide a relevant query.",{'Deb Hagan'}
+202,which led to [The Monitor],"Given that the term ""led to"" is ambiguous in the context of this database schema, the query cannot be accurately translated into Cypher code. Please provide more specific information about the relationships or attributes you wish to explore in relation to ""The Monitor"".",{'Pål Sletaune'}
+203,Which person headed [Lethal Weapon 4],"The query is not clear about which role the person had in the movie ""Lethal Weapon 4"". They could be a director, writer, or actor. Please provide more information.",{'Richard Donner'}
+204,who is the manager of [Congo],"The query is not clear as the database schema does not contain a ""manager"" entity or relation. Please provide a more specific query.",{'Frank Marshall'}
+205,who is the manager of [Model Shop],"The provided natural language query ""who is the manager of [Model Shop]"" is not clear. The term ""manager"" is not defined in the provided database schema. Please provide a query that corresponds with the available entities and relations in the database schema. For example, you can ask for the director, writer, or actors of a movie.",{'Jacques Demy'}
+206,who is the manager of [Big Stan],"The query does not match the provided schema. The term ""manager"" is not defined in the schema. Please provide a matching query.",{'Rob Schneider'}
+207,who is the director of the [Zodiac],"""MATCH (m:Movie {name: 'Zodiac'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'David Fincher'}
+208,who is the manager of [The People That Time Forgot],"The provided natural language query is ambiguous as it asks for the ""manager"" of a movie which is not clearly defined in the provided database schema. It could potentially refer to the director, writer, or any other entity involved in the creation of the movie. Please provide more specific information.",{'Kevin Connor'}
+209,who is the manager of [Mirror Mirror],"The provided natural language query does not match the given database schema. There is no ""Manager"" entity or relationship specified in the schema. The schema includes entities like 'Movie', 'Director', 'Writer', 'Actor', etc, and relationships like 'DIRECTED_BY', 'WRITTEN_BY', 'STARRED_ACTORS', etc. Please provide a query that fits the given schema.",{'Tarsem Singh'}
+210,who was the manager of [One Week],"The query language Cypher does not have information about a 'manager' in the provided database schema. Please provide a valid role such as 'Director', 'Writer', or 'Actor'.",{'Michael McGowan'}
+211,which is the director of [Just Pals],"""MATCH (m:Movie {name: 'Just Pals'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'John Ford'}
+212,The director of [Life Is Beautiful] was who was in charge of the,"""MATCH (m:Movie {name: 'Life Is Beautiful'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Roberto Benigni'}
+213,where the director of [The Pixar Story] was,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'The Pixar Story' RETURN d.name""",{'Leslie Iwerks'}
+214,the film [Safe Passage] was led by whom,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Safe Passage' RETURN d.name""",{'Robert Allan Ackerman'}
+215,who is the manager of [Astro Boy],The given natural language query is not valid as per the provided database schema. The entity 'Manager' does not exist in the schema and there are no relations defining a 'Manager' for the 'Movie' entity. Please provide a valid query.,{'David Bowers'}
+216,who is the manager of [The Frighteners],"The given natural language query is not clear. The term ""manager"" is ambiguous in the context of a movie. Please specify if you want to know the director, the writer, or some other role related to the movie 'The Frighteners'.",{'Peter Jackson'}
+217,the film [Before the Rain] was directed by whom,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Before the Rain' RETURN d.name""",{'Milcho Manchevski'}
+218,who was the manager of [The Thin Man Goes Home],"The natural language query is ambiguous as it is not clear what is meant by ""manager"" in the context of a movie. It could refer to the director or the producer. However, given the available entities and relationships in the database schema, we can assume that the ""manager"" refers to the ""Director"". In that case, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie {name: 'The Thin Man Goes Home'})-[:DIRECTED_BY]->(d:Director) RETURN d.name
+```",{'Richard Thorpe'}
+219,who directed the film [Souls for Sale],"```
+MATCH (m:Movie {name: ""Souls for Sale""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```",{'Rupert Hughes'}
+220,Director of [Once Upon a Forest],"""MATCH (m:Movie {name: 'Once Upon a Forest'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Charles Grosvenor'}
+221,"who is the manager of [Kiss Me, Guido]",The given natural language query is not applicable to the provided database schema. The database schema does not have a 'manager' attribute or a related entity. Please provide a valid natural language query.,{'Tony Vitale'}
+222,who is the manager of [Monsieur Ibrahim],The query does not match the schema provided. The schema does not have any entity or relation that could be interpreted as the 'manager' of the movie 'Monsieur Ibrahim'. Please provide a query that fits the schema.,{'François Dupeyron'}
+223,where the director of [Report to the Commissioner] was,"""MATCH (m:Movie {name: 'Report to the Commissioner'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Milton Katselas'}
+224,headed by [Slither],"The natural language query is not clear. The term ""headed by"" could refer to a movie directed by, written by, or starred in by a person named Slither. Could you please specify the context or provide more information?",{'James Gunn'}
+225,which were [Everything] led by,Your natural language query is not complete. Please provide a full sentence or question to generate a valid Cypher query.,{'Richard Hawkins'}
+226,which led to [The Disappeared],"The natural language query is not clear. Please specify what you want to find related to the movie ""The Disappeared"". For instance, are you looking for its director, actors, writer, or something else?",{'Johnny Kevorkian'}
+227,who is the Director of [The Saragossa Manuscript],"```cypher
+MATCH (m:Movie {name: ""The Saragossa Manuscript""})-[:DIRECTED_BY]->(d:Director) 
+RETURN d.name
+```",{'Wojciech Has'}
+228,who was the manager of [Lucrezia Borgia],"The provided natural language query seems to be incorrect as per the given database schema. There is no relation or attribute called ""manager"" in the database schema. And also, the entity 'Lucrezia Borgia' does not exist in the database schema. Please provide a valid query that matches the database schema.",{'Abel Gance'}
+229,"who was the manager of [Frank McKlusky, C.I.]","The provided query is not clear. The term ""manager"" does not match any of the given entities or relations in the provided database schema. Please provide a valid query that corresponds with the database schema.",{'Arlene Sanford'}
+230,who is the manager of [Westward the Women],The provided natural language query does not match the database schema. There is no 'manager' entity or relationship in the schema. Please provide a valid query.,{'William A. Wellman'}
+231,the film [Blue Juice] was led by whom,"""MATCH (m:Movie {name:'Blue Juice'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Carl Prechezer'}
+232,who is the manager of [A Colt Is My Passport],"The natural language query provided does not match the schema provided. There is no ""manager"" relationship or entity in the given schema. Please provide a valid query.",{'Takashi Nomura'}
+233,which headed [Grizzly Man],"The given natural language query is ambiguous. ""Headed"" could refer to the director, writer, or even the lead actor. Please provide more specific information.",{'Werner Herzog'}
+234,which headed [Rough Night in Jericho],"The query is not well-defined and I need more details to generate a Cypher query. ""Headed"" could refer to a director, a writer, or an actor. Please provide more specific information.",{'Arnold Laven'}
+235,which headed [Some Kind of Wonderful],"The natural language query is not clear. Please provide additional details such as the entity related to ""Some Kind of Wonderful"". Are you asking about the director, actors, genre, etc., of the movie ""Some Kind of Wonderful""?",{'Howard Deutch'}
+236,who led the film [Father's Little Dividend],"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Father's Little Dividend' RETURN d.name""",{'Vincente Minnelli'}
+237,who is the manager of [Dandelion],The provided natural language query does not match the database schema. There is no 'manager' entity or relationship defined in the schema. Please provide a relevant query.,{'Mark Milgard'}
+238,the director of [Cockneys vs Zombies] was who was in charge of,"""MATCH (m:Movie {name: 'Cockneys vs Zombies'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Matthias Hoene'}
+239,who is [Caught Inside] &apos;s director,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Caught Inside' RETURN d.name""",{'Adam Blaiklock'}
+240,that were [Colors] led by,Your natural language query seems to be incomplete. Please provide a complete query.,{'Dennis Hopper'}
+241,headed [Arthur],"Your query is ambiguous, as it's not clear what ""headed [Arthur]"" means. Please clarify what you want to find. Are you looking for movies directed by someone named Arthur, movies written by someone named Arthur, or movies starring an actor named Arthur?",{'Jason Winer'}
+242,who is the manager of [Judgment Night],"The query seems to be asking for the director of the movie ""Judgment Night"", as movies typically don't have a ""manager"". However, it's not explicitly stated, so I'll assume that's what you're asking for. Here's how you can find the director:
+
+```
+MATCH (m:Movie {name: ""Judgment Night""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```",{'Stephen Hopkins'}
+243,who is [Under the Cherry Moon] &apos;s director,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Under the Cherry Moon' RETURN d.name""",{'Prince'}
+244,Who is the director of [Blubberella],"""MATCH (m:Movie {name: 'Blubberella'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Uwe Boll'}
+245,which is the director who directed [Bernie],"""MATCH (m:Movie {name: 'Bernie'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Richard Linklater'}
+246,The director of [Don't Bother to Knock] was,"""MATCH (m:Movie {name: ""Don't Bother to Knock""})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Roy Ward Baker'}
+247,who is the manager of [State Property 2],"The provided natural language query does not match the given database schema. The term ""manager"" does not correspond to any of the existing entities or relations in the schema. Please provide a valid query.",{'Damon Dash'}
+248,the [Pot o' Gold] film was directed by whom,"MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE m.name = 'Pot o'' Gold'
+RETURN d.name",{'George Marshall'}
+249,who is the manager of [Frontier of the Dawn],"The query language Cypher does not provide information about the manager of a movie. With the given schema, we can retrieve the director, actors, writers, etc., but not the manager. Please provide a valid request.",{'Philippe Garrel'}
+250,who is the manager of [Kitchen Stories],"The provided natural language query is invalid for the given database schema. The schema does not contain any information about a ""manager"" related to the ""Movie"" entity. Please provide a valid query.",{'Bent Hamer'}
+251,which person headed [Lord of the Flies],"The natural language query is ambiguous as it doesn't specify what role (Director, Writer, Actor) the person had in the movie ""Lord of the Flies"". Here are three possible Cypher queries:
+
+If the person is the Director:
+```cypher
+MATCH (m:Movie {name: ""Lord of the Flies""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```
+If the person is the Writer:
+```cypher
+MATCH (m:Movie {name: ""Lord of the Flies""})-[:WRITTEN_BY]->(w:Writer)
+RETURN w.name
+```
+If the person is an Actor:
+```cypher
+MATCH (m:Movie {name: ""Lord of the Flies""})-[:STARRED_ACTORS]->(a:Actor)
+RETURN a.name
+```",{'Peter Brook'}
+252,who is the manager of [Dust],"The provided natural language query is incorrect as it mentions a ""manager"" which is not a part of the database schema provided. The schema includes 'Movie', 'Director', 'Writer', 'Actor', 'Year', 'Language', 'Tag', 'Genre', 'Votes', 'Rating' entities. Please provide a valid query.",{'Milcho Manchevski'}
+253,The [Incident at Loch Ness] film was led by whom,"""MATCH (m:Movie {name: 'Incident at Loch Ness'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Zak Penn'}
+254,Which person headed [Design for Scandal],"It's not clear from the query what ""headed"" refers to. It could be the director, writer or starring actor. Please provide more specific information.",{'Norman Taurog'}
+255,[The Truman Show] film was led by whom,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'The Truman Show' RETURN d.name""",{'Peter Weir'}
+256,[Udaan],"""MATCH (m:Movie {name: 'Udaan'}) RETURN m""",{'Vikramaditya Motwane'}
+257,the [The Scenesters] film was led by whom,"""MATCH (m:Movie {name: 'The Scenesters'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Todd Berger'}
+258,who directed the [Love Streams] film,"```
+MATCH (m:Movie {name: ""Love Streams""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```",{'John Cassavetes'}
+259,who is the manager of [Marlowe],"The given natural language query cannot be transformed into a Cypher query because the database schema provided does not have a 'Manager' entity or a relationship that could represent a 'manager' concept. The database schema revolves around movies and their properties, and does not include information about a 'manager' of any sort. Please provide a valid query related to the provided database schema.",{'Paul Bogart'}
+260,which is the Director of [Gorilla at Large],"""MATCH (m:Movie {name: 'Gorilla at Large'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Harmon Jones'}
+261,Which person headed [Trick],"The natural language query is not specific enough. The term ""headed"" could imply director, writer, or main actor. Please specify the role (Director, Writer, Actor) of the person who headed the movie ""Trick"".",{'Jim Fall'}
+262,the film [Our Fathers] was led by whom,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Our Fathers' RETURN d.name""",{'Dan Curtis'}
+263,the [Azumi] film was directed by whom,"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE m.name = 'Azumi' RETURN d.name""",{'Ryûhei Kitamura'}
+264,which led to [Salvador],"This query is ambiguous as it is not clear what type of relationship ""led to"" refers to in the database. Could you please provide more context or clarify your request?",{'Oliver Stone'}
+265,who is the manager of [Milarepa],"The provided natural language query cannot be translated into a Cypher query due to insufficient information in the database schema. The term ""manager"" does not correspond to any entity or relation in the provided schema.",{'Neten Chokling'}
+266,The director of [Raise the Titanic] was who was in charge ,"""MATCH (m:Movie {name: 'Raise the Titanic'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Jerry Jameson'}
+267,which was [I Think I Love My Wife] led by,"""MATCH (m:Movie {name: 'I Think I Love My Wife'})-[:DIRECTED_BY]->(d:Director) RETURN d.name""",{'Chris Rock'}
+268,who was the manager of [Volcano],"The natural language query provided (""who was the manager of [Volcano]"") does not match with the given database schema and relations. There is no ""manager"" entity or relation present in the provided schema. Please provide a valid query. For example, ""Who was the director of the movie Volcano?"" or ""Who starred in the movie Volcano?"".",{'Rúnar Rúnarsson'}
+269,Which person headed [Daddy Long Legs],"This query seems to be asking who directed a movie called ""Daddy Long Legs"". Although the term ""headed"" is not specific, in the context of movies, it typically refers to the director.
+
+The Cypher query would be:
+
+```
+MATCH (m:Movie {name: ""Daddy Long Legs""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```",{'Jean Negulesco'}
+270,who is the manager of [The Ghost Ship],"The given natural language query cannot be transformed into a Cypher query based on the provided database schema. This is because the schema does not include a ""Manager"" entity or any kind of ""MANAGED_BY"" relationship. Therefore, it's not possible to determine who the manager of ""The Ghost Ship"" is. Please, make sure the query corresponds to the provided database schema.",{'Mark Robson'}
+271,What is the kind of [French Twist] ,"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'French Twist' RETURN g.name""",{'Comedy'}
+272,what kind of gender is [All for the Winner] in,"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'All for the Winner' RETURN g.name""",{'Comedy'}
+273,what kind of film is [Conviction],"""MATCH (m:Movie {name: 'Conviction'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Drama'}
+274,what kind of film are [Raising Helen],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Raising Helen' RETURN g.name""","{'Comedy', 'Drama'}"
+275,What kind of movie is [K-11],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'K-11' RETURN g.name""",{'Drama'}
+276,What is the type of [Roxie Hart],"Since the natural language query does not specify the type of entity (like Movie, Director, Writer, etc.) Roxie Hart is, and since the database can contain multiple entities with the same name, we would need to write multiple Cypher queries to determine the type of Roxie Hart. Here are the possible queries:
+
+MATCH (m:Movie {name: 'Roxie Hart'}) RETURN 'Movie' as entity_type IF EXISTS(m)
+MATCH (d:Director {name: 'Roxie Hart'}) RETURN 'Director' as entity_type IF EXISTS(d)
+MATCH (w:Writer {name: 'Roxie Hart'}) RETURN 'Writer' as entity_type IF EXISTS(w)
+MATCH (a:Actor {name: 'Roxie Hart'}) RETURN 'Actor' as entity_type IF EXISTS(a)
+MATCH (y:Year {name: 'Roxie Hart'}) RETURN 'Year' as entity_type IF EXISTS(y)
+MATCH (l:Language {name: 'Roxie Hart'}) RETURN 'Language' as entity_type IF EXISTS(l)
+MATCH (t:Tag {name: 'Roxie Hart'}) RETURN 'Tag' as entity_type IF EXISTS(t)
+MATCH (g:Genre {name: 'Roxie Hart'}) RETURN 'Genre' as entity_type IF EXISTS(g)
+MATCH (v:Votes {name: 'Roxie Hart'}) RETURN 'Votes' as entity_type IF EXISTS(v)
+MATCH (r:Rating {name: 'Roxie Hart'}) RETURN 'Rating' as entity_type IF EXISTS(r)",{'Comedy'}
+277,what was the type of film [Blackjack],"```
+MATCH (m:Movie {name: 'Blackjack'})-[:HAS_GENRE]->(g:Genre)
+RETURN g.name
+```",{'Action'}
+278,What was the type of [Zorba the Greek],"Since the type of ""Zorba the Greek"" is not clearly defined in the given database schema, it is assumed that the 'type' refers to the 'Genre' of the movie. 
+
+The code in the query language Cypher is:
+
+```
+MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) 
+WHERE m.name = ""Zorba the Greek"" 
+RETURN g.name
+```",{'Drama'}
+279,What kind of film is [Sadako 3D],"```
+MATCH (m:Movie {name: ""Sadako 3D""})-[:HAS_GENRE]->(g:Genre)
+RETURN g.name
+```",{'Horror'}
+280,what kind of thing [Angie] fall under,"Since the natural language query lacks context, it's impossible to write a specific Cypher query. Angie could be a movie, director, writer, actor, etc., and the database schema doesn't offer an attribute to specify what kind of thing an entity is. Therefore, we cannot provide a specific Cypher query for this. Please provide more information.","{'Comedy', 'Drama'}"
+281,What is the type of [Sunshine],"MATCH (m:Movie {name: ""Sunshine""}) RETURN labels(m)",{'Thriller'}
+282,what is the type of [The Son of Kong],MATCH (m:Movie {name: 'The Son of Kong'}) RETURN labels(m),{'Adventure'}
+283,what is the type of [Wings],"MATCH (m:Movie {name: ""Wings""}) RETURN labels(m)",{'War'}
+284,what kind of film is [Bolivia],"```cypher
+MATCH (m:Movie {name: ""Bolivia""})-[:HAS_GENRE]->(g:Genre)
+RETURN g.name
+```",{'Drama'}
+285,What is the kind of [Clambake] ,"""MATCH (m:Movie {name: 'Clambake'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Musical'}
+286,what kind of movie is [The Stepfather],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'The Stepfather' RETURN g.name""","{'Thriller', 'Horror'}"
+287,that was the type of [Leif],"Sorry, but your query is not clear. Could you please specify what ""Leif"" refers to and what type of information you are looking for?",{'Comedy'}
+288,What is the nature of [Lucas],MATCH (n) WHERE n.name = 'Lucas' RETURN labels(n),{'Comedy'}
+289,which is the type of [Johnny Skidmarks],MATCH (n) WHERE n.name = 'Johnny Skidmarks' RETURN labels(n),{'Mystery'}
+290,what kind of film are [Daddy-Long-Legs],"""MATCH (m:Movie {name: 'Daddy-Long-Legs'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""","{'Comedy', 'Drama'}"
+291,what was the type of film [Providence],"""MATCH (m:Movie {name: 'Providence'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Drama'}
+292,what kind of movie is [G],"""MATCH (m:Movie {name: 'G'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Drama'}
+293,what kind of genus is [Show Boat] in,"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Show Boat' RETURN g.name""","{'Musical', 'Drama'}"
+294,what is the genre of the movie [A Letter to Elia],"```
+MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = ""A Letter to Elia"" RETURN g.name
+```",{'Documentary'}
+295,which type of film is [Crackerjack],"""MATCH (m:Movie {name: 'Crackerjack'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Comedy'}
+296,which is the kind of [The Searchers],"""MATCH (m:Movie {name: 'The Searchers'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Western'}
+297,What is the type of [Odd Thomas],"Since the type of ""[Odd Thomas]"" is not specified in the natural language query, it is assumed that ""[Odd Thomas]"" is a movie. Therefore, the query should return the genre of the movie ""[Odd Thomas]"".
+
+The Cypher query would be:
+
+```
+MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) 
+WHERE m.name = ""Odd Thomas"" 
+RETURN g.name
+```","{'Thriller', 'Mystery'}"
+298,What was the type of [Jam],MATCH (n) WHERE n.name = 'Jam' RETURN labels(n),{'Drama'}
+299,what was the genre the film [Jason's Lyric],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Jason\'s Lyric' RETURN g.name""",{'Drama'}
+300,what is the genre for the film [P2],"```
+MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre)
+WHERE m.name = ""P2""
+RETURN g.name
+```",{'Thriller'}
+301,What kind of gender is [House of Usher] in,"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'House of Usher' RETURN g.name""",{'Horror'}
+302,what kind of movie is [Bridge to the Sun],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Bridge to the Sun' RETURN g.name""",{'War'}
+303,which type of film is [Get Carter],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Get Carter' RETURN g.name""","{'Thriller', 'Crime'}"
+304,what is the genre for the [Casey Jones] film,"""MATCH (m:Movie {name: 'Casey Jones'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Short'}
+305,what was the genre the film [Love Meetings],"```cypher
+MATCH (m:Movie {name: ""Love Meetings""})-[:HAS_GENRE]->(g:Genre)
+RETURN g.name
+```",{'Documentary'}
+306,what was the genre film [Lo],"""MATCH (m:Movie {name: 'Lo'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""","{'Comedy', 'Horror'}"
+307,What kind of [Adult World] fall under,"""MATCH (m:Movie {name: 'Adult World'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Comedy'}
+308,what type of film is [Fuzz],"""MATCH (m:Movie {name: 'Fuzz'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""","{'Action', 'Comedy'}"
+309,that was the kind of [4],"Your natural language query is not clear enough to be translated into Cypher query language. Please provide more details like the specific entities, attributes, or relationships you're interested in.",{'Drama'}
+310,what kind of thing [Carmen] fall under,"The given query is vague and doesn't specify what 'Carmen' refers to. Assuming 'Carmen' is a movie, the query would be:
+
+```
+MATCH (m:Movie {name: 'Carmen'})-[:DIRECTED_BY|:WRITTEN_BY|:STARRED_ACTORS|:RELEASE_YEAR|:IN_LANGUAGE|:HAS_TAGS|:HAS_GENRE|:HAS_IMDB_VOTES|:HAS_IMDB_RATING]->(entity)
+RETURN entity.name
+```
+
+This will return all entities related to the movie 'Carmen'. If 'Carmen' refers to a different entity, such as a director or actor, the query would need to be adjusted accordingly.",{'Drama'}
+311,what type of film is ['Neath the Arizona Skies],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Neath the Arizona Skies' RETURN g.name""",{'Western'}
+312,what kind of film are [Tamara Drewe],"""MATCH (m:Movie {name: 'Tamara Drewe'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Comedy'}
+313,What kind of [The V.I.P.s] fall under,"""MATCH (m:Movie {name: 'The V.I.P.s'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Drama'}
+314,what kind of gender is [Hit and Run] in,"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Hit and Run' RETURN g.name""","{'Action', 'Comedy'}"
+315,what was the type of [Hallam Foe],MATCH (m:Movie {name: 'Hallam Foe'}) RETURN labels(m),{'Drama'}
+316,What type of film [Fear X],"""MATCH (m:Movie {name: 'Fear X'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""",{'Thriller'}
+317,What is the type of [Pressed],"MATCH (n) WHERE n.name = ""Pressed"" RETURN labels(n)","{'Crime', 'Drama'}"
+318,What is the kind of [The Boob] ,"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'The Boob' RETURN g.name""",{'Comedy'}
+319,which kind of gender is [As Cool as I Am] in,"""MATCH (m:Movie {name: 'As Cool as I Am'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""","{'Comedy', 'Drama'}"
+320,which is the type of [An Average Little Man],"MATCH (m:Movie {name: ""An Average Little Man""}) RETURN labels(m)",{'Drama'}
+321,what type of film is [Ernest Goes to School],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Ernest Goes to School' RETURN g.name""",{'Comedy'}
+322,which kind of genus is [Motherhood] in,"""MATCH (m:Movie {name: 'Motherhood'})-[:HAS_GENRE]->(g:Genre) RETURN g.name""","{'Comedy', 'Drama'}"
+323,what is the genre of the film [Scar],"```cypher
+MATCH (m:Movie {name: 'Scar'})-[:HAS_GENRE]->(g:Genre)
+RETURN g.name
+```","{'Thriller', 'Crime', 'Horror'}"
+324,what is the type of [Vicky Cristina Barcelona],"MATCH (m:Movie {name: ""Vicky Cristina Barcelona""}) RETURN labels(m)",{'Drama'}
+325,which is the kind of [Boy Meets Girl],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Boy Meets Girl' RETURN g.name""","{'Romance', 'Drama'}"
+326,Which type of film is [Needing You...],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Needing You...' RETURN g.name""",{'Comedy'}
+327,what kind of film are [One 2 Ka 4],"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'One 2 Ka 4' RETURN g.name""","{'Action', 'Drama'}"
+328,What is the kind of [Deuces Wild] ,"""MATCH (m:Movie)-[:HAS_GENRE]->(g:Genre) WHERE m.name = 'Deuces Wild' RETURN g.name""","{'Crime', 'Drama'}"
+329,what was the genre of the film [Milk Money],"```cypher
+MATCH (m:Movie {name: 'Milk Money'})-[:HAS_GENRE]->(g:Genre)
+RETURN g.name
+```",{'Comedy'}
+330,What is the type of [Lockout],MATCH (m:Movie {name: 'Lockout'}) RETURN labels(m),{'Action'}
+331,What is the kind for [Dakota],"Your query is not clear. The term ""kind"" is not defined in the provided schema. Please provide further information or clarify your request.",{'Western'}
+332,What is the type of [Trois],MATCH (n {name: 'Trois'}) RETURN labels(n),{'Thriller'}
+333,which language is [Zatoichi the Outlaw] in the,"""MATCH (m:Movie {name: 'Zatoichi the Outlaw'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'Japanese'}
+334,Language used in [Joker],"""MATCH (m:Movie {name: 'Joker'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'Hindi'}
+335,what language is [Two Mules for Sister Sara] in the,"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'Two Mules for Sister Sara' RETURN l.name""",{'French'}
+336,Which is the main language of [The Sucker],"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'The Sucker' RETURN l.name""",{'French'}
+337,Who is the main language of [Planet of the Apes],"""MATCH (m:Movie {name: 'Planet of the Apes'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'English'}
+338,which language is [Les Cousins] in the,"""MATCH (m:Movie {name: 'Les Cousins'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'French'}
+339,what language is [Ararat] in the,"""MATCH (m:Movie {name: 'Ararat'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""","{'Armenian', 'French'}"
+340,which language is [Love Me If You Dare] in the,"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'Love Me If You Dare' RETURN l.name""",{'French'}
+341,Who is the main language of [Mad City],"""MATCH (m:Movie {name: 'Mad City'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'English'}
+342,what language spoken in the film [Hunting and Gathering],"""MATCH (m:Movie {name: 'Hunting and Gathering'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'French'}
+343,which is the primary language in the film [Time to Leave],"""MATCH (m:Movie {name: 'Time to Leave'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'French'}
+344,which is the principal language of [Lord of Tears],"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'Lord of Tears' RETURN l.name""",{'English'}
+345,Which language is [Private Confessions] in the,"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'Private Confessions' RETURN l.name""",{'Swedish'}
+346,Which is the main language of [Aamir],"""MATCH (m:Movie {name: 'Aamir'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'Hindi'}
+347,which language is [The Chorus] in the,"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'The Chorus' RETURN l.name""",{'French'}
+348,Which language is [GoldenEye] in the,"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'GoldenEye' RETURN l.name""",{'Spanish'}
+349,Which language is [Yesterday] in the,"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'Yesterday' RETURN l.name""",{'Zulu'}
+350,What is the spoken language of [The Hunchback of Notre Dame],"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'The Hunchback of Notre Dame' RETURN l.name""",{'English'}
+351,the language is the film [Hamlet] in,"""MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) WHERE m.name = 'Hamlet' RETURN l.name""",{'Russian'}
+352,which language is the [Hour of the Wolf] film in,"```
+MATCH (m:Movie)-[:IN_LANGUAGE]->(l:Language) 
+WHERE m.name = ""Hour of the Wolf"" 
+RETURN l.name
+```",{'Swedish'}
+353,Which language is [Pornorama] in the,"""MATCH (m:Movie {name: 'Pornorama'})-[:IN_LANGUAGE]->(l:Language) RETURN l.name""",{'German'}
+354,What subjects is the film [Burden of Dreams] on,"""MATCH (m:Movie {name: 'Burden of Dreams'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'3', 'werner herzog', 'jungle', 'south america', 'bd-r'}"
+355,which words describes [Holiday Inn],"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Holiday Inn' RETURN t.name""","{'christmas', 'holiday', 'mark sandrich', 'bing crosby', 'fred astaire'}"
+356,what words describe [Mystery Street],"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Mystery Street' RETURN t.name""","{'bd-r', 'john sturges'}"
+357,which words are described as [Barry Munday],"It seems like there might be some confusion with the natural language query. The database schema provided does not include an entity or relationship that would allow for words to be described as ""Barry Munday"". However, if you're looking for information related to a movie named ""Barry Munday"", such as its director, writer, actors, etc., these are some example queries:
+
+To find the director of the movie ""Barry Munday"":
+```cypher
+MATCH (m:Movie {name: ""Barry Munday""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```
+
+To find the writer of the movie ""Barry Munday"":
+```cypher
+MATCH (m:Movie {name: ""Barry Munday""})-[:WRITTEN_BY]->(w:Writer)
+RETURN w.name
+```
+
+To find the actors in the movie ""Barry Munday"":
+```cypher
+MATCH (m:Movie {name: ""Barry Munday""})-[:STARRED_ACTORS]->(a:Actor)
+RETURN a.name
+```
+
+To find the release year of the movie ""Barry Munday"":
+```cypher
+MATCH (m:Movie {name: ""Barry Munday""})-[:RELEASE_YEAR]->(y:Year)
+RETURN y.name
+```
+
+Please provide more context or clarify your request if you're looking for a different type of query.","{'judy greer', 'patrick wilson'}"
+358,which words describe [The Warped Ones],"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'The Warped Ones' RETURN t.name""","{'koreyoshi kurahara', 'bd-r'}"
+359,[The Honeymooners] in a few words,"""MATCH (m:Movie {name: 'The Honeymooners'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""",{'cedric the entertainer'}
+360,describe the film [Loose Cannons] in a few words ,"""MATCH (m:Movie {name: 'Loose Cannons'})-[r:HAS_TAGS]->(t:Tag) RETURN t.name""","{'richard matheson', 'gene hackman'}"
+361,to describe [Persuasion] in a few words,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Persuasion' RETURN t.name""","{'roger michell', 'adaptation', 'jane austen'}"
+362,what words describe the film [The Switch],"```cypher
+MATCH (m:Movie {name: 'The Switch'})-[:HAS_TAGS]->(t:Tag)
+RETURN t.name
+```","{'juliette lewis', 'new york', 'will speck', 'jennifer aniston', 'josh gordon', 'jason bateman', 'jeff goldblum', 'patrick wilson', 'comedy'}"
+363,[Simon] description,"Your query is not clear. Please specify what you want to search for Simon in the database. Is Simon a Movie, Director, Writer, Actor, Year, Language, Tag, Genre, Votes, or Rating?",{'euthanasia'}
+364,describe the [La Vie en Rose] film in a few words,"""MATCH (m:Movie {name: 'La Vie en Rose'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'marion cotillard', 'french'}"
+365,what words are described in the film [Blue Crush],"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Blue Crush' RETURN t.name""","{'kate bosworth', 'hawaii', 'surfing'}"
+366,Can you give you a few words to describe what [Get Real] is about,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Get Real' RETURN t.name""","{'coming out', 'gay'}"
+367,which topics is the film [Now Is Good] on,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Now Is Good' RETURN t.name""",{'dakota fanning'}
+368,to describe [10] in a few words,"The given natural language query, ""to describe [10] in a few words"" is ambiguous and does not specify any entity or attribute from the given database schema. Therefore, I'm unable to generate a Cypher query from this. Please provide a more specific query related to the database schema.","{'blake edwards', 'dudley moore'}"
+369,what words describes the film [Gone Baby Gone],"```cypher
+MATCH (m:Movie {name: ""Gone Baby Gone""})-[:HAS_TAGS]->(t:Tag)
+RETURN t.name
+```","{'casey affleck', 'mystery', 'ben affleck', 'directorial debut', 'r'}"
+370,Can you give a few words to describe [Tony],"The provided natural language query is ambiguous. The database schema doesn't seem to contain any entity or attribute that could be used to describe a person named ""Tony"". It would be helpful to have more specific information about what we're looking for in relation to ""Tony"".",{'serial killer'}
+371,describing the film [Mountains of the Moon] in a few words,"""MATCH (m:Movie {name: 'Mountains of the Moon'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'bob rafelson', 'africa'}"
+372,which subjects is the film [Smoking/No Smoking] on,"""MATCH (m:Movie {name: 'Smoking/No Smoking'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""",{'alain resnais'}
+373,describing [San Francisco],"Your query does not provide any specific context or relation to the database schema. Please provide a more detailed query. For example, ""Find all movies directed by a director from San Francisco"" or ""Find all movies written by a writer from San Francisco"".",{'clark gable'}
+374,Can you give a few words to describe what [Black Mask] is about,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Black Mask' RETURN t.name""",{'jet li'}
+375,what topics is [1984] about,"""MATCH (m:Movie {name: '1984'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'george orwell', 'michael anderson'}"
+376,describe the [Hell Ride] film in a few words,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Hell Ride' RETURN t.name""","{'quentin tarantino', 'dennis hopper', 'vinnie jones'}"
+377,what words are described [Soul Surfer],"```cypher
+MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE m.name = ""Soul Surfer""
+RETURN t.name
+```","{'true story', 'faith'}"
+378,what topics is [Fist of the North Star] about,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Fist of the North Star' RETURN t.name""",{'anime'}
+379,[High Heels and Low Lifes] description,"Given the database schema, it seems like there is no attribute or entity for a 'description' of a movie. Therefore, it is not possible to create a Cypher query to answer the given natural language query.",{'minnie driver'}
+380,what are the terms that apply to [Frank],"Given the information provided, the natural language query is somewhat ambiguous. It is unclear what entity ""Frank"" belongs to (Director, Actor, Writer, etc.), and what terms you are referring to. Due to this ambiguity, I will provide a general Cypher query that takes ""Frank"" as a Movie entity and fetches all its related entities:
+
+```
+MATCH (m:Movie {name: 'Frank'})-[r]->(n)
+RETURN type(r) as Relation, n.name as Name
+```
+
+This Cypher query will search for a movie named 'Frank' and return all the relations (terms) that apply to it along with the names of the entities related to it. Adjust this query according to the specific entity type and relations you are interested in.","{'domhnall gleeson', 'maggie gyllenhaal', 'michael fassbender'}"
+381,what words describes the film [Elephant White],"```
+MATCH (m:Movie {name: 'Elephant White'})-[:HAS_TAGS]->(t:Tag)
+RETURN t.name
+```",{'bangkok'}
+382,[Jesse James] description ,"The natural language query is a bit ambiguous. If you mean to get all information related to a movie called ""Jesse James"", the Cypher query would be:
+
+```
+MATCH (m:Movie {name: ""Jesse James""})-[r]->(info)
+RETURN m.name, TYPE(r), info.name
+```",{'henry king'}
+383,which subjects is the [Doom] film on,"```
+MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE m.name = 'Doom'
+RETURN t.name
+```","{'horror', 'monsters', 'mars'}"
+384,what words are described in the film [Seven Days in May],"""MATCH (m:Movie {name: 'Seven Days in May'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'thriller', 'rod serling', 'military', 'john frankenheimer', 'bd-r'}"
+385,[King Creole] in a few words,"""MATCH (m:Movie {name: 'King Creole'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""",{'michael curtiz'}
+386,what topics is [Treasure Island] about,"""MATCH (m:Movie {name: 'Treasure Island'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'disney', 'island', 'robert louis stevenson'}"
+387,describing the [Author! Author!] film in a few words,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Author! Author!' RETURN t.name""",{'arthur hiller'}
+388,which words are described [Disclosure],"The provided natural language query is unclear. The term ""words are described"" does not specify a clear relationship within the database schema. Please provide a more specific query. For example, you can ask for the director, actors, genre, language, etc. associated with the movie ""Disclosure"".","{'michael crichton', 'demi moore', 'michael douglas', 'sexual harassment'}"
+389,Could you give you a few words to describe what [Alien Nation] is about,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Alien Nation' RETURN t.name""",{'police'}
+390,describe [The Wolverine] in a few words ,"""MATCH (m:Movie {name: 'The Wolverine'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'hugh jackman', 'japan', 'superhero', 'james mangold', 'marvel', 'x-men', 'wolverine'}"
+391,which words are described as [Beyond the Sea],"This query is not clear enough to be translated into Cypher. It does not specify what it means by ""words"" and what relation ""Beyond the Sea"" has with the database schema. Please provide more information.",{'kevin spacey'}
+392,which topics is [Zodiac] about,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Zodiac' RETURN t.name""","{'jake gyllenhaal', 'police', 'slow', 'david fincher', 'mark ruffalo', 'crime', 'serial killer', 'r', 'investigation'}"
+393,Could you give a few words to describe what [The Big Boss] is about,"""MATCH (m:Movie {name: 'The Big Boss'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'martial arts', 'bruce lee'}"
+394,[Farewell My Concubine] description ,"Since the natural language query asks for the description of the movie ""Farewell My Concubine"", it's likely to include the director, the writers, the actors, the year of release, the language, the tags, the genre, the votes, and the rating. Here's how you can query that in Cypher:
+
+```
+MATCH (m:Movie {name: 'Farewell My Concubine'}) 
+OPTIONAL MATCH (m)-[:DIRECTED_BY]->(d:Director) 
+OPTIONAL MATCH (m)-[:WRITTEN_BY]->(w:Writer) 
+OPTIONAL MATCH (m)-[:STARRED_ACTORS]->(a:Actor) 
+OPTIONAL MATCH (m)-[:RELEASE_YEAR]->(y:Year) 
+OPTIONAL MATCH (m)-[:IN_LANGUAGE]->(l:Language) 
+OPTIONAL MATCH (m)-[:HAS_TAGS]->(t:Tag)
+OPTIONAL MATCH (m)-[:HAS_GENRE]->(g:Genre)
+OPTIONAL MATCH (m)-[:HAS_IMDB_VOTES]->(v:Votes)
+OPTIONAL MATCH (m)-[:HAS_IMDB_RATING]->(r:Rating)
+RETURN m.name AS Movie, collect(d.name) AS Directors, collect(w.name) AS Writers, collect(a.name) AS Actors, y.name AS Year, l.name AS Language, collect(t.name) AS Tags, collect(g.name) AS Genres, v.name AS Votes, r.name AS Rating
+``` 
+
+Remember that since there can be multiple directors, writers, actors, tags, and genres for a movie, we use the `collect` function to get all of them.","{'leslie cheung', 'opera', 'r', 'gong li', 'china'}"
+395,what words are described in the film [Planes],"""MATCH (m:Movie {name: 'Planes'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""",{'disney'}
+396,Which topics is the film [Domino] on,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Domino' RETURN t.name""",{'keira knightley'}
+397,which words describe the [Short Cuts] film,"```
+MATCH (m:Movie {name: ""Short Cuts""})-[:HAS_TAGS]->(t:Tag)
+RETURN t.name
+```","{'robert altman', 'julianne moore', 'altman', 'los angeles', 'ensemble cast', 'tom waits'}"
+398,to describe the film [Darkon] in a few words,"""MATCH (m:Movie {name: 'Darkon'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'maryland', 'fantasy', 'baltimore', 'documentary'}"
+399,describing the [Captain Phillips] film in a few words,"""MATCH (m:Movie {name: 'Captain Phillips'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'hostage', 'tom hanks', 'paul greengrass', 'seal', 'navy', 'captain', 'navy seals', 'ocean', 'hijacking', 'true story', 'pirates'}"
+400,describing [The Lost Boys] in a few words,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'The Lost Boys' RETURN t.name""","{'vampire', 'horror', 'brothers', 'kiefer sutherland', 'vampires'}"
+401,Can you give a few words to describe what [Oldboy] is about,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Oldboy' RETURN t.name""","{'violence', 'vengeance', 'trilogy', 'conspiracy', 'story', 'korea', '2', 'korean', 'r'}"
+402,describes the film [The Dawn Patrol] in a few words,"""MATCH (m:Movie {name: 'The Dawn Patrol'})-[:DIRECTED_BY]->(d:Director), (m)-[:WRITTEN_BY]->(w:Writer), (m)-[:STARRED_ACTORS]->(a:Actor), (m)-[:RELEASE_YEAR]->(y:Year), (m)-[:IN_LANGUAGE]->(l:Language), (m)-[:HAS_TAGS]->(t:Tag), (m)-[:HAS_GENRE]->(g:Genre), (m)-[:HAS_IMDB_VOTES]->(v:Votes), (m)-[:HAS_IMDB_RATING]->(r:Rating) RETURN m, d, w, a, y, l, t, g, v, r""",{'edmund goulding'}
+403,what words describe the [Emmanuel's Gift] film,"""MATCH (m:Movie {name: 'Emmanuel's Gift'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""",{'ghana'}
+404,you can describe the movie [Cypher] in a few words,"""MATCH (m:Movie {name: 'Cypher'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'jeremy northam', 'lucy liu', 'r', 'vincenzo natali'}"
+405,describing the [Deadly Friend] film in a few words,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Deadly Friend' RETURN t.name""",{'wes craven'}
+406,what words describe the movie [The Sacrifice],"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'The Sacrifice' RETURN t.name""","{'andrei tarkovsky', 'erland josephson'}"
+407,describe the [Easy Rider] film in a few words,"""MATCH (m:Movie {name: 'Easy Rider'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'marijuana', 'united states', 'road movie', 'dennis hopper', 'counterculture', 'drugs', 'bd-r', 'library', 'peter fonda'}"
+408,which words describe the film [City Slickers],"```
+MATCH (m:Movie {name: 'City Slickers'})-[:HAS_TAGS]->(t:Tag)
+RETURN t.name
+```","{'daniel stern', 'bruno kirby', 'billy crystal', 'colorado', 'ron underwood', 'jack palance'}"
+409,[Romeo + Juliet] description ,"Your query is not clear enough. If you want to get all the attributes related to the movie ""Romeo + Juliet"", the Cypher query would be as follows:
+
+```cypher
+MATCH (m:Movie {name: ""Romeo + Juliet""})-[:DIRECTED_BY]->(d:Director),
+(m)-[:WRITTEN_BY]->(w:Writer),
+(m)-[:STARRED_ACTORS]->(a:Actor),
+(m)-[:RELEASE_YEAR]->(y:Year),
+(m)-[:IN_LANGUAGE]->(l:Language),
+(m)-[:HAS_TAGS]->(t:Tag),
+(m)-[:HAS_GENRE]->(g:Genre),
+(m)-[:HAS_IMDB_VOTES]->(v:Votes),
+(m)-[:HAS_IMDB_RATING]->(r:Rating)
+RETURN m, d, w, a, y, l, t, g, v, r
+```
+
+This query will return all the related entities (director, writer, actors, year of release, language, tags, genre, votes, and rating) of the movie ""Romeo + Juliet"".","{'baz luhrmann', 'shakespeare', 'leonardo dicaprio', 'claire danes', 'romantic'}"
+410,[Vampyros Lesbos] description,This query is not clear enough to translate it into Cypher. The database schema does not contain a 'description' attribute or entity. Please provide a more specific query.,{'vampire'}
+411,what words describes the film [Spare Parts],"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Spare Parts' RETURN t.name""",{'high school'}
+412,[Gypsy] description ,"The natural language query is not explicit about the attributes for the movie description. If we assume the description includes Movie name, Director, Writer, Actors, Release Year, Language, Tags, Genre, IMDB Votes, and IMDB Rating, the Cypher query would look like this:
+
+```cypher
+MATCH (m:Movie {name: 'Gypsy'})-[:DIRECTED_BY]->(d:Director),
+      (m)-[:WRITTEN_BY]->(w:Writer),
+      (m)-[:STARRED_ACTORS]->(a:Actor),
+      (m)-[:RELEASE_YEAR]->(y:Year),
+      (m)-[:IN_LANGUAGE]->(l:Language),
+      (m)-[:HAS_TAGS]->(t:Tag),
+      (m)-[:HAS_GENRE]->(g:Genre),
+      (m)-[:HAS_IMDB_VOTES]->(v:Votes),
+      (m)-[:HAS_IMDB_RATING]->(r:Rating)
+RETURN m.name AS Movie, d.name AS Director, w.name AS Writer, collect(a.name) AS Actors, y.name AS Year, l.name AS Language, collect(t.name) AS Tags, g.name AS Genre, v.name AS Votes, r.name AS Rating
+```","{'bd-r', 'mervyn leroy'}"
+413,describes the film [Requiem] in a few words,"""MATCH (m:Movie {name:'Requiem'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""","{'exorcism', 'possession', 'mental illness', 'epilepsy'}"
+414,to describe [Derailed] in a few words,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Derailed' RETURN t.name""","{'clive owen', 'vincent cassel'}"
+415,what words describes the film [Bend It Like Beckham],"```
+MATCH (m:Movie {name: ""Bend It Like Beckham""})-[:HAS_TAGS]->(t:Tag)
+RETURN t.name
+```","{'london', 'football', 'keira knightley'}"
+416,to describe [Children of Nature] in a few words,"""MATCH (m:Movie {name: 'Children of Nature'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""",{'friðrik Þór friðriksson'}
+417,Can you give some words describing [Sapphire],"""MATCH (m:Movie {name: 'Sapphire'})-[:HAS_TAGS]->(t:Tag) RETURN t.name""",{'basil dearden'}
+418,can describe the movie [Meeting Evil] in a few words,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Meeting Evil' RETURN t.name""","{'samuel l. jackson', 'luke wilson'}"
+419,what words describe the [Street Mobster] film,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'Street Mobster' RETURN t.name""",{'kinji fukasaku'}
+420,which words describe [The Pope's Toilet],"```
+MATCH (m:Movie {name: ""The Pope's Toilet""})-[:HAS_TAGS]->(t:Tag)
+RETURN t.name
+```",{'uruguay'}
+421,Can you give a few words to describe what [On the Road] is about ,"""MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE m.name = 'On the Road' RETURN t.name""",{'jack kerouac'}
+422,describe the [Sid and Nancy] film in a few words,"""MATCH (m:Movie {name: 'Sid and Nancy'})-[r:HAS_TAGS]->(t:Tag) RETURN t.name""","{'punk', 'punk rock', 'alex cox', 'gary oldman'}"
+423,Which words describe [Sandra],"Your query is ambiguous. Could you please provide more information? For example, is Sandra an actor, a director, or a writer? And what words are you interested in? Tags for movies she's involved with, languages she speaks, or something else?","{'luchino visconti', 'italian'}"
+424,[Twice Upon a Time] description ,"Your natural language query is ambiguous as you have not specified what specific information or description about the movie ""Twice Upon a Time"" you are interested in. Are you interested in the director, the actors, the writers, the year of release, the language, the tags, the genre, the votes, or the rating? Please provide more specific information.","{'animation', 'bd-r', 'john korty'}"
+425,of the film [Ned Kelly],"The natural language query is incomplete. To generate a Cypher query, please provide more information about what you want to know about the film ""Ned Kelly"". For example, do you want to know its director, its actors, its genre, etc.?",{'Tony Richardson'}
+426,who has written the film [The Machinist],"""MATCH (m:Movie {name: 'The Machinist'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'Scott Kosar'}
+427,who was the [Call Girl] writer,"""MATCH (m:Movie {name: 'Call Girl'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'Marietta von Hausswolff von Baumgarten'}
+428,that wrote the film [Seven Samurai],"""MATCH (m:Movie {name: 'Seven Samurai'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'Akira Kurosawa'}
+429,who was the [Post Mortem] writer,"""MATCH (m:Movie {name: 'Post Mortem'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'Pablo Larraín'}
+430,who has written [Lianna],"""MATCH (m:Movie {name: 'Lianna'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'John Sayles'}
+431,Who is the [The Dawn Patrol] writer,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE m.name = 'The Dawn Patrol' RETURN w.name""",{'John Monk Saunders'}
+432,who was the author of the film [Catwoman],"""MATCH (m:Movie {name: 'Catwoman'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'Bob Kane'}
+433,author of [Respiro],"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE m.name = 'Respiro' RETURN w.name""",{'Emanuele Crialese'}
+434,that has been [The Fallen Idol] written by,"```
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) 
+WHERE m.name = 'The Fallen Idol' 
+RETURN w.name
+```",{'Graham Greene'}
+435,which was the writer of the film [Bully],"```
+MATCH (m:Movie {name: ""Bully""})-[:WRITTEN_BY]->(w:Writer)
+RETURN w.name
+```","{'Roger Pullis', 'Jim Schutze', 'David McKenna'}"
+436,which person has written the film [Cronos],"""MATCH (m:Movie {name: 'Cronos'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'Guillermo del Toro'}
+437,Who is the [The Wild Bees] author,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE m.name = 'The Wild Bees' RETURN w.name""",{'Bohdan Sláma'}
+438,who has written the movie [The God Who Wasn't There],MATCH (m:Movie {name: 'The God Who Wasn't There'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name,{'Brian Flemming'}
+439,The [Before Midnight] film was written by whom,"```
+MATCH (m:Movie {name: ""Before Midnight""})-[:WRITTEN_BY]->(w:Writer)
+RETURN w.name
+```","{'Julie Delpy', 'Richard Linklater', 'Ethan Hawke'}"
+440,which in the world has written [Inside Moves],"""MATCH (m:Movie {name: 'Inside Moves'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""","{'Valerie Curtin', 'Todd Walton', 'Barry Levinson'}"
+441,which was the [Choke] writer,"""MATCH (m:Movie {name: 'Choke'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""","{'Clark Gregg', 'Chuck Palahniuk'}"
+442,Who is the [Caged] writer,"```cypher
+MATCH (m:Movie {name: ""Caged""})-[:WRITTEN_BY]->(w:Writer)
+RETURN w.name
+```","{'Virginia Kellogg', 'Bernard C. Schoenfeld'}"
+443,that wrote the film [The Howling],"""MATCH (m:Movie {name: 'The Howling'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""","{'John Sayles', 'Gary Brandner', 'Terence H. Winkless'}"
+444,who is the [The Appeared] author,"""MATCH (m:Movie {name: 'The Appeared'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'Paco Cabezas'}
+445,which has been [The Final Cut] in writing by,"""MATCH (m:Movie {name: 'The Final Cut'})-[:WRITTEN_BY]->(w:Writer) RETURN w.name""",{'Crash Leyland'}
+446,who has written [The Magnetic Monster],"```
+MATCH (m:Movie {name: ""The Magnetic Monster""})-[:WRITTEN_BY]->(w:Writer)
+RETURN w.name
+```","{'Ivan Tors', 'Curt Siodmak'}"
+447,who was the writer of [A Clockwork Orange],"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE m.name = 'A Clockwork Orange' RETURN w.name""","{'Anthony Burgess', 'Stanley Kubrick'}"
+448,"what has happened to [Silent Night, Deadly Night]","The provided natural language query ""what has happened to [Silent Night, Deadly Night]"" is too ambiguous for a database query translation as it doesn't specify what kind of information is needed about the movie ""Silent Night, Deadly Night"". Please provide more specific details.",{'1984'}
+449,what was the exit from [Romeo Is Bleeding],"Your query does not specify what exactly you want to know about the movie ""Romeo Is Bleeding"". However, if you want to get all the related information about the movie, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie {name: ""Romeo Is Bleeding""})-[:DIRECTED_BY]->(d:Director),
+      (m)-[:WRITTEN_BY]->(w:Writer),
+      (m)-[:STARRED_ACTORS]->(a:Actor),
+      (m)-[:RELEASE_YEAR]->(y:Year),
+      (m)-[:IN_LANGUAGE]->(l:Language),
+      (m)-[:HAS_TAGS]->(t:Tag),
+      (m)-[:HAS_GENRE]->(g:Genre),
+      (m)-[:HAS_IMDB_VOTES]->(v:Votes),
+      (m)-[:HAS_IMDB_RATING]->(r:Rating)
+RETURN m, d, w, a, y, l, t, g, v, r
+```
+This query will return all related entities of the movie ""Romeo Is Bleeding"".",{'1993'}
+450,of which date was the date of exit of [Otis],"""MATCH (m:Movie {name: 'Otis'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'2008'}
+451,what has been the way to [The Rare Breed],"The query ""what has been the way to [The Rare Breed]"" is not clear in terms of what it is trying to extract from the database. It could potentially be asking for the director, writer, actors, year of release, language, tags, genre, votes or rating related to the movie ""The Rare Breed"". Please provide a more specific query.",{'1966'}
+452,what was the output of the film [Little Miss Marker],"The query is not clear enough as ""output"" is not defined in the given schema. The ""output"" of a film could be referring to various things such as its director, actors, genre, etc. Please provide more specific information.",{'1934'}
+453,what has been the exit from [My Life So Far],"The provided natural language query is not clear about the specific information it is seeking regarding the movie ""My Life So Far"". ""Exit"" is not a defined attribute or relationship in the provided schema. Please provide a more specific query, such as ""Who directed 'My Life So Far'?"" or ""What is the IMDB rating of 'My Life So Far'?"".",{'1999'}
+454,what has been the way to [Amityville 3-D],Your query is not clear. Please provide more information.,{'1983'}
+455,what date was the release date of the [Like Father Like Son] film,"""MATCH (m:Movie {name: 'Like Father Like Son'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'1987'}
+456,what was the exit of [Policeman],"Your query ""what was the exit of [Policeman]"" is a bit ambiguous and I am unable to understand what you're asking for. Could you please provide more context or rephrase the question? Are you asking for the release year, the director, or something else related to the movie ""Policeman""?",{'2011'}
+457,what has been the exit from [Soul Man],"Your query is not clear. The term ""exit"" is not defined in the context of the database schema provided. Could you please provide more details or clarify the information you want to retrieve related to the movie ""Soul Man""?",{'1986'}
+458,what date was the release date of the movie [The Andromeda Strain],"""MATCH (m:Movie {name: 'The Andromeda Strain'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'1971'}
+459,[The Chamber]  when freed,"Your query is not clear. Could you please provide more details or context? The phrase ""[The Chamber] when freed"" does not specify what information you are looking for in the database.",{'1996'}
+460,which date was the release date of [King Kelly],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'King Kelly' RETURN y.name""",{'2012'}
+461,what was the output of the film [The Breed],"The natural language query is not clear about what specific output is needed for the film ""The Breed"". It could be asking for any information related to the film such as director, actors, writer, year, language, tags, genre, votes, or rating. Please provide more specific information.",{'2006'}
+462,what has been the exit from [Age of Consent],"The query seems to be ambiguous as it's not clear what ""exit"" refers to in the context of a movie. Please provide more specific details. For instance, are you referring to the revenue generated, the number of viewers, or something else?",{'1969'}
+463,what was the exit of [Children of Men],"It seems like the query might be asking for the release year of the movie ""Children of Men"". If that's the case, the corresponding Cypher query would be:
+
+```
+MATCH (m:Movie {name: 'Children of Men'})-[:RELEASE_YEAR]->(y:Year)
+RETURN y.name
+```",{'2006'}
+464,which date was the date of release of [Alibi],"""MATCH (m:Movie {name: 'Alibi'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'1929'}
+465,what was the exit of [Cyrano de Bergerac],"The natural language query is not clear. The term ""exit"" could refer to various aspects such as the movie's release year, the director, actors, or any other attribute related to the movie. Please provide more context or clarify what specific information you are looking for about the movie ""Cyrano de Bergerac"".",{'1990'}
+466,which date was the release date of the film [Fast Times at Ridgemont High],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'Fast Times at Ridgemont High' RETURN y.name""",{'1982'}
+467,what was the exit of [An American Carol],"The natural language query is ambiguous. ""Exit"" does not represent any relation known in the database schema. Please provide more context or rephrase the query.",{'2008'}
+468,what was the exit from [Away from Her],"Your query is not clear. If you want to know the director, year of release and genre of the movie ""Away from Her"", the Cypher query would be:
+
+```
+MATCH (m:Movie {name: ""Away from Her""})-[:DIRECTED_BY]->(d:Director),
+(m)-[:RELEASE_YEAR]->(y:Year),
+(m)-[:HAS_GENRE]->(g:Genre)
+RETURN d.name as Director, y.name as Year, g.name as Genre
+```",{'2006'}
+469,which date was the release date of the film [The Double],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'The Double' RETURN y.name""",{'2013'}
+470,what was the exit of [Gertrud],"Your query is unclear. The term ""exit"" in the context of a movie is ambiguous. Please provide more context or specify the information you are looking for. For example, are you asking about a movie named ""Gertrud"", its director, actors, release year, language, tags, genre, votes, or rating?",{'1964'}
+471,what was the output of the film [The Monkey King],"As an AI, I need more specific information to accurately answer your query because ""output"" in the context of a film could refer to several different attributes like the director, the writer, the actors, the release year, the language, the tags, the genre, the votes, or the rating. Please provide more specific information.",{'2014'}
+472,what was the exit of [Blast of Silence],"The natural language query does not provide clear information on what is needed. The term ""exit"" doesn't correspond with any of the attributes or entities in the provided database schema. Please provide a more specific query.",{'1961'}
+473,which date was the date of release of the film [Careful],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'Careful' RETURN y.name""",{'1992'}
+474,what was the exit of [The Spider's Stratagem],"The query does not specify what information is needed for the movie ""The Spider's Stratagem"". Without specific details, it's impossible to write a corresponding Cypher query. Please provide more details, such as director, actors, genre, etc.",{'1970'}
+475,what has been the way to [Saving Santa],"Your query is not clear. Could you please provide more details about what exactly you want to know about the movie ""Saving Santa""? For example, are you interested in who directed it, who starred in it, what language it's in, etc?",{'2013'}
+476,what date was the release date of [Veronika Decides to Die],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'Veronika Decides to Die' RETURN y.name""",{'2009'}
+477,which date was the date of release of [The Sergeant],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'The Sergeant' RETURN y.name""",{'1968'}
+478,what was the exit of [Bad Boys II],"The query is ambiguous as the ""exit"" of a movie is not clear. Please provide a more specific query such as 'director', 'actors', 'rating', 'votes', 'year of release', 'language', 'tags', 'genre' etc.",{'2003'}
+479,what has happened to [Tere Bin Laden],"The query ""what has happened to [Tere Bin Laden]"" is quite ambiguous. It doesn't specify what kind of information you're looking for about the movie ""Tere Bin Laden"". 
+
+Assuming you want to get all available information about the movie ""Tere Bin Laden"", the Cypher query would be:
+
+```
+MATCH (m:Movie)-[r1:DIRECTED_BY]->(d:Director),
+      (m:Movie)-[r2:WRITTEN_BY]->(w:Writer),
+      (m:Movie)-[r3:STARRED_ACTORS]->(a:Actor),
+      (m:Movie)-[r4:RELEASE_YEAR]->(y:Year),
+      (m:Movie)-[r5:IN_LANGUAGE]->(l:Language),
+      (m:Movie)-[r6:HAS_TAGS]->(t:Tag),
+      (m:Movie)-[r7:HAS_GENRE]->(g:Genre),
+      (m:Movie)-[r8:HAS_IMDB_VOTES]->(v:Votes),
+      (m:Movie)-[r9:HAS_IMDB_RATING]->(r:Rating)
+WHERE m.name = ""Tere Bin Laden""
+RETURN m, d, w, a, y, l, t, g, v, r
+```
+
+This query will return all information related to the movie ""Tere Bin Laden"" such as its director, writer, actors, release year, language, tags, genre, votes, and rating.",{'2010'}
+480,of which date has been the date of release of [Benny's Video],"""MATCH (m:Movie {name: 'Benny\'s Video'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'1992'}
+481,what has happened to [Nokas],"Apologies, but the provided natural language query ""what has happened to [Nokas]"" is too vague and does not correspond to the available entities or relations in the given database schema. Please provide a more specific query related to the database schema. For example, you could ask for the director of a movie, the actors in a movie, the movie's genre, etc.",{'2010'}
+482,what was the exit of [Losing Chase],"Your query is not clear about what kind of information you are looking for regarding the movie ""Losing Chase"". Please clarify if you are looking for the director, actors, release year, language, genre, votes, rating, or other specific details about this movie.",{'1996'}
+483,which date was the release date of the [Miracle Run] film,"""MATCH (m:Movie {name: 'Miracle Run'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'2004'}
+484,what was the exit of [The Adventures of Arsène Lupin],"The natural language query is not clear. The term ""exit"" is not defined in the context of the database schema. Could you please provide more information or clarify the query?",{'1957'}
+485,what has been the way to [Scum],"Your query ""what has been the way to [Scum]"" is not clear. Please provide more context or details.",{'1979'}
+486,what has been the way to [Johnny Belinda],"Your query ""what has been the way to [Johnny Belinda]"" is not clear. Please provide more context or details to enable me to generate a proper Cypher query.",{'1948'}
+487,what was the exit from [The Spanish Earth],"The natural language query is unclear as it does not specify what information is required about the movie ""The Spanish Earth"". The ""exit"" could refer to a variety of things, such as the director, the actors, the release year, the genre, etc. Please provide a more specific query.",{'1937'}
+488,what has been the exit from [Tromeo and Juliet],"Since the query is not clear about what specific information is needed for ""Tromeo and Juliet"", I'll assume you want to know all information about it such as its director, writer, actors, genre, tags, language, release year, votes, and rating.
+
+The Cypher query would look like this:
+
+```
+MATCH (m:Movie{name: 'Tromeo and Juliet'})-[:DIRECTED_BY]->(d:Director),
+      (m)-[:WRITTEN_BY]->(w:Writer),
+      (m)-[:STARRED_ACTORS]->(a:Actor),
+      (m)-[:RELEASE_YEAR]->(y:Year),
+      (m)-[:IN_LANGUAGE]->(l:Language),
+      (m)-[:HAS_TAGS]->(t:Tag),
+      (m)-[:HAS_GENRE]->(g:Genre),
+      (m)-[:HAS_IMDB_VOTES]->(v:Votes),
+      (m)-[:HAS_IMDB_RATING]->(r:Rating)
+RETURN m.name as Movie, d.name as Director, w.name as Writer, collect(a.name) as Actors, y.name as Year, l.name as Language, collect(t.name) as Tags, collect(g.name) as Genres, v.name as Votes, r.name as Rating
+```",{'1996'}
+489,what was the exit from [The Last Voyage],"The given natural language query ""what was the exit from [The Last Voyage]"" is not clear. Could you please provide more information or context?",{'1960'}
+490,what was the exit of [The Last Remake of Beau Geste],"The natural language query is not clear about which specific information is needed about the movie ""The Last Remake of Beau Geste"". It could refer to the director, actors, release year, language, genre, votes, or rating. Please provide more specific information.",{'1977'}
+491,what was the release of the year of the [Leif] film,"""MATCH (m:Movie {name: 'Leif'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'1987'}
+492,what has been the exit from [The Quiet],"As an AI, I am not sure what you mean by ""exit"" in the context of movies. Please provide more information or clarify your question.",{'2005'}
+493,what has been the exit from [Mr. Skeffington],"The natural language query is not clear enough to be translated into a Cypher query. The term ""exit"" in the context of a movie database could refer to several things such as the movie's ending, an actor's departure from the movie, or the movie's withdrawal from theaters. Could you please provide more specific or detailed information? For example, are you asking about who directed the movie [Mr. Skeffington], who acted in it, or in what year it was released?",{'1944'}
+494,what has happened to [I Am Bruce Lee],"The query ""what has happened to [I Am Bruce Lee]"" is ambiguous as it doesn't specify what kind of information is needed about the movie ""I Am Bruce Lee"". Below are various ways to interpret the question:
+
+1. If you want to retrieve all information related to the movie ""I Am Bruce Lee"", you can use the following Cypher query:
+
+```cypher
+MATCH (m:Movie {name: ""I Am Bruce Lee""})-[]->(info)
+RETURN info
+```
+
+2. If you want to know who directed the movie ""I Am Bruce Lee"", you can use this Cypher query:
+
+```cypher
+MATCH (m:Movie {name: ""I Am Bruce Lee""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```
+
+3. If you want to know who wrote the movie ""I Am Bruce Lee"", you can use this Cypher query:
+
+```cypher
+MATCH (m:Movie {name: ""I Am Bruce Lee""})-[:WRITTEN_BY]->(w:Writer)
+RETURN w.name
+```
+
+4. If you want to know who starred in the movie ""I Am Bruce Lee"", you can use this Cypher query:
+
+```cypher
+MATCH (m:Movie {name: ""I Am Bruce Lee""})-[:STARRED_ACTORS]->(a:Actor)
+RETURN a.name
+```
+
+Remember to replace the code with the information you need.",{'2012'}
+495,what was the output of the film [The Brides of Dracula],"The query seems to be ambiguous as it asks for the ""output"" of the film ""The Brides of Dracula"" without specifying what is meant by ""output"". This could refer to any attribute or relation of the movie entity such as director, actors, genre, language, etc. Please provide more specific information.",{'1960'}
+496,what was the exit of [Malone],"The natural language query is unclear. Could you specify what you mean by ""exit of [Malone]""? If Malone is a movie and you want to know the year it was released, the Cypher query would be:
+
+```cypher
+MATCH (m:Movie {name: ""Malone""})-[:RELEASE_YEAR]->(y:Year)
+RETURN y.name
+```
+
+If Malone is an actor and you want to know the last movie they starred in, the Cypher query would be:
+
+```cypher
+MATCH (a:Actor {name: ""Malone""})<-[:STARRED_ACTORS]-(m:Movie)
+RETURN m.name
+ORDER BY m.name DESC
+LIMIT 1
+```
+
+Please provide more detail so I can give a more accurate response.",{'1987'}
+497,what was the exit from [Wolves],"It seems like the query is not clear. The term ""exit"" is not defined in the context of the given database schema. Could you please provide more details or rephrase the query?",{'1999'}
+498,what has happened to [Homecoming],"This natural language query is too vague for a Cypher query because it doesn't specify what information about the movie ""Homecoming"" is being sought. Possible information could be its director, actors, release year, language, tags, genre, votes, or rating. 
+
+For instance, if you want to know who directed the movie ""Homecoming"", the Cypher query would be:
+
+```
+MATCH (m:Movie {name: ""Homecoming""})-[:DIRECTED_BY]->(d:Director)
+RETURN d.name
+```
+
+Please provide more specific information about the data you want to retrieve about the movie ""Homecoming"".",{'2009'}
+499,[Male and Female]  when freed,"Your query ""[Male and Female] when freed"" is not clear enough. Please provide more specific details about the entities and their relationships you want to query in the database.",{'1919'}
+500,what was the exit of [Ten Seconds to Hell],"Your query is not clear. The term ""exit"" is not defined in the context of a movie database. Please provide more context or clarify your request.",{'1959'}
+501,what has been the exit from [The Girls],"The query is ambiguous. The term ""exit"" is not clear in the context provided. Could you please provide more context or clarify the query?",{'1968'}
+502,what has been the exit from [Caprice],"It's unclear what ""exit"" refers to in the context of this database schema. Please provide more specific information.",{'1967'}
+503,when was [Hot Tub Time Machine] released ,"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'Hot Tub Time Machine' RETURN y.name""",{'2010'}
+504,what date was the release date of [Collateral],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'Collateral' RETURN y.name""",{'2004'}
+505,[Celebrity]  when was liberated,Your query is not clear. Please provide the context of 'Celebrity' and 'liberated' in relation to the database schema.,{'1998'}
+506,what has happened to [A Guy Thing],"Since the query doesn't specify what kind of information is requested about ""A Guy Thing"", I'll provide a general query that retrieves all related information about ""A Guy Thing"".
+
+```
+MATCH (m:Movie {name: 'A Guy Thing'})
+OPTIONAL MATCH (m)-[:DIRECTED_BY]->(d:Director)
+OPTIONAL MATCH (m)-[:WRITTEN_BY]->(w:Writer)
+OPTIONAL MATCH (m)-[:STARRED_ACTORS]->(a:Actor)
+OPTIONAL MATCH (m)-[:RELEASE_YEAR]->(y:Year)
+OPTIONAL MATCH (m)-[:IN_LANGUAGE]->(l:Language)
+OPTIONAL MATCH (m)-[:HAS_TAGS]->(t:Tag)
+OPTIONAL MATCH (m)-[:HAS_GENRE]->(g:Genre)
+OPTIONAL MATCH (m)-[:HAS_IMDB_VOTES]->(v:Votes)
+OPTIONAL MATCH (m)-[:HAS_IMDB_RATING]->(r:Rating)
+RETURN m, d, w, a, y, l, t, g, v, r
+```",{'2003'}
+507,which year was [Whistle Down the Wind] released ,"```cypher
+MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) 
+WHERE m.name = ""Whistle Down the Wind"" 
+RETURN y.name
+```",{'1961'}
+508,what has happened to [House],"The query ""what has happened to [House]"" is vague and does not specify what kind of information is needed about the movie ""House"". Therefore, I can't provide a specific Cypher query. Please provide more details. Are you interested in the director, the writers, the actors, the release year, the language, the tags, the genre, the votes or the rating of the movie ""House""?",{'1977'}
+509,[Maverick]  when freed,"Your query is not clear. Could you please provide more details? The term ""[Maverick] when freed"" does not specify what information you want to retrieve from the database.",{'1994'}
+510,what has been the exit from [Feds],"The query is not clear about what information is needed about the movie ""Feds"". The term ""exit"" is ambiguous in this context. Could you please provide a more specific query? For instance, are you asking about the director, the actors, the release year, or some other attribute related to the movie ""Feds""?",{'1988'}
+511,what has been the exit from [Julie Johnson],"It appears that the natural language query provided (""what has been the exit from [Julie Johnson]"") is unclear. The term ""exit"" could be interpreted in multiple ways and it's not clear what information about Julie Johnson is being requested. 
+
+If Julie Johnson is a director, and the query is asking for the movies she has directed, the Cypher query would be:
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: ""Julie Johnson""}) 
+RETURN m.name
+```
+
+If Julie Johnson is a writer, and the query is asking for the movies she has written, the Cypher query would be:
+```cypher
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: ""Julie Johnson""}) 
+RETURN m.name
+```
+
+If Julie Johnson is an actor, and the query is asking for the movies she has acted in, the Cypher query would be:
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: ""Julie Johnson""}) 
+RETURN m.name
+```
+
+Please provide a more specific query for a more accurate answer.",{'2001'}
+512,what has been the exit of [Elf],"The query ""what has been the exit of [Elf]"" is ambiguous because it's unclear what ""exit"" refers to in relation to a movie. Could you please provide more context or clarification?",{'2003'}
+513,what has happened to [The River],"This natural language query is too vague to be translated into a Cypher query as it does not specify the information needed about the movie ""The River"". Natural language queries need to be specific about what relationships or attributes they want to know about the entities in the database. For example, queries could ask for the director of the movie, the actors in it, its release year, etc.",{'1984'}
+514,which date has been the date of release of [Tales of Manhattan],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'Tales of Manhattan' RETURN y.name""",{'1942'}
+515,[I Was a Communist for the FBI]  when was freed,"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'I Was a Communist for the FBI' RETURN y.name""",{'1951'}
+516,what was the exit of [Ballast],"The natural language query is not clear. The term ""exit"" does not correspond to any known attribute or relation in the given database schema. Please provide a more specific or clarified query.",{'2008'}
+517,which date was the date of release of the film [Al otro lado],"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'Al otro lado' RETURN y.name""",{'2004'}
+518,what has been the exit from [Better Than Chocolate],"It seems like the natural language query is not clear enough. Could you please provide more details or rephrase the query? The term ""exit"" in the context of a movie is unclear.",{'1999'}
+519,what was the exit from [The Master],"The query is not specific enough to be translated into a Cypher query. ""Exit"" in this context could mean multiple things and it is not clear what information is being sought about the movie ""The Master"". Please provide more context or clarify the question.",{'2012'}
+520,[Payment Deferred] when released,"```
+MATCH (m:Movie {name: 'Payment Deferred'})-[:RELEASE_YEAR]->(y:Year)
+RETURN y.name
+```",{'1932'}
+521,which year was the film [Eagle Eye] released,"""MATCH (m:Movie)-[:RELEASE_YEAR]->(y:Year) WHERE m.name = 'Eagle Eye' RETURN y.name""",{'2008'}
+522,what date was the release date of the movie [All the King's Men],"""MATCH (m:Movie {name: 'All the King\'s Men'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'2006'}
+523,what was the output of the film [The Loves of Pharaoh],"The query is ambiguous. It needs information on what specific output is required. For example, is it the director, actors, genre, or ratings? Please provide more specific information.",{'1922'}
+524,what has been the exit from [Images],Your natural language query isn't clear. Please provide more specific details about the information you're seeking from the database.,{'1972'}
+525,what was the exit of [Up in Smoke],"Your query is a bit unclear, as ""exit"" is not a very common term in the context of movies. Maybe you mean the release year, the director, the actors, the genre or something else related to the movie ""Up in Smoke"". Please provide more specific details to assist you better.",{'1978'}
+526,what was the exit of [Zandalee],"It seems like the natural language query is not clear. The term ""exit"" does not relate to any of the entities or relations in the given database schema. Please provide more context or clarify the query.",{'1991'}
+527,which year was [Yojimbo] released,"""MATCH (m:Movie {name: 'Yojimbo'})-[:RELEASE_YEAR]->(y:Year) RETURN y.name""",{'1961'}
+528,[Chu Chin Chow]  when freed,The natural language query is not clear. Please provide more context or rephrase the query.,{'1934'}
+529,what films are on [dreamworks animation],"The provided natural language query lacks clarity. If ""DreamWorks Animation"" is assumed to be a tag, then the Cypher query would be:
+
+```cypher
+MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'DreamWorks Animation'
+RETURN m.name
+```
+
+However, if ""DreamWorks Animation"" is assumed to be a director, writer, or actor, the query will be different. Please provide more specific information.","{'Antz', 'How to Train Your Dragon', 'Shrek 2', 'Shrek', 'Over the Hedge'}"
+530,What films can be described by [masaki kobayashi],"The provided natural language query is ambiguous. The name ""Masaki Kobayashi"" could be associated with a Movie as a Director, a Writer, or an Actor. However, for the purpose of this task, I will assume that ""Masaki Kobayashi"" is a Director. Here is the Cypher query:
+
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE d.name = ""Masaki Kobayashi""
+RETURN m.name","{'Harakiri', 'Kwaidan', 'Black River', 'Samurai Rebellion'}"
+531,which movies are on [cinerama],"```cypher
+MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) 
+WHERE t.name = ""cinerama"" 
+RETURN m.name
+```","{'How the West Was Won', 'The Wonderful World of the Brothers Grimm'}"
+532,the movie is on [organ],"The provided natural language query ""the movie is on [organ]"" is not clear and does not seem to align with the provided database schema. There is no attribute or entity called ""organ"" in the provided schema. Please provide a more specific or relevant query.",{'Carnival of Souls'}
+533,which films are at [alan turing],"This query is ambiguous as it does not specify whether ""Alan Turing"" is supposed to be a movie, director, writer, actor, etc. Please provide more specific information.",{'The Imitation Game'}
+534,what movies are on [production],"The query you provided ""what movies are on [production]"" is not clear and doesn't fit the provided database schema. Could you please provide further details or another query?","{'Wittgenstein', 'The Dark Knight Rises', 'Star Trek'}"
+535,which films can be described in [jan troell],"Given the information and relationships provided in the database schema, there isn't a clear way to determine which films can be ""described"" in ""Jan Troell"". However, if ""Jan Troell"" is a name of a director, actor, writer etc., then you can find the movies associated with them. Considering ""Jan Troell"" as a director, the Cypher query would be:
+
+```
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director)
+WHERE d.name = 'Jan Troell'
+RETURN m.name
+```
+
+This query will return a list of movies directed by Jan Troell. If you need to search for Jan Troell as an actor, writer, etc., you would need to adjust the ""DIRECTED_BY"" relationship and ""Director"" entity accordingly in the query.","{'Hamsun', 'Everlasting Moments', 'The Emigrants', 'The New Land'}"
+536,which films can be described in [erik van looy],"The provided natural language query is ambiguous as it's unclear what ""[erik van looy]"" refers to. Assuming ""erik van looy"" is a director, the appropriate Cypher query would be:
+
+```
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director) WHERE d.name = ""erik van looy"" RETURN m.name
+```
+
+If ""erik van looy"" is a tag, the query would be:
+
+```
+MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag) WHERE t.name = ""erik van looy"" RETURN m.name
+```
+
+Please provide a more specific query to obtain an accurate Cypher code.",{'Loft'}
+537,the movie is on [john heard],"Given that the natural language query is ""the movie is on [john heard]"", it is not clear what the user wants to achieve. The query could be interpreted in various ways: 
+
+1) If ""[john heard]"" is the name of the movie, then the cypher query could be:
+```cypher
+MATCH (m:Movie {name: ""john heard""}) RETURN m;
+```
+2) If they want to find movies where ""John Heard"" is an actor, then the cypher query would be:
+```cypher
+MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name:""John Heard""}) RETURN m;
+```
+3) If ""John Heard"" is the director, the cypher query would be:
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name:""John Heard""}) RETURN m;
+```
+Without more context, it's impossible to accurately translate the natural language query into a Cypher query.","{'Home Alone', 'Mindwalk', 'Beaches'}"
+538,which films on [harold french],"The provided natural language query is somewhat ambiguous as it doesn't specify the relationship of ""Harold French"" with the films. ""Harold French"" could be a director, writer, or actor. However, assuming ""Harold French"" is a director, the Cypher query can be written as:
+
+```cypher
+MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name:""Harold French""}) 
+RETURN m.name
+```",{'Trio'}
+539,what movies are on [religious],"```Cypher
+MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'religious'
+RETURN m.name
+```","{'Jesus Christ Superstar', 'Frailty'}"
+540,which films are on [screenplay],"The natural language query is a bit ambiguous. If you want to know which films are written by a person named ""screenplay"", you can use the following Cypher query:
+
+```cypher
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer)
+WHERE w.name = 'screenplay'
+RETURN m.name
+```
+
+If ""screenplay"" is a tag and you want to know which films are tagged with ""screenplay"", you can use the following Cypher query:
+
+```cypher
+MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = 'screenplay'
+RETURN m.name
+```","{'Slumdog Millionaire', 'Inception', 'Before Sunset', 'A Dangerous Method', 'Saw VI'}"
+541,what movies are on [edward norton],"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'edward norton' RETURN m.name""","{'Down in the Valley', 'Pride and Glory', 'Rounders', 'Leaves of Grass', 'Death to Smoochy', 'The Italian Job', 'Keeping the Faith', 'The People vs. Larry Flynt', 'The Painted Veil', 'Primal Fear', 'Red Dragon', 'The Bourne Legacy', 'American History X', 'Fight Club', 'The Incredible Hulk', '25th Hour', 'The Score', 'Everyone Says I Love You', 'The Illusionist'}"
+542,what films are at [sandra bullock],"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor) WHERE a.name = 'sandra bullock' RETURN m.name""","{'Two Weeks Notice', 'Forces of Nature', '28 Days', 'Speed', 'Premonition', 'Murder by Numbers', 'The Net', 'While You Were Sleeping', 'Two If by Sea', 'Love Potion No. 9', 'Practical Magic', 'Divine Secrets of the Ya-Ya Sisterhood', 'The Thing Called Love', 'Crash', 'A Time to Kill', 'Miss Congeniality', 'The Lake House', 'In Love and War', 'The Proposal', 'The Blind Side', 'Gravity', 'The Heat', 'All About Steve', 'Hope Floats'}"
+543,What are the films on [elmore leonard],"Since the schema does not specify a clear relation between the movie and the phrase ""elmore leonard"", it is not possible to directly generate a Cypher query. The query would depend on whether ""elmore leonard"" refers to a director, writer, actor, tag, or any other attribute. 
+
+For example, if ""elmore leonard"" is a writer, the Cypher query would be:
+
+```
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer)
+WHERE w.name = ""elmore leonard""
+RETURN m.name
+```
+
+Or if ""elmore leonard"" is a tag, the Cypher query would be:
+
+```
+MATCH (m:Movie)-[:HAS_TAGS]->(t:Tag)
+WHERE t.name = ""elmore leonard""
+RETURN m.name
+```
+
+The exact Cypher query can only be provided if the context of ""elmore leonard"" is specified.","{'Killshot', 'Jackie Brown', 'Life of Crime', 'The Big Bounce', 'Hombre', 'Mr. Majestyk', 'Joe Kidd', 'Be Cool', 'Valdez Is Coming', 'Touch', 'Cat Chaser', 'Out of Sight', 'Get Shorty', '52 Pick-Up', 'Last Stand at Saber River'}"
+544,what the films have [Ernest Pascal] the writer of,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Ernest Pascal'}) RETURN m.name""",{'Wee Willie Winkie'}
+545,which films [Hal Salwen] the writer,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Hal Salwen'}) RETURN m.name""",{'Denise Calls Up'}
+546,this movie made [Andrew Kevin Walker] writing,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE w.name = 'Andrew Kevin Walker' RETURN m.name""","{'Sleepy Hollow', 'The Wolfman'}"
+547,that films were [Steve Carell] by a writer on,"""MATCH (m:Movie)-[:STARRED_ACTORS]->(a:Actor {name: 'Steve Carell'}), (m)-[:WRITTEN_BY]->(w:Writer) RETURN m.name, w.name""",{'The 40-Year-Old Virgin'}
+548,which films [Noel Behn] the writer,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Noel Behn'}) RETURN m.name""",{'The Kremlin Letter'}
+549,that movies were [Bill Fishman] by a writer on,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE w.name = 'Bill Fishman' RETURN m.name""",{'Tapeheads'}
+550,Which film made [Anthony Burgess] writing,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE w.name = 'Anthony Burgess' RETURN m.name""",{'A Clockwork Orange'}
+551,that films have been [Andrés Baiz] a writer on,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Andrés Baiz'}) RETURN m.name""",{'The Hidden Face'}
+552,which film made [Monique Wittig],"""MATCH (m:Movie)-[:DIRECTED_BY]->(d:Director {name: 'Monique Wittig'}) RETURN m.name""",{'The Girl'}
+553,that movies were [Matt Bondurant] by a writer on,"`MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: ""Matt Bondurant""}) RETURN m.name`",{'Lawless'}
+554,that movies were [Joseph Stone] by a writer on,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE w.name = 'Joseph Stone' RETURN m.name""",{'Operation Petticoat'}
+555,What film has made [Bruce McCulloch] written,"```cypher
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Bruce McCulloch'})
+RETURN m.name
+```",{'Dog Park'}
+556,what the movies [Justin Hardy] the writer of,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer) WHERE w.name = 'Justin Hardy' RETURN m.name""",{'A Feast at Midnight'}
+557,what the films [Assaf Bernstein] the writer of,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Assaf Bernstein'}) RETURN m.name""",{'The Debt'}
+558,Which film made [Tim Krabbé] written,"""MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer {name: 'Tim Krabbé'}) RETURN m.name""",{'The Vanishing'}
+559,which films [Eugene Solow] the writer,"```
+MATCH (m:Movie)-[:WRITTEN_BY]->(w:Writer)
+WHERE w.name = 'Eugene Solow'
+RETURN m.name
+```","{'Fog Over Frisco', 'Of Mice and Men'}"
