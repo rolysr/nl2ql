@@ -77,8 +77,8 @@ def get_tp_fp_fn_for_hop(hop_id):
         q = row['query']
         formal_query = row['generated_query']
         target_response = query_response[q]
-        response = gc.make_query(formal_query)
         try:
+            response = gc.make_query(formal_query)
             response = {data[list(data.keys())[0]] for data in response}
             tp += len(response & target_response)
             fp += len(response - target_response)
@@ -86,7 +86,7 @@ def get_tp_fp_fn_for_hop(hop_id):
             successful_compulations_wrong_answers.append((q, response, target_response))
         except:
             fn += len(target_response)
-            unsuccessful_compilations_wrong_answers.append((q, response, target_response))
+            unsuccessful_compilations_wrong_answers.append((q, formal_query, target_response))
 
     return tp, fp, fn, unsuccessful_compilations_wrong_answers, successful_compulations_wrong_answers
 
