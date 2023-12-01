@@ -1,0 +1,105 @@
+39088
+**********************************
+hop0 11
+-------------------------------------
+actor_to_movie
+ 650 879 73.94766780432309
+director_to_movie
+ 446 553 80.6509945750452
+movie_to_actor
+ 672 1105 60.81447963800905
+movie_to_director
+ 984 1301 75.63412759415834
+movie_to_genre
+ 946 1143 82.76465441819772
+movie_to_language
+ 251 294 85.37414965986395
+movie_to_tags
+ 611 846 72.22222222222221
+movie_to_writer
+ 909 1091 83.31805682859762
+movie_to_year
+ 1122 1420 79.01408450704224
+tag_to_movie
+ 236 411 57.420924574209245
+writer_to_movie
+ 786 904 86.94690265486726
+**********************************
+hop1 21
+-------------------------------------
+actor_to_movie_to_director
+ 488 929 52.529601722282024
+director_to_movie_to_director
+ 86 164 52.4390243902439
+director_to_movie_to_language
+ 160 193 82.90155440414507
+writer_to_movie_to_writer
+ 481 763 63.04062909567497
+actor_to_movie_to_genre
+ 470 823 57.108140947752126
+director_to_movie_to_genre
+ 380 533 71.29455909943715
+actor_to_movie_to_actor
+ 585 971 60.24716786817713
+writer_to_movie_to_actor
+ 414 838 49.40334128878281
+actor_to_movie_to_writer
+ 417 834 50.0
+movie_to_director_to_movie
+ 501 1081 46.34597594819611
+actor_to_movie_to_year
+ 186 985 18.883248730964468
+writer_to_movie_to_genre
+ 550 844 65.16587677725119
+director_to_movie_to_actor
+ 300 483 62.11180124223602
+movie_to_actor_to_movie
+ 254 1180 21.525423728813557
+writer_to_movie_to_year
+ 45 1020 4.411764705882353
+director_to_movie_to_year
+ 138 594 23.232323232323232
+director_to_movie_to_writer
+ 107 402 26.616915422885572
+movie_to_writer_to_movie
+ 225 896 25.111607142857146
+writer_to_movie_to_director
+ 380 763 49.803407601572744
+writer_to_movie_to_language
+ 133 250 53.2
+actor_to_movie_to_language
+ 162 326 49.693251533742334
+**********************************
+hop2 15
+-------------------------------------
+movie_to_director_to_movie_to_language
+ 132 616 21.428571428571427
+movie_to_director_to_movie_to_actor
+ 147 1069 13.751169317118803
+movie_to_actor_to_movie_to_language
+ 377 840 44.88095238095238
+movie_to_writer_to_movie_to_year
+ 256 833 30.732292917166866
+movie_to_actor_to_movie_to_director
+ 609 1166 52.229845626072034
+movie_to_director_to_movie_to_genre
+ 334 1045 31.96172248803828
+movie_to_writer_to_movie_to_director
+ 200 917 21.810250817884405
+movie_to_actor_to_movie_to_year
+ 304 1132 26.855123674911663
+movie_to_actor_to_movie_to_writer
+ 510 1182 43.14720812182741
+movie_to_actor_to_movie_to_genre
+ 441 1148 38.41463414634146
+movie_to_director_to_movie_to_writer
+ 243 1151 21.112076455256297
+movie_to_writer_to_movie_to_genre
+ 323 835 38.68263473053892
+movie_to_writer_to_movie_to_actor
+ 172 873 19.702176403207332
+movie_to_director_to_movie_to_year
+ 268 1099 24.385805277525023
+movie_to_writer_to_movie_to_language
+ 114 368 30.978260869565215
+**********************************
