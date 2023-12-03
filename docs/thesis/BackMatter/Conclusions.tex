@@ -2,6 +2,7 @@
 % Chapter: Conclusiones
 %===================================================================================
 \chapter*{Conclusiones}\label{chapter:conclusions}
+\addcontentsline{toc}{chapter}{Conclusiones}
 Después de aplicar \texttt{GPT-4} para la traducción de consultas al lenguaje \textit{Cypher}, este estudio presenta conclusiones relevantes tanto en términos de fortalezas como de deficiencias. Destaca la eficiencia del modelo en generar código \textit{Cypher} compilable, con un impresionante $92\%$ de éxito en las pruebas, lo que subraya su competencia en la creación de consultas sin errores sintácticos o semánticos. Esta alta precisión es crucial para su aplicación práctica en bases de datos como \textit{Neo4J}.
 
 Sin embargo, el modelo exhibe limitaciones significativas al manejar consultas más complejas. Mientras que en consultas sencillas (\textit{1-hop}) la precisión es del $76.53\%$, en consultas más complejas (\textit{2-hop} y \textit{3-hop}) esta precisión disminuye drásticamente a $43.45\%$ y $31.03\%$, respectivamente. Esto indica que aunque \texttt{GPT-4} es eficaz en traducciones simples, su rendimiento se ve comprometido en escenarios que involucran múltiples relaciones entre entidades.
