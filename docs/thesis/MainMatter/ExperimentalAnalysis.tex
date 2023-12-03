@@ -24,7 +24,7 @@ El primer sistema de evaluación fue sobre el \textit{benchmark MetaQA} \ref{cla
 
 En este estudio solo se utilizarán los datos referentes a los conjuntos de evaluación (\texttt{Test}) para cada uno de los grupos especificados, ya que el modelo empleado es un gran modelo de lenguaje mediante la técnica \textit{Zero-Shot}, por lo que no es necesario hacer un proceso de entrenamiento al mismo para realizar la tarea en cuestión, ya que se desea analizar la capacidad de inferencia del mismo sin haber sido entrenado específicamente para esta.
 
-Las principales métricas de evaluación utilizadas fueron el número de consultas que al ser traducidas a \textit{Cypher} y ser ejecutadas ejecutadas sobre la base de conocimiento daban una respuesta idéntica a la respuesta objetivo (\texttt{correct}), así como el porcierto de dichas consultas acertadas (\texttt{correct\%}) sobre el total de consulta (\texttt{n}) y el número de consultas que generaron un código de \textit{Cypher} compilable (\texttt{compiled}), entre otras relacionadas con los recursos consumidos para el experimento como el costo monetatrio (\texttt{cost} (USD)) y el tiempo de ejecución de la evaluación en segundos (\texttt{elapsed\_seconds}). La segunda de dichas métricas fue la utilizada para comparar el resultado del modelo empleado sobre otros resultados en el estado del arte \ref{gpt4allpaper2023}. Además, implícitamente, al evaluar la efectividad del modelo sobre las consultas de los conjuntos de evaluación de \textit{1-hop, 2-hop} y \textit{3-hop}, se evalúa la eficacia del modelo sobre consultas que requieren de una relación, dos relaciones y hasta tres relaciones de conexión respectivamente para encontrar la respuesta a la consulta.
+Las principales métricas de evaluación utilizadas fueron el número de consultas que al ser traducidas a \textit{Cypher} y ser ejecutadas ejecutadas sobre la base de conocimiento daban una respuesta idéntica a la respuesta objetivo (\texttt{correct}), así como el porcierto de dichas consultas acertadas (\texttt{correct\%}) sobre el total de consulta (\texttt{n}), número de consultas compiladas con éxito y su porciento correspondiente (\texttt{compiled} y \texttt{compiled\%} respectivamente), algunas relacionadas con los recursos consumidos para el experimento como el costo monetatrio (\texttt{cost} (USD)), tiempo de ejecución de la evaluación en segundos (\texttt{elapsed\_seconds}). También, se calculó eficacia del modelo con respecto a cada tipo de consulta en el conjunto de evaluación y medidas clásicas como la precisión, el recobrado y la medida $F1$ para evaluar la calidad de la extracción de información. La métrica \texttt{correct\%} fue la utilizada para comparar el resultado del modelo empleado sobre otros resultados en el estado del arte \ref{gpt4allpaper2023}. Además, implícitamente, al evaluar la efectividad del modelo sobre las consultas de los conjuntos de evaluación de \textit{1-hop, 2-hop} y \textit{3-hop}, se evalúa la eficacia del modelo sobre consultas que requieren de una relación, dos relaciones y hasta tres relaciones de conexión respectivamente para encontrar la respuesta a la consulta.
 
 Para la preparación del conjunto de datos se insertaron los elementos correspondientes a la base de conocimientos en una instancia de \textit{Neo4J} con ayuda del componente \texttt{DBSeeder} visto en la sección \ref{dbseeder}. Luego se tomaron los conjuntos de prueba (\textit{Test}) para \textit{1-hop, 2-hop} y \textit{3-hop} y para cada par de evaluación se ejecutó el procedimiento descrito en el listado \ref{pipeline_algorithm}.
 
@@ -37,21 +37,131 @@ Los resultados obtenidos para cada métrica analizada para cada conjunto de eval
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
  & \textbf{n} & \textbf{compiled} & \textbf{correct} & \textbf{compiled\%} & \textbf{correct\%} \\ \hline
-\textbf{hop 1} & 9947 & 9947 & 7613 & 100.0 & 76.53  \\ \hline
-\textbf{hop 2} & 14872 & 14872 & 6462 & 100.0 & 43.45  \\ \hline
-\textbf{hop 3} & 14274 & 14274 & 4430 & 100.0 & 31.03  \\ \hline
+\textbf{hop 1} & 9947 & 9386  & 7613 & 94.36 & 76.53  \\ \hline
+\textbf{hop 2} & 14872 & 13733  & 6462 & 92.34  & 43.45  \\ \hline
+\textbf{hop 3} & 14274 & 13221  & 4430 & 92.62 & 31.03  \\ \hline
 \end{tabular}
 \caption{Resultados de ejecutar \texttt{GPT-4} en los conjuntos de datos de prueba de \textit{MetaQA} para \textit{hop1, hop2} y \textit{hop3}.}
 \label{tab:results1}
 \end{table}
 
-En la tabla \ref{tab:results1} se muestran los resultados de eficacia del modelo \texttt{GPT-4} para traducir consultas a \textit{Cypher} tal que puedan ser utilizadas para extraer información de la base de datos objetivo. Para aquellas consultas cuyo código de \textit{Cypher} correspondiente requería de la presencia de una relacion específica entre dos entidades en cuestión se tuvo relevante resultado del $76.53\%$ de acierto. Por otro lado, aquellas consultas que requerían de la generación de una consulta con dos y haste tres relaciones tuvieron como resultados unos discretos $43.45\%$ y $31.03\%$ respectivamente, lo que nos indica la deficiencia de este modelo para responder expresiones en lenguaje natural complejas que requieran acceder a la información de más una relación entre dos entes de la base de datos en forma de grafo. Además, resulta importante mencionar la efectividad del modelo \texttt{GPT-4} para generar código de \textit{Cypher} compilable, es decir, sin errores sintácticos ni semánticos al ser preprocesado antes de ejecutar en una base de conocimiento de tipo \textit{Neo4J}. 
- 
+En la tabla \ref{tab:results1} se muestran los resultados de eficacia del modelo \texttt{GPT-4} para traducir consultas a \textit{Cypher} tal que puedan ser utilizadas para extraer información de la base de datos objetivo. En este caso, una consulta generada por el sistema utilizado fue considerada eficaz si al ejecutar el código de \textit{Cypher} sobre la base de datos correspondiente, dicho resultado coincide con los datos de respuesta esperados asociados a cada par de los conjuntos de evaluación. Para aquellas consultas cuyo código de \textit{Cypher} correspondiente requería de la presencia de una relacion específica entre dos entidades en cuestión se tuvo relevante resultado del $76.53\%$ de acierto. Por otro lado, aquellas consultas que requerían de la generación de una consulta con dos y haste tres relaciones tuvieron como resultados unos discretos $43.45\%$ y $31.03\%$ respectivamente, lo que nos indica la deficiencia de este modelo para responder expresiones en lenguaje natural complejas que requieran acceder a la información de más una relación entre dos entes de la base de datos en forma de grafo.
+
+Es importante resaltar de los resultados anteriores la efectividad del sistema para generar consultas de \textit{Cypher} compilables, donde para cada lote de evaluación se obtuvieron valores sobre el $92\%$, lo que confirmar que se tuvo éxito en la inmensa mayoría de las veces que el modelo trató de traducir la consulta inicial en lenguaje natural a solamente un texto conteniendo un código de \textit{Cypher}. En los casos donde dicho suceso no fue posible, se debió principalmente a que el modelo generó un texto adicional describiendo la consulta, ofrecía más de una consulta o simplemente había un error sintáctico en el código.
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
- & \textbf{cost (USD)} & \textbf{elapsed\_seconds} \\ \hline
+\textbf{Tipo de consulta} & \textbf{Correctas} & \textbf{Total} & \textbf{Efectividad} \\ \hline
+\textbf{actor\_to\_movie} & 650 & 879 & 73.94 \\ \hline
+\textbf{director\_to\_movie} & 446 & 553 & 80.65 \\ \hline
+\textbf{movie\_to\_actor} & 672 & 1105 & 60.81 \\ \hline
+\textbf{movie\_to\_director} & 984 & 1301 & 75.63 \\ \hline
+\textbf{movie\_to\_genre} & 946 & 1143 & 82.76 \\ \hline
+\textbf{movie\_to\_language} & 251 & 294 & 85.37 \\ \hline
+\textbf{movie\_to\_tags} & 611 & 846 & 72.22 \\ \hline
+\textbf{movie\_to\_writer} & 909 & 1091 & 83.31 \\ \hline
+\textbf{movie\_to\_year} & 1122 & 1420 & 79.01 \\ \hline
+\textbf{tag\_to\_movie} & 236 & 411 & 57.42 \\ \hline
+\textbf{writer\_to\_movie} & 786 & 904 & 86.94 \\ \hline
+\end{tabular}
+\caption{Resultados para las consultas del lote \textit{hop 1}.}
+\label{tab:results3}
+\end{table}
+
+\begin{longtable}{|c|c|c|c|}
+\caption{Resultados para las consultas del lote \textit{hop 2}.} \\
+\hline
+\textbf{Tipo de consulta} & \textbf{Total} & \textbf{Correctas} & {\textbf{Efectividad}} \\ \hline
+\endfirsthead
+\multicolumn{4}{c}%
+{{\bfseries \tablename\ \thetable{} --  continuación desde la página anterior }} \\
+\hline
+\textbf{Tipo de consulta} & \textbf{Correctas} & \textbf{Total} & {\textbf{Efectividad}} \\ \hline
+\endhead
+\hline \multicolumn{4}{|r|}{{Continuación en la siguiente página}} \\ \hline
+\endfoot
+\hline \hline
+\endlastfoot
+\textbf{actor\_to\_movie\_to\_director} & 488 & 929 & 52.53 \\ \hline
+\textbf{director\_to\_movie\_to\_director} & 86 & 164 & 52.44 \\ \hline
+\textbf{director\_to\_movie\_to\_language} & 160 & 193 & 82.90 \\ \hline
+\textbf{writer\_to\_movie\_to\_writer} & 481 & 763 & 63.04 \\ \hline
+\textbf{actor\_to\_movie\_to\_genre} & 470 & 823 & 57.11 \\ \hline
+\textbf{director\_to\_movie\_to\_genre} & 380 & 533 & 71.30 \\ \hline
+\textbf{actor\_to\_movie\_to\_actor} & 585 & 971 & 60.25 \\ \hline
+\textbf{writer\_to\_movie\_to\_actor} & 414 & 838 & 49.40 \\ \hline
+\textbf{actor\_to\_movie\_to\_writer} & 417 & 834 & 50.00 \\ \hline
+\textbf{movie\_to\_director\_to\_movie} & 501 & 1081 & 46.35 \\ \hline
+\textbf{actor\_to\_movie\_to\_year} & 186 & 985 & 18.88 \\ \hline
+\textbf{writer\_to\_movie\_to\_genre} & 550 & 844 & 65.17 \\ \hline
+\textbf{director\_to\_movie\_to\_actor} & 300 & 483 & 62.11 \\ \hline
+\textbf{movie\_to\_actor\_to\_movie} & 254 & 1180 & 21.53 \\ \hline
+\textbf{writer\_to\_movie\_to\_year} & 45 & 1020 & 4.41 \\ \hline
+\textbf{director\_to\_movie\_to\_year} & 138 & 594 & 23.23 \\ \hline
+\textbf{director\_to\_movie\_to\_writer} & 107 & 402 & 26.62 \\ \hline
+\textbf{movie\_to\_writer\_to\_movie} & 225 & 896 & 25.11 \\ \hline
+\textbf{writer\_to\_movie\_to\_director} & 380 & 763 & 49.80 \\ \hline
+\textbf{writer\_to\_movie\_to\_language} & 133 & 250 & 53.20 \\ \hline
+\textbf{actor\_to\_movie\_to\_language} & 162 & 326 & 49.70 \\ \hline
+\end{longtable}
+\label{tab:results4} 
+
+\begin{longtable}{|c|c|c|c|}
+\caption{Resultados para las consultas del lote \textit{hop 3}.} \\
+\hline
+\textbf{Tipo de consulta} & \textbf{Total} & \textbf{Correctas} & {\textbf{Efectividad}} \\ \hline
+\endfirsthead
+\multicolumn{4}{c}%
+{{\bfseries \tablename\ \thetable{} --  continuación desde la página anterior }} \\
+\hline
+\textbf{Tipo de consulta} & \textbf{Correctas} & \textbf{Total} & {\textbf{Efectividad}} \\ \hline
+\endhead
+\hline \multicolumn{4}{|r|}{{Continuación en la siguiente página}} \\ \hline
+\endfoot
+\hline \hline
+\endlastfoot
+\textbf{movie\_to\_director\_to\_movie\_to\_language} & 132 & 616 & 21.43 \\ \hline
+\textbf{movie\_to\_director\_to\_movie\_to\_actor} & 147 & 1069 & 13.75 \\ \hline
+\textbf{movie\_to\_actor\_to\_movie\_to\_language} & 377 & 840 & 44.88 \\ \hline
+\textbf{movie\_to\_writer\_to\_movie\_to\_year} & 256 & 833 & 30.73 \\ \hline
+\textbf{movie\_to\_actor\_to\_movie\_to\_director} & 609 & 1166 & 52.23 \\ \hline
+\textbf{movie\_to\_director\_to\_movie\_to\_genre} & 334 & 1045 & 31.96 \\ \hline
+\textbf{movie\_to\_writer\_to\_movie\_to\_director} & 200 & 917 & 21.81 \\ \hline
+\textbf{movie\_to\_actor\_to\_movie\_to\_year} & 304 & 1132 & 26.86 \\ \hline
+\textbf{movie\_to\_actor\_to\_movie\_to\_writer} & 510 & 1182 & 43.15 \\ \hline
+\textbf{movie\_to\_actor\_to\_movie\_to\_genre} & 441 & 1148 & 38.41 \\ \hline
+\textbf{movie\_to\_director\_to\_movie\_to\_writer} & 243 & 1151 & 21.11 \\ \hline
+\textbf{movie\_to\_writer\_to\_movie\_to\_genre} & 323 & 835 & 38.68 \\ \hline
+\textbf{movie\_to\_writer\_to\_movie\_to\_actor} & 172 & 873 & 19.70 \\ \hline
+\textbf{movie\_to\_director\_to\_movie\_to\_year} & 268 & 1099 & 24.39 \\ \hline
+\textbf{movie\_to\_writer\_to\_movie\_to\_language} & 114 & 368 & 30.98 \\ \hline
+\end{longtable}
+\label{tab:results5}
+ 
+En las tablas \ref{tab:results3}, \ref{tab:results4} y \ref{tab:results5} se muestran para cada lote de prueba, el número de consultas de cada tipo presente, donde a su vez se reflejan aquellas en cuyo caso el sistema propuesto obtuvo un resultado correcto. Es posible notar que a medida que aumenta la complejidad de la consulta, la efectividad del modelo decrece, pues se hace cada vez más difícil generar consultas de \textit{Cypher} válidas que contengan hasta cuatro entidades a solicitar, ya que este proceso implica predecir correctamente las direcciones de las relaciones entre un mayor número de entidades, y basta con que una dirección en alguna relación falle para que la consulta ofrezca un resultado incorrecto.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & \textbf{Precisión} & \textbf{Recobrado} & \textbf{F1} \\ \hline
+\textbf{hop 1} & 85.94 & 80.48  & 83.12 \\ \hline
+\textbf{hop 2} & 32.24 & 59.28 & 41.77 \\ \hline
+\textbf{hop 3} & 50.47 & 39.19 & 44.12 \\ \hline
+\end{tabular}
+\caption{Precisión, recobrado y medida F1 para cada lote de evaluación.}
+\label{tab:results6}
+\end{table}
+
+En la tabla \ref{tab:results6} se muestran la precisión, recobrado y medida $F1$ para cada lote de evaluación. Para calcular los mismos se tuvieron en cuenta la cantidad de resultados positivos correctamente identificados (verdaderos positivos), aquellos identificados como correctos pero que no se encontraban en la respuesta objetivo (falsos positivos) y aquellos que estaban presentes en la consulta objetivo pero que no se obtuvieron en la consulta generada por el modelo propuesto al ser ejecutada sobre la base de datos en cuestión (falsos negativos). Estas medidas representan en una mejor manera la capacidad del modelo para la extracción de información, ya que a pesar de que para ciertas consultas de pueba no se obtuvieron todos los resultados esperados, es útil conocer qué tan distante está la respuesta dada de la esperada, por lo cual, la decisión de calcular la precisión, recobrado y medida $F1$ es correcta ya que las mismas son una correcta forma de implícitamente evaluar dicha medida de correctitud \cite{precisionrecallf1}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+& \textbf{cost (USD)} & \textbf{elapsed\_seconds} \\ \hline
 \textbf{hop 1} & 139.33 & 57587.00 \\ \hline
 \textbf{hop 2} & 220.66 & 79240.58 \\ \hline
 \textbf{hop 3} & 218.62 & 92191.07 \\ \hline
@@ -99,8 +209,8 @@ De acuerdo con el estudio más reciente realizado por Guo et al. \cite{gpt4graph
 
 \section{Discusiones}
 
-Después de aplicar \texttt{GPT-4} para traducir consultas a Cypher, es pertinente destacar tanto las fortalezas como las deficiencias del sistema. Los resultados revelan una eficiencia notable en la generación de código \textit{Cypher} compilable, alcanzando un $100$\% de éxito en todas las pruebas realizadas. Este alto grado de precisión indica que el modelo es eficaz en la creación de consultas sin errores sintácticos ni semánticos, lo que es esencial para su aplicación práctica en entornos de bases de datos como \textit{Neo4J}.
+Después de aplicar \texttt{GPT-4} para traducir consultas a Cypher, es pertinente destacar tanto las fortalezas como las deficiencias del sistema. Los resultados revelan una eficiencia notable en la generación de código \textit{Cypher} compilable, alcanzando un $92$\% de éxito como promedio en las pruebas realizadas. Este alto grado de precisión indica que el modelo es eficaz en la creación de consultas sin errores sintácticos ni semánticos, lo que es esencial para su aplicación práctica en entornos de bases de datos como \textit{Neo4J}.
 
-Sin embargo, a pesar de esta eficacia en la compilación, el modelo demostró limitaciones en su capacidad para generar consultas correctas a medida que aumentaba la complejidad de las relaciones entre entidades. Se observó un descenso significativo en la precisión, pasando de un $76.53$\% en consultas simples (\textit{1-hop}) a $43.45$\% y $31.03$\% en consultas más complejas (\textit{2-hop} y \textit{3-hop}). Esto sugiere que, aunque \texttt{GPT-4} es competente en la traducción de consultas sencillas, su rendimiento se reduce considerablemente con consultas que involucran múltiples relaciones entre entidades.
+Sin embargo, a pesar de esta eficacia en la compilación, el modelo demostró limitaciones en su capacidad para generar consultas correctas a medida que aumentaba la complejidad de las relaciones entre entidades. Se observó un descenso significativo en la precisión, pasando de un $76.53$\% en consultas simples (\textit{1-hop}) a $43.45$\% y $31.03$\% en consultas más complejas (\textit{2-hop} y \textit{3-hop}). Esto sugiere que, aunque \texttt{GPT-4} es competente en la traducción de consultas sencillas, su rendimiento se reduce considerablemente con consultas que involucran múltiples relaciones entre entidades. 
 
-En cuanto a las deficiencias del sistema, se identificaron varios aspectos que no se abordaron en el estudio. Uno de los más críticos fue la incapacidad del modelo para evaluar consultas anidadas y funciones de agregación, lo cual limita su aplicabilidad en escenarios de análisis de datos más complejos. Asimismo, la ausencia de un análisis multidominio impidió una evaluación adecuada de la capacidad de generalización del modelo, un factor crucial para determinar su eficacia en diferentes contextos y bases de datos. Además, el formato de las respuestas generadas por el modelo fue bastante básico, lo que plantea un área de mejora para futuras versiones, especialmente en aplicaciones que requieren un análisis de datos más detallado y avanzado.
+En cuanto a las deficiencias del sistema, se identificaron varios aspectos que no se abordaron en el estudio. Uno de los más críticos fue la incapacidad del modelo para evaluar consultas anidadas y funciones de agregación, lo cual limita su aplicabilidad en escenarios de análisis de datos más complejos. Asimismo, la ausencia de un análisis multidominio impidió una evaluación adecuada de la capacidad de generalización del modelo, un factor crucial para determinar su eficacia en diferentes contextos y bases de datos. Además, el formato de las respuestas generadas por el modelo fue bastante básico, lo que plantea un área de mejora para futuras versiones, especialmente en aplicaciones que requieren un análisis de datos más detallado y avanzado. También, es posible notar que el tamaño del esquema de la base de datos utilizada no fue lo suficientemente extensa como para no caber en el texto de entrada limitado del modelo \texttt{GPT-4}, por lo cual se hace imprescindible probar como se comportaría el modelo para dichos casos extremos y posibles formas de resolverlo.

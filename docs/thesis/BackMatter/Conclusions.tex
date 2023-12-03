@@ -1,6 +1,35 @@
 %===================================================================================
 % Chapter: Conclusiones
 %===================================================================================
-\chapter*{Conclusiones y Recomendaciones}\label{chapter:conclusions}
-\addcontentsline{toc}{chapter}{Conclusiones}
+\chapter*{Conclusiones}\label{chapter:conclusions}
+Después de aplicar \texttt{GPT-4} para la traducción de consultas al lenguaje \textit{Cypher}, este estudio presenta conclusiones relevantes tanto en términos de fortalezas como de deficiencias. Destaca la eficiencia del modelo en generar código \textit{Cypher} compilable, con un impresionante $92\%$ de éxito en las pruebas, lo que subraya su competencia en la creación de consultas sin errores sintácticos o semánticos. Esta alta precisión es crucial para su aplicación práctica en bases de datos como \textit{Neo4J}.
 
+Sin embargo, el modelo exhibe limitaciones significativas al manejar consultas más complejas. Mientras que en consultas sencillas (\textit{1-hop}) la precisión es del $76.53\%$, en consultas más complejas (\textit{2-hop} y \textit{3-hop}) esta precisión disminuye drásticamente a $43.45\%$ y $31.03\%$, respectivamente. Esto indica que aunque \texttt{GPT-4} es eficaz en traducciones simples, su rendimiento se ve comprometido en escenarios que involucran múltiples relaciones entre entidades.
+
+Además, se identificaron varias áreas críticas no abordadas en el estudio, como la incapacidad del modelo para manejar consultas anidadas y funciones de agregación. Esto limita su utilidad en análisis de datos más complejos. La falta de un análisis multidominio también plantea preguntas sobre la capacidad de generalización del modelo, un factor esencial para determinar su eficacia en diferentes contextos y bases de datos. Otro aspecto a mejorar es el formato básico de las respuestas generadas, que no satisface necesidades de análisis de datos más detallado y avanzado. Además, se señala que el tamaño limitado del esquema de la base de datos utilizada no puso a prueba la capacidad del modelo para manejar esquemas más grandes, una limitación importante para su aplicación práctica.
+
+A pesar de estos desafíos, el sistema de traducción propuesto supera al modelo \texttt{GPT-3} en la traducción de lenguaje natural a \textit{Cypher} en el \textit{benchmark} \texttt{MetaQA}, aunque todavía no alcanza los mejores resultados en la extracción de conocimiento usando \textit{Cypher}. 
+
+Gracias a las medidas de precisión, recuperación y medida $F1$ utilizadas para evaluar la capacidad del modelo para la extracción de información, considerando los verdaderos positivos, falsos positivos y falsos negativos, demuestran que, a pesar de no obtener todos los resultados esperados en ciertas consultas, es importante entender la distancia entre la respuesta dada y la esperada.
+
+Finalmente, es evidente que la eficacia del modelo disminuye con el aumento de la complejidad de las consultas, especialmente en aquellas que requieren la predicción correcta de las direcciones de relaciones entre un mayor número de entidades. Este estudio deja claro que, mientras que el uso de un grand modelo de lenguaje con la técnica de aprendizaje \textit{Zero-Shot} muestra una eficiencia notable en ciertos aspectos, aún hay un camino considerable por recorrer para mejorar su rendimiento en escenarios más complejos y variados.
+
+\chapter*{Recomendaciones}\label{chapter:conclusions}
+Para futuros trabajos en la aplicación de grandes modelos de lenguajes en la traducción de consultas a \textit{Cypher}, se recomienda abordar varias áreas clave para mejorar la eficacia y versatilidad del modelo. Estas recomendaciones incluyen:
+
+\begin{itemize}
+   \item \textbf{Mejorar la Comprensión de Consultas Complejas}: Es esencial perfeccionar la capacidad del modelo para manejar consultas con múltiples relaciones entre entidades (\textit{2-hop} y \textit{3-hop}), que actualmente presentan una disminución significativa en la precisión. Esto podría implicar un entrenamiento adicional específico para estos tipos de consultas o la implementación de algoritmos más sofisticados para la comprensión de relaciones complejas.
+
+  \item \textbf{Gestión de Consultas Anidadas y Funciones de Agregación}: Desarrollar sistemas de evaluación que contengan consultas anidadas y funciones de agregación, ampliando su aplicabilidad en análisis de datos avanzados y complejos.
+
+   \item \textbf{Ampliación del Esquema de la Base de Datos}: Probar el modelo con esquemas de bases de datos más extensos y complejos permitiría evaluar y mejorar su capacidad de manejar casos más cercanos a escenarios del mundo real. Proponer una metodología para resolver dicho problema a partir de la adición de modulos adicionales de preprocesamiento de la consulta de entrada que permitan reducir el tamaño de la descripción de la base de datos, mostrando solamente los apectos más relevantes para la consulta en lenguaje humano a responder.
+
+   \item \textbf{Análisis Multidominio}: Realizar pruebas en múltiples dominios y tipos de bases de datos podría ayudar a evaluar y mejorar la capacidad de generalización del modelo, lo que es crucial para su eficacia en diferentes contextos.
+
+     \item \textbf{Mejorar del Formato de Respuestas Generadas}: Elaborar consultas de prueba que generen salidas con formatos complejos, lo cual evaluará la capacidad del sistema de devolver datos de la manera especificada.
+
+    \item \textbf{Mejorar las estadísticas relacionadas con las consultas incorrectas durante la evaluación}: Trabajar en desarrollar algoritmos y técnicas que permitan determinar, para una salida de un gran modelo de lenguaje en la tarea de este trabajo, cuántas entidades se detectaron correctamente en el código de \textit{Cypher} generado, contabilizar y separar por grupos bien determinados las consultas de evaluación cuya respuesta falló debido a cuestiones semánticas y sintácticas, lo cual permitirá saber que estructuras del lenguaje \textit{Cypher} son inherentemente complejas de traducir.
+
+\end{itemize}
+
+Al implementar estas recomendaciones, futuros trabajos podrán superar las limitaciones actuales del modelo GPT-4 en la traducción de consultas a Cypher y ampliar su aplicabilidad en una variedad de entornos y situaciones prácticas.
