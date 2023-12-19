@@ -21,6 +21,7 @@
 \usepackage{multirow}
 \usepackage{ragged2e}
 \usepackage{multicol}
+\usepackage{fancyhdr}
 
 \floatstyle{ruled}
 \restylefloat{table}
@@ -64,7 +65,7 @@
 \begin{document}
 \selectlanguage{spanish}
 
-%\frontmatter
+\frontmatter
 \maketitle
 
 \include{FrontMatter/Thanks}
@@ -72,8 +73,7 @@
 \include{FrontMatter/Abstract}
 \include{FrontMatter/Contents}
 
-%\mainmatter
-	
+\mainmatter	
 \include{MainMatter/Introduction}
 \include{MainMatter/Background}
 \include{MainMatter/ProposedSolution}
@@ -81,7 +81,7 @@
 \include{MainMatter/ExperimentalAnalysis}
 
 
-%\backmatter
+\backmatter
 \include{BackMatter/Conclusions}
 \include{BackMatter/Bibliography}
 \include{BackMatter/Glossary}

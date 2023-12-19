@@ -172,6 +172,7 @@
 }
 
 \def\frontmatter{%
+\cleardoublepage%
   \pagenumbering{roman}
   \pagestyle{empty}
 }

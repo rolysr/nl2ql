@@ -46,7 +46,7 @@ El lenguaje de consulta utilizado en \textit{Neo4J} es \textit{Cypher}, un lengu
 \item \textbf{Patrones de coincidencia (Pattern Matching)}:
 Cypher utiliza una sintaxis que se asemeja a los diagramas de entidad-relación ASCII para patrones de coincidencia, lo que facilita la representación visual de la estructura del grafo en el propio código \cite{millerandrodriguez2013}. Su sintaxis intuitiva hace que la comprensión y escritura de consultas sea más accesible, especialmente para usuarios nuevos en el manejo de bases de datos de grafos. Por ejemplo, para encontrar a un usuario y sus amigos en \textit{Neo4J}, podríamos escribir una consulta como:
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \begin{lstlisting}[language=cypher]
 MATCH (user:Person)-[:FRIEND]->(friend) RETURN user, friend
