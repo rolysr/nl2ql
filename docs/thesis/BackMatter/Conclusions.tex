@@ -3,7 +3,7 @@
 %===================================================================================
 \chapter*{Conclusiones}\label{chapter:conclusions}
 \addcontentsline{toc}{chapter}{Conclusiones}
-Después de aplicar \texttt{GPT-4} para la traducción de consultas al lenguaje \textit{Cypher}, este estudio presenta conclusiones relevantes tanto en términos de fortalezas como de deficiencias. Destaca la eficiencia del modelo en generar código \textit{Cypher} compilable, con un destacable $92\%$ de éxito en las pruebas, lo que subraya su competencia en la creación de consultas sin errores sintácticos o semánticos. Esta alta precisión es crucial para su aplicación práctica en bases de datos como \textit{Neo4J}.
+Después de aplicar \texttt{GPT-4} para la traducción de consultas al lenguaje \textit{Cypher} mediante aprendizaje \textit{Zero-Shot}, este estudio presenta conclusiones relevantes tanto en términos de fortalezas como de deficiencias. Destaca la eficiencia del modelo en generar código \textit{Cypher} compilable, con un destacable $92\%$ de éxito en las pruebas, lo que subraya su competencia en la creación de consultas sin errores sintácticos o semánticos. Esta alta precisión es crucial para su aplicación práctica en bases de datos como \textit{Neo4J}.
 
 Sin embargo, el modelo exhibe limitaciones significativas al manejar consultas más complejas. Mientras que en consultas sencillas (\textit{1-hop}) la precisión es del $76.53\%$, en consultas más complejas (\textit{2-hop} y \textit{3-hop}) esta precisión disminuye drásticamente a $43.45\%$ y $31.03\%$, respectivamente. Esto indica que aunque \texttt{GPT-4} es eficaz en traducciones simples, su rendimiento se ve comprometido en escenarios que involucran múltiples relaciones entre entidades.
 
@@ -16,7 +16,7 @@ Gracias a las medidas de precisión, recuperación y medida $F1$ utilizadas para
 Finalmente, es evidente que la eficacia del modelo disminuye con el aumento de la complejidad de las consultas, especialmente en aquellas que requieren la predicción correcta de las direcciones de relaciones entre un mayor número de entidades. Este estudio deja claro que, mientras que el uso de un Gran Modelo de Lenguaje con la técnica de aprendizaje \textit{Zero-Shot} muestra una eficiencia notable en ciertos aspectos, aún hay un camino considerable por recorrer para mejorar su rendimiento en escenarios más complejos y variados.
 
 \chapter*{Recomendaciones}\label{chapter:conclusions}
-Para futuros trabajos en la aplicación de grandes modelos de lenguajes en la traducción de consultas a \textit{Cypher}, se recomienda abordar varias áreas clave para mejorar la eficacia y versatilidad del modelo. Estas recomendaciones incluyen:
+Para futuros trabajos relacionados con la aplicación de grandes modelos de lenguajes en la traducción de consultas en lenguaje natural a \textit{Cypher} para interactuar con una base de conocimientos, se recomienda abordar varias áreas clave para mejorar la eficacia y versatilidad del modelo. Estas recomendaciones incluyen:
 
 \begin{itemize}
    \item \textbf{Mejorar la Comprensión de Consultas Complejas}: Es esencial perfeccionar la capacidad del modelo para manejar consultas con múltiples relaciones entre entidades (\textit{2-hop} y \textit{3-hop}), que actualmente presentan una disminución significativa en la precisión. Esto podría implicar un entrenamiento adicional específico para estos tipos de consultas o la implementación de algoritmos más sofisticados para la comprensión de relaciones complejas.

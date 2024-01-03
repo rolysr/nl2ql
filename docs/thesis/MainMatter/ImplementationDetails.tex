@@ -2,17 +2,17 @@
 
 En este capítulo se exponen los detalles sobre la implementación de los componentes que intervinieron en el proyecto, resaltando los principales aspectos de programación tenidos en cuenta.
 
-El sistema implementado fue desarrollado con el \textit{IDE} \textit{VSCode} \cite{vscode}, el cual fue configurado para utilizar el lenguaje \textit{Python} (versión 3.9) \cite{python} y contar con las facilidades que esta herramienta ofrece para detectar errores de sintaxis y de dependencias en tiempo de compilación. Por otro lado, el sistema operativo utilizado para implementar el proyecto fue \textit{Ubuntu-22.04}, con el cual se facilitó el proceso de instalación de bibliotecas para el lenguaje de programación utilizado.
+El sistema implementado fue desarrollado con el \textit{IDE} \textit{VSCode} \cite{vscode}, el cual fue configurado para utilizar el lenguaje \textit{Python} (versión 3.9) \cite{python} y contar con las facilidades que esta herramienta ofrece para detectar errores de sintaxis y de dependencias en tiempo de compilación. Por otro lado, el sistema operativo utilizado para implementar el proyecto fue \textit{Ubuntu-22.04}, con el cual se facilitó el proceso de instalación de bibliotecas para el lenguaje de programación empleado.
 
 En general, no se optó por utilizar una arquitectura de software específica, ya que el objetivo del proyecto se centra fundamentalmente en utilizar el sistema resultante para evaluar los experimentos orientados a responder la hipótesis de estudio y no en desarrollar una aplicación a ser llevada a producción para emplearse por usuarios humanos.
 
 \section{Despliegue de una instancia de una base de datos \textit{Neo4J}}
 
-Para desplegar una instancia de una base de datos en forma de grafo de tipo \textit{Neo4J} nos apoyamos en \textit{Docker} \cite{docker}, con el cual se desplegó un contenedor que pudiese ejecutar el sistema de gestión de \textit{Neo4J} y ser accesible ante peticiones de una aplicación mediante el protocolo \textit{Bolt} \cite{boltprotocol}.
+Para iniciar una instancia de una base de datos en forma de grafo de tipo \textit{Neo4J} se utilizó \textit{Docker} \cite{docker}, con el cual se desplegó un contenedor que pudiese ejecutar el sistema de gestión de \textit{Neo4J} y ser accesible ante peticiones de una aplicación mediante el protocolo \textit{Bolt} \cite{boltprotocol}.
 
 Una vez intalado \textit{Docker} se utilizó el siguiente comando:
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{lstlisting}[language=bash]
  docker run \
 --name testneo4j \
@@ -26,13 +26,13 @@ neo4j
 \caption{Comando utilizado para desplegar una base de datos \textit{Neo4J}.}
 \end{figure}
 
-este comando ejecuta un contenedor Docker con la imagen de \textit{Neo4J}, expone los puertos 7474 y 7687, guarda los datos y los registros en el \textit{host}, y establece las credenciales de autenticación para la interfaz de usuario de \textit{Neo4J}:
+Este comando ejecuta un contenedor de \textit{Docker} con la imagen de \textit{Neo4J}, expone los puertos 7474 y 7687, guarda los datos y los registros en el \textit{host}, y establece las credenciales de autenticación para la interfaz de usuario de \textit{Neo4J}:
 
 \begin{itemize}
 
-    \item \textbf{--name testneo4j}: Esto asigna el nombre testneo4j al contenedor que se está.
+    \item \textbf{--name testneo4j}: Esta opción asigna el nombre \textit{testneo4j} al contenedor a ejecutar.
 
-   	\item \textbf{-p 7474:7474 -p 7687:7687}: Estas opciones mapean los puertos 7474 y 7687 del contenedor a los mismos puertos del \textit{host}. Esto permite acceder a los servicios que se ejecutan en estos puertos dentro del contenedor desde el \textit{host}.
+   	\item \textbf{-p 7474:7474 -p 7687:7687}: Estas opciones hacen corresponder los puertos 7474 y 7687 del contenedor a los mismos puertos del \textit{host}. Esto permite acceder a los servicios que se ejecutan en estos puertos dentro del contenedor desde el \textit{host}.
 
     \item \textbf{-d}: Esta opción hace que el contenedor se ejecute en segundo plano (modo \textit{detached}).
 
@@ -73,7 +73,7 @@ class GraphContractor(Graph):
 \caption{Implementación de la clase \texttt{GraphContractor}.}
 \end{figure}
 
-La clase GraphContractor tiene un método \texttt{\_\_init\_\_} que se utiliza para inicializar una nueva instancia de la clase. Este método toma tres argumentos: \texttt{url, name} y \texttt{password}, que se utilizan para establecer una conexión con la base de datos \textit{Neo4J}. Esta clase también tiene un método \texttt{make\_query} que se utiliza para ejecutar consultas en la base de datos \textit{Neo4J}. Este método toma una consulta en formato de cadena y la ejecuta en la base de datos.
+La clase GraphContractor tiene un método \texttt{\_\_init\_\_} que se utiliza para inicializar una nueva instancia de la clase. Este método toma tres argumentos: \texttt{url, name} y \texttt{password}, que se utilizan para establecer una conexión con la base de datos \textit{Neo4J}. Esta clase también tiene un método \texttt{make\_query} que se utiliza para ejecutar consultas en la base de datos \textit{Neo4J}. Este método toma una consulta como una cadena de texto y la ejecuta en la base de datos.
 
 \section{\texttt{KnowledgeBase}}
 
@@ -118,7 +118,7 @@ Esta herramienta presenta un conjunto de métodos auxiliares para diversas tarea
 
 \section{\texttt{DBSeeder}}
 
-La clase \texttt{DBSeeder} en el código proporcionado en la figura \ref{code:dbseeder} se utiliza para poblar (\textit{seed}) una base de datos con información de una base de datos base y una base de conocimientos de tipo \textit{Neo4J}.
+La clase \texttt{DBSeeder} en el código proporcionado en la figura \ref{code:dbseeder} se utiliza para poblar (\textit{seed}) una base de datos con información en algún formato específico y una base de conocimientos de tipo \textit{Neo4J}.
 
 \begin{figure}[H]
 \begin{lstlisting}[language=python]
@@ -172,11 +172,11 @@ Dicho método toma tres argumentos: \texttt{entities}, \texttt{relations} y \tex
 
 \section{\texttt{GPT-4}}
 
-Para implementar una estructura capaz de realizar inferencias a partir del model \texttt{GPT-4} se utilizó la biblioteca \textit{Langchain} y se definió una función \texttt{get\_model} que se utiliza para inicializar un modelo de lenguaje basado en el tipo de modelo especificado. Fue necesario además, el uso de una \texttt{API\_KEY} de \textit{OpenAI} con el objetivo de acceder a los modelos disponibles \cite{openaiapikey}.
+Para implementar una estructura capaz de realizar inferencias a partir del modelo \texttt{GPT-4} se utilizó la biblioteca \textit{Langchain} y se definió una función \texttt{get\_model} que se utiliza para inicializar un modelo de lenguaje basado en el tipo especificado. Fue necesario además, el uso de una \texttt{API\_KEY} de \textit{OpenAI} con el objetivo de acceder a los modelos disponibles \cite{openaiapikey}.
 
 La función \texttt{get\_model} toma dos argumentos: \texttt{model\_type} y \texttt{model\_name}. La variable \texttt{model\_type} puede ser chat o cualquier otro tipo de modelo, y \texttt{model\_name} es el nombre del modelo específico que se va a utilizar. Para el caso específico de este trabajo el tipo de modelo fue chat y el nombre utilizado fue gpt-4, mientras que la temperatura del modelo utilizada fue $0.7$.
 
-Primero, la función inicializa una plantilla de \textit{prompt} utilizando de acuerdo a si el modelo a utilizar es de tipo chat o generativo. La plantilla de \textit{prompt} se inicializa con un texto predefinido que describe la tarea del modelo y los marcadores de posición para el lenguaje de consulta, el tipo de base de datos, el esquema y la consulta. Luego, la función inicializa un modelo de lenguaje basado en \texttt{model\_type}. Ambos modelos se inicializan con un nombre de modelo y una temperatura. Finalmente, la función inicializa una instancia de un modelo capaz de hacer inferencias a partir de un texto de entrada predefinido con variables.
+Primero, la función inicializa una plantilla de \textit{prompt} de acuerdo a si el modelo a utilizar es de tipo chat o generativo. La plantilla de \textit{prompt} se inicializa con un texto predefinido que describe la tarea del modelo y los marcadores de posición para el lenguaje de consulta, el tipo de base de datos, el esquema y la consulta. Luego, la función inicializa un modelo de lenguaje basado en \texttt{model\_type}. Ambos modelos se inicializan con un nombre de modelo y una temperatura. Finalmente, la función inicializa una instancia de un modelo capaz de hacer inferencias a partir de un texto de entrada predefinido con variables.
 
 \begin{figure}[H]
 \begin{lstlisting}[language=python]
