@@ -94,7 +94,7 @@ Lenguaje Natural a Lenguaje Formal utilizando el enfoque neurosimbólico basado 
 
 \subsection{Conjuntos de entrenamiento y evaluación} \label{neurosymbolic_approach_bechmarks}
 
-En cuanto a los datos para el entrenamiento existen dos opciones. Básicamente se puede buscar un conjunto de datos de referencia (\textit{Benchmark}) en los que entrenar y probar el sistema, o se crea uno. La mayoría de las investigaciones existentes elijen la primera opción. Algunos de los \textit{Benchmarks} más populares son:
+En cuanto a los datos para el entrenamiento existen dos opciones. Básicamente se puede buscar un conjunto de datos de referencia (\textit{Benchmark}) en los que entrenar y probar el sistema, o se crea uno. La mayoría de las investigaciones existentes eligen la primera opción. Algunos de los \textit{Benchmarks} más populares son:
 
 \begin{itemize}
 	\item \textbf{WikiSQL}: WikiSQL \cite{zhongetal2017} es el banco de datos más grande y más utilizado, contiene $26531$ tablas y $80654$ pares de consultas en lenguaje natural y lenguaje \textit{SQL}. Las tablas se extraen de tablas \textit{HTML} de Wikipedia. Luego, cada consulta en \textit{SQL} se genera automáticamente para una determinada tabla bajo la restricción de que la consulta produce un conjunto de resultados no vacío.
@@ -137,7 +137,7 @@ Para la tarea específica de generar código de un lenguaje de consulta formal c
 \subsection{Few-Shot Learning} \label{llm_approach_fsl}
 	En contraste, el enfoque de Few-Shot Learning (FSL) \cite{fewshotlearning} se basa en la idea de que el modelo tiene acceso a un pequeño número de ejemplos (pocos ejemplos) en el lenguaje de consulta deseado para mejorar su capacidad de generar código en ese lenguaje. Esto puede ser especialmente útil cuando se necesita una adaptación rápida a un nuevo lenguaje o contexto. Tal y como muestran algunos resultados experimentales, este enfoque puede tener resultados superiores a varios modelos basados en \textit{fine-tuning} \cite{ftvsllmtext2sql}.
 
-Un ejemplo notable de esta aplicación es el modelo Codex \cite{codex}, que ha demostrado ser un fuerte baseline en el \textit{benchmark} \textit{Spider} \cite{spiderdataset} sin ninguna fase de entrenamiento. Además, se ha observado que proporcionar un pequeño número de ejemplos en el dominio en el texto de entrada permite a Codex superar a los modelos de estado del arte cuyos parámetros han sido ajustados con pocos ejemplos de pocos dominios \cite{codex}.
+Un ejemplo notable de esta aplicación es el modelo Codex \cite{codex}, que ha demostrado ser un fuerte \textit{baseline} en el \textit{benchmark} \textit{Spider} \cite{spiderdataset} sin ninguna fase de entrenamiento. Además, se ha observado que proporcionar un pequeño número de ejemplos en el dominio en el texto de entrada permite a Codex superar a los modelos de estado del arte cuyos parámetros han sido ajustados con pocos ejemplos de pocos dominios \cite{codex}.
 
 En cuanto a los conjuntos de datos, existen varios conjuntos de datos de texto a SQL que han sido propuestos para evaluar el rendimiento de los modelos LLM. Algunos de estos conjuntos de datos incluyen CoSQL, TableQA, DuSQL, CHASE, y BIRD-SQL \cite{CoSQL} \cite{TableQA} \cite{DuSQL} \cite{CHASE} \cite{BIRD-SQL}.
 
@@ -156,7 +156,7 @@ Un estudio propuso un nuevo paradigma para la generación de consultas \textit{S
 \begin{figure}[H]\label{fslpromtpsql}
 	\centering
 	\includegraphics[width = 0.8\textwidth]{./Graphics/cotpromptsql}
-	\caption{Ejemplo del flujo de trabajo de experimentos basados en CoT para la traducción de lenguaje natural a código en \textit{SQL}.}
+	\caption{Ejemplo del flujo de trabajo de experimentos basados en \textit{CoT} para la traducción de lenguaje natural a código en \textit{SQL}.}
 \end{figure}
 
 \subsection{\textit{Fine-Tuning}} \label{llm_approach_finetunig}
@@ -167,7 +167,7 @@ Este enfoque constituye una poderosa herramienta  en la conversión de lenguaje 
 
 \section{Consideraciones generales} \label{approaches_conclusions}
 
-A pesar del uso comprobado de dichos enfoques, todavía existe una escasez de estudios orientados a la traducción de lenguaje natural a código de consulta a BDOG como por ejemplo \textit{Cypher} \cite{gpt4graphpaper2023}, por lo tanto, es visible la necesidad de elaborar experimentos enfocados en dicha tarea, tomando como bases las ideas anteriormente expuestas. Debido a esto, resulta imprescindible desarrollar las primeras experimentaciones de la tarea en cuestión utilizando el enfoque ZSL, el cual en promedio permite obtener una cota inferior de qué tan efectivos pueden ser los LLMs con respecto a una tarea específica \cite{llmsoverview}.
+A pesar del uso comprobado de dichos enfoques, todavía existe una escasez de estudios orientados a la traducción de lenguaje natural a código de consulta a BDOG como por ejemplo \textit{Cypher} \cite{gpt4graphpaper2023}, por lo tanto, es visible la necesidad de elaborar experimentos enfocados en dicha tarea, tomando como bases las ideas anteriormente expuestas. Debido a esto, resulta imprescindible desarrollar las primeras experimentaciones de la tarea en cuestión utilizando el enfoque ZSL, el cual en promedio permite obtener una cota inferior de qué tan efectivos pueden ser los LLMs con respecto a una tarea específica \cite{llmsoverview} y además, permite cumplir uno de los objetivos principales de este estudio: el lograr emplear un modelo para traducir lenguaje natural a un lenguaje de consulta formal específico para extraer conocimiento sin necesidad de ejecutar un proceso de entrenamiento para la base de datos objetivo. El enfoque ZSL permite realizar las inferencias deseadas con menos datos y contexto previo en su \textit{prompt} de entrada con respecto a los enfoques \textit{FSL} y \textit{CoT}, lo que lo convierte en la mejor de las opciones a la hora de utilizar el mínimo de recursos posibles y de esta forma, resolver uno de los retos fundamentales en este trabajo.
 
 
 %\newpage
